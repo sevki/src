@@ -1,10 +1,7 @@
-<img src="docs/src/okRust.png" width="200" height="200" alt="okRust logo">
+<img src="docs/src/taocp.png" width="200" height="200" alt="src">
 
-# okRust
+# src
 
-okrust is the template for new rust projects within oknotok.computer.
+src Language Specification
 
-It has some opinionated defaults, like using:
-- mdBook for documentation
-- release please for releases
-- github actions for CI/CD
+[read the book](https://srclang.org)
