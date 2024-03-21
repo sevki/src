@@ -5519,8 +5519,6 @@ hljs.registerLanguage(
 );
 // Define a custom highlight.js language definition for src
 hljs.registerLanguage("src", function (hljs) {
-  console.log("registering src language");
-  console.log(hljs);
   return {
     name: "src",
     keywords: {

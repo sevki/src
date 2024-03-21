@@ -3,6 +3,7 @@ authors = ["sevki"]
 language = "en"
 multilingual = false
 src = "docs/src"
+theme = "theme"
 
 [output.html]
-additional-js = ["src.highlight.js"]
+additional-css = ["ok.css"]
