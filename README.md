@@ -1,6 +1,6 @@
 # src Language
 
-<img src"docs/taocp.png" align="right" width="200">
+<img src="docs/taocp.png" align="right" width="200">
 
 Welcome to the documentation for the src language!
 
