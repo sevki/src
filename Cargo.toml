@@ -1,0 +1,31 @@
+[package]
+name = "libsrc"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+default = ["lalrpop"]
+
+[build-dependencies]
+lalrpop = { version = "0.20.2", optional = true }
+anyhow = "1.0.45"
+phf_codegen = "0.10"
+tiny-keccak = { version = "2", features = ["sha3"] }
+
+
+[dependencies]
+salsa = { git = "https://github.com/salsa-rs/salsa.git", branch = "master", package = "salsa-2022" }
+salsa-macros = { git = "https://github.com/salsa-rs/salsa.git", branch = "master", package = "salsa-2022-macros" }
+insta = "1.38.0"
+lalrpop = "0.20.2"
+lalrpop-util = { version = "0.20.2", features = ["lexer", "unicode"] }
+okstd = { version = "0.1.0", path = "../okstd", features = [
+], default-features = false }
+proptest = "1.4.0"
+stringzilla = "3.8.1"
+syn = "2.0.60"
+bitflags = "2.5.0"
+[dev-dependencies]
+insta = "1.38.0"
+proptest = "1.4.0"

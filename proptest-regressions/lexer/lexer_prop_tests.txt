@@ -1,0 +1,16 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc 1c83167e024771d976df58234003dac45ba031f887e42fa2b061acf1a1370cb2 # shrinks to string = "\"#A\""
+cc fcd774e0a6ebcde805b7b7e5f476e7f93c232d572f0bf4c04e24da0e58cb1888 # shrinks to rnd = ("yzzwjqmyhiqofkfmuwzwibirqlbm", 7)
+cc f8cfea8e580b693c74835373498e4d90e0fb5999d6e8829e428af48ad1c41dea # shrinks to rnd = ("ebnicpjotxbnflxi", 4)
+cc 260dbc051bb574f18d0222da79697035cf1f9a0385d6e35082558a2173098aa4 # shrinks to rnd = ("djmooxmjjdocvtacweycdtky", 8)
+cc 3f2143c462bdd5113f5580c05acab2508c0ad23c9bc09811fc3b7477101c48ed # shrinks to rnd = ("aa", 1)
+cc 57751377005060ccb986d37941310b6a76eb50bab6bd26e774c42e319b01bdff # shrinks to rnd = ("a", 1)
+cc 1bb75d4dad1c2903dfbdc6ebc91c09af7fa197de6a0d454f4bf94e4ca2107ef7 # shrinks to rnd = ("pxqoxoktdyppluvr", 3)
+cc 861504c1bde04633ced8c7c2ba53300b17c5c33a33576455f31ea0381cd84822 # shrinks to rnd = ("ugetuobzjwwggmlvfaldp", 3)
+cc 61d685f319f26003a845170ab7aec02e26eb3696b0531bbc4eed3d9d139e5ed6 # shrinks to rnd = ("a", 1)
+cc f708e7be5415e8f960e050cd92279d78c905068f4307bdd97208910e5ed6f037 # shrinks to rnd = ("spvytpknoqtgglxefqbi", 1)

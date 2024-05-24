@@ -1,0 +1,362 @@
+use std::str::FromStr;
+
+use crate::parser::string::apply_string_escapes;
+use super::ast::*;
+use lalrpop_util::{ErrorRecovery, ParseError};
+use crate::lexer::{Position, Token, Word, Variable};
+use okstd::prelude::*;
+
+#[LALR]
+grammar<'input, 'err>(errors: &'err mut Vec<ErrorRecovery<usize, Token<'input>, &'static str>>);
+
+extern {
+    type Location = usize;
+
+    enum Token<'input> {
+        // Operators
+        "|" => Token::Pipe,      // |
+        "&" => Token::Ampersand, // &
+        ";" => Token::Semicolon, // ;
+        "=" =>  Token::Equals,    // =
+        // Redirections
+        "<" => Token::LessThan,    // <
+        ">" => Token::GreaterThan, // >
+        // Identifiers
+        // "param" => Variable::Parameter(<&'input str>), // var
+        // "param_default" => Variable::ParameterDefault(<&'input str>, <&'input str>), // var = value
+        // "positional_param" => Variable::PositionalParameter(<usize>), // $var
+        // Literals
+        "true" => Token::Word(Word::True),   // true
+        "none" => Token::Word(Word::None),   // none
+        "false" => Token::Word(Word::False), // false
+        "null" => Token::Word(Word::Null),   // null
+        "fn" => Token::Word(Word::Fn),      // fn
+        "if" => Token::Word(Word::If),      // if
+        "else" => Token::Word(Word::Else),  // else
+        "match" => Token::Word(Word::Match), // match
+        "let" => Token::Word(Word::Let),    // let
+        "import" => Token::Word(Word::Import), // import
+        "action" => Token::Word(Word::Action), // action
+        "struct" => Token::Word(Word::Struct), // struct
+        "enum" => Token::Word(Word::Enum),   // enum
+        "effect" => Token::Word(Word::Effect), // trait
+        "impl" => Token::Word(Word::Impl),   // impl
+        "when" => Token::Word(Word::When),   // when
+        "use" => Token::Word(Word::Use),    // use
+        "from" => Token::Word(Word::From),   // from
+        "where" => Token::Word(Word::Where),  // where
+        "self" => Token::Word(Word::Self_),   // self
+        "for" => Token::Word(Word::For),    // for
+
+        "#!" => Token::Shebang, // #!
+        
+        "ident" => Token::Word(Word::Ident(<&'input str>)),     // a-z, A-Z, 0-9, _
+        "string" => Token::String(<&'input str>), // "..."
+        // Comments
+        "comment" => Token::Comment(<&'input str>), // #
+        // Numbers
+        "int" => Token::Integer(<i64>), // 0-9
+        "float" => Token::Float(<f64>),   // [0-9]*.0-9+
+        // Special
+        "eof" => Token::Eof,        // EOF
+        "\n" => Token::NewLine,     // \n
+        "(" => Token::LeftParen,    // (
+        ")" => Token::RightParen,   // )
+        "{" => Token::LeftBrace,    // {
+        "}" => Token::RightBrace,   // }
+        "[" => Token::LeftBracket,  // [
+        "]" => Token::RightBracket, // ]
+        "," => Token::Comma,        // ,
+        ":" => Token::Colon,        // :
+        "." => Token::Dot,          // .
+        "-" => Token::Minus,        // -
+        "+" => Token::Plus,         // +
+        "/" => Token::Divide,       // /
+        "*" => Token::Multiply,     // *
+        "%" => Token::Percent,      // %
+        "$" => Token::Dollar,       // $
+        "!" => Token::Exclamation,  // !
+        "?" => Token::Question,     // ?
+        "~" => Token::Tilde,        // ~
+        "@" => Token::At,           // @
+        "^" => Token::Caret,        // ^
+        "->" => Token::Arrow,       // ->
+        "=>" => Token::FatArrow,    // =>
+    }
+}
+
+Spanned<T>: (usize, T, usize) = {
+    <@L> <T> <@R> => (<>)
+};
+
+Path<T>: Vec<Ident> = {
+    <mut v:("/" <T>)*> <e:T?> => match e {
+        None => v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
+}
+        
+Lines<T>: Vec<T> = {
+    <mut v:(<T> "\n")*> <e:T?> => match e {
+        None => v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
+}
+
+Comma<T>: Vec<T> = { // (0)
+    <mut v:(<T> ",")*> <e:T?> => match e { // (1)
+        None=> v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
+};
+
+
+Plus<T>: Vec<T> = {
+    <mut v:(<T> "+")*> <e:T?> => match e { // (1)
+        None=> v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
+};
+
+
+None: Expression = "none" => Expression::Keyword(Keyword::None);
+When: Expression = "when" => Expression::Keyword(Keyword::When);
+Fn: Expression = "fn" => Expression::Keyword(Keyword::Fn);
+Let: Expression = "let" => Expression::Keyword(Keyword::Let);
+Effect: Expression = "effect" => Expression::Keyword(Keyword::Effect);
+Struct: Expression = "struct" => Expression::Keyword(Keyword::Struct);
+Impl: Expression = "impl" => Expression::Keyword(Keyword::Impl);
+Use: Expression = "use" => Expression::Keyword(Keyword::Use);
+From: Expression = "from" => Expression::Keyword(Keyword::From);
+Where: Expression = "where" => Expression::Keyword(Keyword::Where);
+Self_: Expression = "self" => Expression::Keyword(Keyword::Self_);
+Else: Expression = "else" => Expression::Keyword(Keyword::Else);
+If: Expression = "if" => Expression::Keyword(Keyword::If);
+True: Expression = "true" => Expression::Bool(true);
+False: Expression = "false" => Expression::Bool(false);
+
+Consecutive<L, R>: bool = {
+    Consecutive<L, R> <lhs:Spanned<L>> <rhs:Spanned<R>> => match l.2 == r.0,
+    L => false
+};
+
+Ident: Ident = {
+    <i:"ident"> => Ident(i.to_string(), None),
+};
+
+IdentWithGenerics: Ident = {
+    <i:"ident"> "<" <g:Comma<Ident>> ">" => Ident(i.to_string(), Some(g)),
+};
+
+IdentOrIdentWithGenerics: Ident = {
+    <i:Ident> => i,
+    <i:IdentWithGenerics> => i,
+};
+
+Punctuated<T, Token>: Vec<T> = {
+    <mut v:(<T> <Token>)*> <e:T?> => match e {
+        None => v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
+};
+
+
+Atom: Value = {
+    #[precedence(level="0")]
+    <i:"int"> => Value::Literal(Literal::Integer(i)),
+    <f:"float"> => Value::Literal(Literal::Float(f)),
+    <s:"string"> => {
+        let start = 1;
+        let end = s.len() - 1;
+        Value::Literal(Literal::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string()))
+    },    
+    #[precedence(level="1")]
+    <i:Ident> => Value::Ident(i),
+};
+
+Expression: Box<Expression> = {
+    #[precedence(level="1")]
+    Term,
+
+    #[precedence(level="2")] #[assoc(side="left")]
+    <lhs:Expression> "*" <rhs:Expression> => {
+        Box::new(Expression::BinaryExpression(BinaryOperation {
+        lhs,
+        op: Operator::Mul,
+        rhs
+        }))
+    },
+    <lhs:Expression> "/" <rhs:Expression> => {
+        Box::new(Expression::BinaryExpression(BinaryOperation {
+        lhs,
+        op: Operator::Div,
+        rhs
+        }))
+    },
+
+    #[precedence(level="3")] #[assoc(side="left")]
+    <lhs:Expression> "+" <rhs:Expression> => {
+        Box::new(Expression::BinaryExpression(BinaryOperation {
+        lhs,
+        op: Operator::Add,
+        rhs
+        }))
+    },
+    <lhs:Expression> "-" <rhs:Expression> => {
+        Box::new(Expression::BinaryExpression(BinaryOperation {
+        lhs,
+        op: Operator::Sub,
+        rhs
+        }))
+    },
+}
+
+Field: Field = {
+    <name:Ident> ":" <ty:IdentOrIdentWithGenerics> => Field(name, ty)
+}
+
+TypeParameters: Vec<Ident> =
+    "<" <Comma<Ident>> ">";
+
+FnArg: FnArg = {
+    <self_:Self_> => FnArg::Reciever,
+    <field:Field> => FnArg::Field(field),
+}
+
+Prototype: Prototype = {
+    <name:IdentOrIdentWithGenerics> "("<args:Comma<FnArg>> ")" "[" <effects:Comma<Ident>> "]" <ret:("->" Ident)?> => {
+        let ret = match ret {
+            None => None,
+            Some(r) => Some(r.1),
+        };
+        Prototype{name, args, ret, effects}
+    }
+}
+
+
+String: Box<Expression> = {
+    <s:"string"> => {
+        let start = 1;
+        let end = s.len() - 1;
+        Box::new(Expression::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string()))
+    },
+}
+    
+
+FnCall: Box<Expression> = {
+    <name:IdentOrIdentWithGenerics> "(" <args:Comma<Expression>> ")" <i:("[" <Ident> "]")?> => Box::new(Expression::FnCall(FnCall(name, args)))
+}
+
+Term: Box<Expression> = {
+    <s:String> => <>,
+    <val:"int"> => {
+        Box::new(Expression::Integer(val))
+    },
+    <i:Ident> => {
+        Box::new(Expression::Ident(i))
+    },
+    <f:FnCall> => <>,
+    <true_:True> => Box::new(<>),
+    <false_:False> => Box::new(<>),
+    "(" <Expression> ")",
+}
+
+Block<T>: Block<T> = {
+    "{" ("\n"?) <lines:Lines<T>> "}" => Block(lines)
+}
+
+WhenBlock: (Ident,Block<Box<Expression>>) = {
+    When <i:Ident> <lines:Block<Statement>> => (i, lines)
+}
+
+
+FnDef: Box<Expression> = {
+    Fn <proto:Prototype> <block:Block<Statement>> <handlers:(WhenBlock)*> => Box::new(Expression::FnDef(FnDef(proto, block, handlers))),
+}
+
+EffectDef: Box<Expression> = {
+    Effect <i:Ident> ":" <effects:Plus<Ident>> <block:Block<Prototype>> => Box::new(Expression::EffectDef(EffectDef(i, effects,block))),
+}
+
+ShellComponent: Box<Expression> = {
+    <s:"string"> => Box::new(Expression::String((s).to_string())),
+    <i:Ident> => Box::new(Expression::Ident(i)),
+}
+
+ShebangLine: Box<Expression> = {
+    "#!" <path:("/" Ident)*> <components:(ShellComponent)*>  => Box::new(Expression::ShellCommand(path.into_iter().map(|i| i.1.into()).collect(), components)),
+}
+
+StructDef: Box<Expression> = {
+    Struct <i:Ident> <fields:Block<Field>> => Box::new(Expression::StructDef(StructDef(i, fields))),
+}
+
+IfDef: Box<Expression> = {
+    If <cond:Expression> <if_:Block<Statement>> => {
+        let branch = Branch (
+            cond,
+            vec![
+                (Expression::Bool(true), if_),
+            ]
+        );
+        Box::new(Expression::Branch(branch))
+    },
+    If <cond:Expression> <if_:Block<Statement>> Else <else_:Block<Statement>> => {
+        let branch = Branch (
+            cond,
+            vec![
+                (Expression::Bool(true), if_),
+                (Expression::Bool(false), else_),
+            ]
+        );
+        Box::new(Expression::Branch(branch))
+    },
+}
+
+Statement: Box<Expression> = {
+    #[precedence(level="0")]
+    <FnCall> => <>,
+    #[precedence(level="1")]
+    Let <name:Ident> "=" <value:Expression> => Box::new(Expression::Binding(Binding(name, value))),
+    <IfDef> => <>,
+}
+
+UseDef: Box<Expression> = {
+    Use "{" <imports:Comma<Ident>> "}" From <i:Ident> => Box::new(Expression::UseDef(UseDef(imports, i))),
+}
+
+ImplDef: Box<Expression> = {
+    Impl <i:Ident> <t:("for" Ident)?> <lines:Block<FnDef>> => Box::new(Expression::ImplDef(ImplDef(i, t.map(|t| t.1), lines))),
+}
+
+
+TopLevel: Box<Expression> = {
+    <FnDef> => <>,
+    <EffectDef> => <>,
+    <StructDef> => <>,    
+    <UseDef> => <>,
+    <ImplDef> => <>,
+}
+
+pub Source: Module = {
+    <expr:("\n"* TopLevel)*> => Module(expr.into_iter().map(|e| e.1).collect()),
+    ! => {
+        errors.push(<>);
+        Module(vec![])
+    }
+};

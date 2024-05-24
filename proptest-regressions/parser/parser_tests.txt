@@ -1,0 +1,14 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc f4b12d9127d638ad4a31ad4c95b20d10138f371fe1ae926525e66fdac917c823 # shrinks to s = 0
+cc 8479b82e178bfabc6b68933111be0bf965b5e6b258f0eac472b431518f39fca3 # shrinks to s = "\""
+cc 92cd10d9b071770069af466193eec50a9363a1a56469c922f05a71a3d25f2b20 # shrinks to s = "\\"
+cc 1b5e71738bc9301b8164e86be87ffa4819af75b3fab471597050fb8bbf044fbe # shrinks to s = "null"
+cc 39e17d0930f1f7ceae8389177f28a2c43b3233541c7a49854fc23635fcb8f216 # shrinks to s = ("a", "18447000000000000000")
+cc d4e50e6c8c2a24006e7a78ad8b3d23f24089e6f7eaa32f1e42afd83eb82a10fb # shrinks to s = ("4043826871", "2280852354", "*")
+cc c64ace410e7d4926e2910b3161690270c72c6dd321820e02791b879ed656437d # shrinks to s = "^"
+cc 6dde019e8b018f1bcf0eee378c4f0b24a2a412d357011a64770eca7ec4c17e6d # shrinks to s = "true", n = "\"\""

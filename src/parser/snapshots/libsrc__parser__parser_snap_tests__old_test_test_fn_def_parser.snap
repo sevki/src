@@ -1,0 +1,120 @@
+---
+source: src/parser/parser_snap_tests.rs
+expression: "format!(\"{:#?}\", t.unwrap())"
+---
+Module(
+    [
+        FnDef(
+            FnDef(
+                Prototype {
+                    name: Ident(
+                        "call",
+                        None,
+                    ),
+                    args: [
+                        Field(
+                            Field(
+                                Ident(
+                                    "a",
+                                    None,
+                                ),
+                                Ident(
+                                    "b",
+                                    None,
+                                ),
+                            ),
+                        ),
+                        Field(
+                            Field(
+                                Ident(
+                                    "b",
+                                    None,
+                                ),
+                                Ident(
+                                    "c",
+                                    None,
+                                ),
+                            ),
+                        ),
+                    ],
+                    ret: None,
+                    effects: [
+                        Ident(
+                            "throws",
+                            None,
+                        ),
+                        Ident(
+                            "awaits",
+                            None,
+                        ),
+                        Ident(
+                            "execs",
+                            None,
+                        ),
+                    ],
+                },
+                Block(
+                    [
+                        FnCall(
+                            FnCall(
+                                Ident(
+                                    "call",
+                                    None,
+                                ),
+                                [
+                                    BinaryExpression(
+                                        BinaryOperation {
+                                            lhs: Integer(
+                                                1,
+                                            ),
+                                            op: Add,
+                                            rhs: Integer(
+                                                1,
+                                            ),
+                                        },
+                                    ),
+                                ],
+                            ),
+                        ),
+                        Binding(
+                            Binding(
+                                Ident(
+                                    "a",
+                                    None,
+                                ),
+                                Integer(
+                                    1,
+                                ),
+                            ),
+                        ),
+                    ],
+                ),
+                [
+                    (
+                        Ident(
+                            "throws",
+                            None,
+                        ),
+                        Block(
+                            [
+                                FnCall(
+                                    FnCall(
+                                        Ident(
+                                            "raise",
+                                            None,
+                                        ),
+                                        [
+                                            Integer(
+                                                1,
+                                            ),
+                                        ],
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                ],
+            ),
+        ),
+    ],
+)
