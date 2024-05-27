@@ -7,7 +7,7 @@ src = "docs"
 # additional css https://raw.githubusercontent.com/oknotokcomputer/okcss/main/ok.css
 [output.html]
 additional-css = ["ok.css"]
-theme = "../theme"
+theme = "docs/theme"
 default-theme = "dark"
 git-repository-url = "https://github.com/oknotokcomputer/roar"
 preferred-dark-theme = "rust"
