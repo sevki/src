@@ -28,16 +28,14 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    container: rust:latest
     env:
       MDBOOK_VERSION: 0.4.36
-    
-    container: rust:latest
-
     steps:
-    - name: Modify hosts file
-      run: |
-        echo "66.241.125.220 ok.software" >> /etc/hosts
-  
+      - name: Modify hosts file
+        run: |
+          echo "66.241.125.220 ok.software" >> /etc/hosts
+    
     
       - uses: actions/checkout@v4
       - name: Install mdBook
