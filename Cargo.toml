@@ -1,5 +1,5 @@
 [package]
-name = "libsrc"
+name = "srclang"
 version = "0.1.0"
 edition = "2021"
 
@@ -15,17 +15,17 @@ tiny-keccak = { version = "2", features = ["sha3"] }
 
 
 [dependencies]
-salsa = { git = "https://github.com/salsa-rs/salsa.git", branch = "master", package = "salsa-2022" }
-salsa-macros = { git = "https://github.com/salsa-rs/salsa.git", branch = "master", package = "salsa-2022-macros" }
-insta = "1.38.0"
+salsa = {  version = "0.1.0", registry = "oksoftware", package = "salsa-2022" }
+salsa-macros = { version = "0.1.0", registry = "oksoftware" , package = "salsa-2022-macros" }
+insta = "1.38.0" 
 lalrpop = "0.20.2"
 lalrpop-util = { version = "0.20.2", features = ["lexer", "unicode"] }
-okstd = { version = "0.1.0", path = "../okstd", features = [
-], default-features = false }
+okstd = { version = "0.1.3", path = "../okstd", features = [], default-features = false, registry = "oksoftware" }
 proptest = "1.4.0"
 stringzilla = "3.8.1"
 syn = "2.0.60"
 bitflags = "2.5.0"
+
 [dev-dependencies]
 insta = "1.38.0"
 proptest = "1.4.0"
