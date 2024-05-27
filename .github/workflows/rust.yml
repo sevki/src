@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Modify hosts file
       run: |
-        sudo echo "v4.ok.software ok.software" >> /etc/hosts
+        echo "v4.ok.software ok.software" >> /etc/hosts
   
     - uses: actions/checkout@v4
     - name: Build
