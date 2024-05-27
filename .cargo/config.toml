@@ -1,0 +1,5 @@
+[registry]
+default = "oksoftware"
+
+[registries.oksoftware]
+index = "sparse+https://ok.software/api/packages/ok/cargo/" # Sparse index
