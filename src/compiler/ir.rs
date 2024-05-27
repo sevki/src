@@ -1,11 +1,8 @@
 #![allow(clippy::needless_borrow)]
 
-use salsa::*;
+
 use std::{
-    array::IntoIter,
     collections::BTreeMap,
-    path::Iter,
-    sync::{Arc, Mutex},
 };
 
 use crate::{parser::ast};

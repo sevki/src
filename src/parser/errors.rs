@@ -3,8 +3,8 @@ pub fn pretty_errors<'input>(src: &'input str, errors: Vec<lalrpop_util::ErrorRe
     let mut last_end = 0;
     for error in errors {
         match error.error {
-            lalrpop_util::ParseError::InvalidToken { location } => todo!(),
-            lalrpop_util::ParseError::UnrecognizedEof { location, expected } => todo!(),
+            lalrpop_util::ParseError::InvalidToken { location: _ } => todo!(),
+            lalrpop_util::ParseError::UnrecognizedEof { location: _, expected: _ } => todo!(),
             lalrpop_util::ParseError::UnrecognizedToken { token, expected } => {
                 // find the line and column of the start and end tokens,
                 // and print the line with a caret pointing to the error
@@ -23,8 +23,8 @@ pub fn pretty_errors<'input>(src: &'input str, errors: Vec<lalrpop_util::ErrorRe
                 pretty.push_str(&"^".repeat(end_col - start_col));
                 last_end = end;
             },
-            lalrpop_util::ParseError::ExtraToken { token } => todo!(),
-            lalrpop_util::ParseError::User { error } => todo!(),
+            lalrpop_util::ParseError::ExtraToken { token: _ } => todo!(),
+            lalrpop_util::ParseError::User { error: _ } => todo!(),
         };
         
     }

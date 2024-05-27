@@ -3,7 +3,7 @@ pub mod parser;
 pub mod compiler;
 
 use compiler::text;
-use parser::ast;
+
 
 use crate::compiler::ir;
 

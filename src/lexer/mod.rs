@@ -4,12 +4,9 @@ lexer.rs is a lexer for the src language
 
 use std::{fmt::Display, iter::Iterator, iter::Peekable, str::Chars};
 
-use lalrpop_util::{
-    lexer::Token as LAToken,
-    state_machine::{ParserDefinition, TokenTriple},
-};
+
 use okstd::prelude::*;
-use syn::token;
+
 
 // Identifier
 #[derive(Debug, PartialEq, Clone, Copy)]
@@ -266,7 +263,7 @@ impl<'input> Token<'input> {
             Token::Equals => "=".chars(),
             Token::LessThan => "<".chars(),
             Token::GreaterThan => ">".chars(),
-            Token::Variable(identifier) => {
+            Token::Variable(_identifier) => {
                 // Implement the conversion to chars for Variable
                 // based on its fields
                 "".chars()
@@ -274,8 +271,8 @@ impl<'input> Token<'input> {
             Token::Word(word) => word.chars(),
             Token::String(string) => string.chars(),
             Token::Comment(comment) => comment.chars(),
-            Token::Integer(number) => "".chars(),
-            Token::Float(number) => "".chars(),
+            Token::Integer(_number) => "".chars(),
+            Token::Float(_number) => "".chars(),
             Token::Eof => "".chars(),
             Token::NewLine => "\n".chars(),
             Token::LeftParen => "(".chars(),

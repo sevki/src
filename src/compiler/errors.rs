@@ -1,8 +1,8 @@
 use std::ops::Range;
 
-use crate::Db;
 
-use super::text::SourceProgram;
+
+
 
 
 pub struct Errors<'a>(Vec<lalrpop_util::ErrorRecovery<usize, crate::lexer::Token<'a>, &'a str>>);
@@ -27,12 +27,12 @@ impl<'a> IntoIterator for Errors<'a> {
             .into_iter()
             .map(|error| match error.error {
                 lalrpop_util::ParseError::InvalidToken { location } => location..location,
-                lalrpop_util::ParseError::UnrecognizedEof { location, expected } => {
+                lalrpop_util::ParseError::UnrecognizedEof { location, expected: _ } => {
                     location..location
                 }
-                lalrpop_util::ParseError::UnrecognizedToken { token, expected } => token.0..token.2,
+                lalrpop_util::ParseError::UnrecognizedToken { token, expected: _ } => token.0..token.2,
                 lalrpop_util::ParseError::ExtraToken { token } => token.0..token.2,
-                lalrpop_util::ParseError::User { error } => todo!(),
+                lalrpop_util::ParseError::User { error: _ } => todo!(),
             })
             .collect::<Vec<_>>()
             .into_iter()
@@ -46,8 +46,8 @@ fn handle_errors(errors: Vec<lalrpop_util::ErrorRecovery<usize, crate::lexer::To
     
     for error in errors {
         match error.error {
-            lalrpop_util::ParseError::InvalidToken { location } => todo!(),
-            lalrpop_util::ParseError::UnrecognizedEof { location, expected } => todo!(),
+            lalrpop_util::ParseError::InvalidToken { location: _ } => todo!(),
+            lalrpop_util::ParseError::UnrecognizedEof { location: _, expected: _ } => todo!(),
             lalrpop_util::ParseError::UnrecognizedToken { token, expected } => {
                 // find the line and column of the start and end tokens,
                 // and print the line with a caret pointing to the error
@@ -66,8 +66,8 @@ fn handle_errors(errors: Vec<lalrpop_util::ErrorRecovery<usize, crate::lexer::To
                 pretty.push_str(&"^".repeat(end_col - start_col));
                 last_end = end;
             },
-            lalrpop_util::ParseError::ExtraToken { token } => todo!(),
-            lalrpop_util::ParseError::User { error } => todo!(),
+            lalrpop_util::ParseError::ExtraToken { token: _ } => todo!(),
+            lalrpop_util::ParseError::User { error: _ } => todo!(),
         };
         
     }

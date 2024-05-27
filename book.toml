@@ -9,7 +9,7 @@ src = "docs"
 additional-css = ["ok.css"]
 theme = "docs/theme"
 default-theme = "dark"
-git-repository-url = "https://github.com/oknotokcomputer/roar"
+git-repository-url = "https://ok.software/ok/src"
 preferred-dark-theme = "rust"
 
 [preprocessor.svgbob]

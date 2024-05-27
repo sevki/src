@@ -106,7 +106,7 @@ pub fn to_spans(db: &dyn Db, src: SourceProgram) -> SourceMap {
     // Lexer tokens have a start and end position, and we want to map these to the line lengths
     // first we iterate over the lexer tokens
     for token in lexer {
-        let size = token.end - token.start;
+        let _size = token.end - token.start;
         // then we peek at the first line
         let mut start: Option<(usize, usize)> = None;
         loop {

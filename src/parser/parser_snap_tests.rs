@@ -1,7 +1,7 @@
-use crate::lexer::Lexer;
+
 use crate::parser::errors::pretty_errors;
 use insta::assert_snapshot;
-use okstd::prelude::*;
+
 
 #[cfg(test)]
 #[okstd::test]

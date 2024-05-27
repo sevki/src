@@ -1,7 +1,7 @@
 use core::panic;
 use std::fmt::Write as _;
 use std::fs::File;
-use std::io::{BufRead, BufReader, BufWriter, Write};
+use std::io::{BufRead, BufReader, Write};
 use std::path::PathBuf;
 use tiny_keccak::{Hasher, Sha3};
 
@@ -77,7 +77,7 @@ fn try_lalrpop(source: &str, target: &str) -> anyhow::Result<()> {
         let full_path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(SOURCE);
         let path = full_path.to_str().unwrap();
         println!("cargo:rerun-if-changed={}", path);
-        let p = lalrpop::Configuration::new()
+        lalrpop::Configuration::new()
             .generate_in_source_tree()
             .process_file(path).expect("msg");
         Ok(())

@@ -1,11 +1,10 @@
 use std::{
     collections::BTreeMap,
-    ops::{Range, RangeBounds},
 };
 
 use crate::{
-    compiler::{errors::Errors, text::{Position, Span, Spanned}},
-    parser::ast::{self, EffectDef, Module},
+    compiler::{errors::Errors},
+    parser::ast::{self},
     Db,
 };
 
@@ -25,7 +24,7 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
     let t = crate::parser::src::SourceParser::new().parse(&mut errors, wrapper);
     // let mut errors_in_positions: Vec<ir::Position> = vec![];
     if !errors.is_empty() {
-        for error_range in Into::<Errors>::into(errors) {
+        for _error_range in Into::<Errors>::into(errors) {
             text::to_spans(db, src);
         }
         panic!();
@@ -66,7 +65,7 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
 }
 
 #[salsa::tracked]
-pub fn compile_effect(db: &dyn Db, effect: ir::EffectDef) {}
+pub fn compile_effect(_db: &dyn Db, _effect: ir::EffectDef) {}
 
 #[salsa::tracked]
 pub fn add_imports(db: &dyn Db, import: ir::Import) -> Vec<ir::Mangled> {
