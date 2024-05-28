@@ -46,7 +46,9 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
       - name: install deps
-        run: cargo install mdbook-svgbob mdbook-alerts
+        run: |
+          cargo install mdbook-svgbob@0.2.0
+          cargo install mdbook-alerts
       - name: Build with mdBook
         run: mdbook build
       - name: Upload artifact
