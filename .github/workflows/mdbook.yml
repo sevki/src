@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     container: rust:latest
     env:
-      MDBOOK_VERSION: 0.4.36
+      MDBOOK_VERSION: 0.4.40
     steps:
       - name: Modify hosts file
         run: |
