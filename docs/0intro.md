@@ -41,3 +41,11 @@ impl Make for Local {
     }
 }
 ```
+
+## Acknowledgements
+
+Building upon the incredible work of the Rust community, src would not be possible without the following projects:
+
+- [salsa-rs](https://github.com/salsa-rs/salsa)
+- [lalrpop](https://github.com/lalrpop/lalrpop)
+- [tower-lsp-web-demo](https://github.com/silvanshade/tower-lsp-web-demo)

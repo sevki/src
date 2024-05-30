@@ -4,9 +4,7 @@ lexer.rs is a lexer for the src language
 
 use std::{fmt::Display, iter::Iterator, iter::Peekable, str::Chars};
 
-
 use okstd::prelude::*;
-
 
 // Identifier
 #[derive(Debug, PartialEq, Clone, Copy)]
@@ -557,9 +555,9 @@ impl<'input> Lexer<'input> {
                 };
                 Ok(Token::Word(word))
             }
-            State::String(Quotation) => {
+            State::String(quotation) => {
                 let last_char = self.buffer.chars().last();
-                let quote = if Quotation == Quotation::Double {
+                let quote = if quotation == Quotation::Double {
                     Some('"')
                 } else {
                     Some('\'')
@@ -962,7 +960,9 @@ impl<'input> From<Vec<Spanned<Token<'input>>>> for TokenStreamDisplay<'input> {
     }
 }
 
+#[cfg(test)]
 mod lexer_prop_tests;
+#[cfg(test)]
 mod lexer_snap_tests;
 
 pub struct TripleIterator<'input>(Lexer<'input>);

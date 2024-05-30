@@ -1,9 +1,10 @@
+#[cfg(test)]
 use crate::lexer::{Lexer, TokenStreamDisplay};
 
 use insta::assert_snapshot;
 use okstd::prelude::*;
 
-#[cfg(test)]
+
 #[okstd::test]
 fn test_empty_lexer() {
     let input = " ";

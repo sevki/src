@@ -1,4 +1,4 @@
-
+#[cfg(test)]
 mod parser_snap_tests;
 mod string;
 pub mod ast;

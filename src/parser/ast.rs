@@ -1,7 +1,5 @@
 use std::fmt::Display;
 
-use proptest::prelude::*;
-
 pub const ANON_FN_NAME: &str = "anonymous";
 
 #[derive(PartialEq, Debug, Clone)]
@@ -133,21 +131,6 @@ pub enum Operator {
     Neg,
 }
 
-impl Arbitrary for Operator {
-    type Parameters = ();
-    type Strategy = BoxedStrategy<Self>;
-
-    fn arbitrary_with(_args: ()) -> Self::Strategy {
-        prop_oneof![
-            Just(Operator::Add),
-            Just(Operator::Sub),
-            Just(Operator::Mul),
-            Just(Operator::Div),
-        ]
-        .boxed()
-    }
-}
-
 impl Display for Operator {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let op = match self {
@@ -186,3 +169,24 @@ pub struct Branch(pub Box<Expression>, pub Vec<(Expression, Block<Box<Expression
 
 #[derive(PartialEq, Debug)]
 pub struct Module(pub Vec<Box<Expression>>);
+
+
+#[cfg(test)]
+use proptest::prelude::*;
+
+
+#[cfg(test)]
+impl Arbitrary for Operator {
+    type Parameters = ();
+    type Strategy = BoxedStrategy<Self>;
+
+    fn arbitrary_with(_args: ()) -> Self::Strategy {
+        prop_oneof![
+            Just(Operator::Add),
+            Just(Operator::Sub),
+            Just(Operator::Mul),
+            Just(Operator::Div),
+        ]
+        .boxed()
+    }
+}

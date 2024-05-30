@@ -1,7 +1,8 @@
 use std::ops::Range;
 
-use bitflags::bitflags;
 use crate::Db;
+use bitflags::bitflags;
+use okstd::prelude::*;
 
 /// Represents the source program text.
 #[salsa::input]
@@ -30,9 +31,8 @@ pub struct Spanned {
 #[salsa::interned]
 pub struct Span {
     /// The range of the span in the source program text.
-    pub span: (usize, usize),
+    pub span: Range<usize>
 }
-
 /// Represents a position in the source code.
 #[salsa::interned]
 pub struct Position {
@@ -80,7 +80,6 @@ fn cmp_range<T: Ord>(a: &Range<T>, b: &Range<T>) -> SpanOverlap {
     overlap
 }
 
-
 /// todo(sevki): split this into two functions
 #[salsa::tracked]
 pub fn to_spans(db: &dyn Db, src: SourceProgram) -> SourceMap {
@@ -109,20 +108,25 @@ pub fn to_spans(db: &dyn Db, src: SourceProgram) -> SourceMap {
         let _size = token.end - token.start;
         // then we peek at the first line
         let mut start: Option<(usize, usize)> = None;
-        loop {
-            if let Some((line_no, span)) = line_lengths.clone().peek() {
+
+        while let Some((line_no, span)) = line_lengths.clone().peek() {
+            // if the token is within the line
+            let overlap = cmp_range(&span, &(token.start..token.end));
+            if overlap == SpanOverlap::NONE && start.is_none() {
+                // if the token is not within the line
+                line_lengths.next();
+            }
+            if overlap == SpanOverlap::START || overlap == SpanOverlap::BOTH {
                 // if the token is within the line
-                let overlap = cmp_range(&span, &(token.start..token.end));
-                if overlap == SpanOverlap::NONE && start.is_none() {
-                    // if the token is not within the line
-                    line_lengths.next();
-                }
-                if overlap == SpanOverlap::START || overlap == SpanOverlap::BOTH {
-                    // if the token is within the line
-                    start = Some((*line_no, span.start));
-                    // we do not need to iterate more.
-                    break;
-                }
+                start = Some((*line_no, span.start));
+                // we do not need to iterate more.
+                break;
+            }
+            if overlap == SpanOverlap::END {
+                // if the token is within the line
+                start = Some((*line_no, span.start));
+                // we do not need to iterate more.
+                break;
             }
         }
 
@@ -146,7 +150,7 @@ pub fn to_spans(db: &dyn Db, src: SourceProgram) -> SourceMap {
         */
         spans.push(Spanned::new(
             db,
-            Span::new(db, (token.start, token.end)),
+            Span::new(db, token.start..token.end),
             src,
             Position::new(db, start.0, column),
         ));

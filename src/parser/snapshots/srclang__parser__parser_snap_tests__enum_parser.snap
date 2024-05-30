@@ -8,12 +8,12 @@ Module(
             UseDef(
                 [
                     Ident(
-                        "crosmvm",
+                        "exec",
                         None,
                     ),
                 ],
                 Ident(
-                    "std",
+                    "host",
                     None,
                 ),
             ),
@@ -21,7 +21,7 @@ Module(
         EffectDef(
             EffectDef(
                 Ident(
-                    "Vm",
+                    "Make",
                     None,
                 ),
                 [
@@ -35,6 +35,14 @@ Module(
                     ),
                     Ident(
                         "execs",
+                        None,
+                    ),
+                    Ident(
+                        "reads",
+                        None,
+                    ),
+                    Ident(
+                        "writes",
                         None,
                     ),
                 ],
@@ -143,7 +151,78 @@ Module(
                             ),
                             effects: [
                                 Ident(
-                                    "Vm",
+                                    "Make",
+                                    None,
+                                ),
+                            ],
+                        },
+                        Prototype {
+                            name: Ident(
+                                "read",
+                                None,
+                            ),
+                            args: [
+                                Field(
+                                    Field(
+                                        Ident(
+                                            "name",
+                                            None,
+                                        ),
+                                        Ident(
+                                            "string",
+                                            None,
+                                        ),
+                                    ),
+                                ),
+                            ],
+                            ret: Some(
+                                Ident(
+                                    "string",
+                                    None,
+                                ),
+                            ),
+                            effects: [
+                                Ident(
+                                    "reads",
+                                    None,
+                                ),
+                            ],
+                        },
+                        Prototype {
+                            name: Ident(
+                                "write",
+                                None,
+                            ),
+                            args: [
+                                Field(
+                                    Field(
+                                        Ident(
+                                            "name",
+                                            None,
+                                        ),
+                                        Ident(
+                                            "string",
+                                            None,
+                                        ),
+                                    ),
+                                ),
+                                Field(
+                                    Field(
+                                        Ident(
+                                            "value",
+                                            None,
+                                        ),
+                                        Ident(
+                                            "string",
+                                            None,
+                                        ),
+                                    ),
+                                ),
+                            ],
+                            ret: None,
+                            effects: [
+                                Ident(
+                                    "writes",
                                     None,
                                 ),
                             ],
@@ -155,23 +234,34 @@ Module(
         StructDef(
             StructDef(
                 Ident(
-                    "coopvm",
+                    "Local",
                     None,
                 ),
                 Block(
-                    [],
+                    [
+                        Field(
+                            Ident(
+                                "host",
+                                None,
+                            ),
+                            Ident(
+                                "host",
+                                None,
+                            ),
+                        ),
+                    ],
                 ),
             ),
         ),
         ImplDef(
             ImplDef(
                 Ident(
-                    "Vm",
+                    "Make",
                     None,
                 ),
                 Some(
                     Ident(
-                        "coopvm",
+                        "Local",
                         None,
                     ),
                 ),
@@ -325,12 +415,25 @@ Module(
                                 },
                                 Block(
                                     [
+                                        FnCall(
+                                            FnCall(
+                                                Ident(
+                                                    "self.host.read",
+                                                    None,
+                                                ),
+                                                [
+                                                    String(
+                                                        "jobserver",
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
                                         Branch(
                                             Branch(
                                                 FnCall(
                                                     FnCall(
                                                         Ident(
-                                                            "self.exec",
+                                                            "self.host.exec",
                                                             None,
                                                         ),
                                                         [
@@ -362,7 +465,11 @@ Module(
                                                                             "raise",
                                                                             None,
                                                                         ),
-                                                                        [],
+                                                                        [
+                                                                            Integer(
+                                                                                1,
+                                                                            ),
+                                                                        ],
                                                                     ),
                                                                 ),
                                                             ],

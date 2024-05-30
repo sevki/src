@@ -1,4 +1,4 @@
-
+#[cfg(test)]
 use proptest::{prelude::*};
 
 #[allow(unused_imports)]

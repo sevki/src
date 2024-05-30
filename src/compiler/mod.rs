@@ -1,21 +1,22 @@
-use std::{
-    collections::BTreeMap,
-};
+use std::collections::BTreeMap;
+
+use okstd::prelude::debug;
 
 use crate::{
-    compiler::{errors::Errors},
+    compiler::errors::Errors,
     parser::ast::{self},
     Db,
 };
 
 use self::text::SourceProgram;
 
-mod db;
-mod errors;
+pub mod db;
+pub mod errors;
 pub mod ir;
-mod tests;
 pub mod text;
 
+#[cfg(test)]
+mod tests;
 
 #[salsa::tracked]
 pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
@@ -23,11 +24,15 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
     let wrapper = crate::lexer::TripleIterator::new(src.text(db));
     let t = crate::parser::src::SourceParser::new().parse(&mut errors, wrapper);
     // let mut errors_in_positions: Vec<ir::Position> = vec![];
+
     if !errors.is_empty() {
+        let spans = text::to_spans(db, src);
+        let _tokens = spans.tokens(db);
+        
         for _error_range in Into::<Errors>::into(errors) {
-            text::to_spans(db, src);
+            
         }
-        panic!();
+        // panic!();
     }
 
     let modul = t.unwrap();
@@ -42,7 +47,9 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
             ast::Expression::Binding(_) => todo!(),
             ast::Expression::FnCall(_) => todo!(),
             ast::Expression::String(_) => todo!(),
-            ast::Expression::FnDef(_) => {}
+            ast::Expression::FnDef(_) => {
+                debug!("Function definition");
+            }
             ast::Expression::ShellCommand(_, _) => todo!(),
             ast::Expression::EffectDef(_) => todo!(),
             ast::Expression::StructDef(_) => todo!(),
