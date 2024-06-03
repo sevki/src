@@ -1,5 +1,4 @@
-
-use crate::parser::errors::pretty_errors;
+use crate::{lexer::Coord, parser::errors::pretty_errors};
 use insta::assert_snapshot;
 
 
@@ -95,13 +94,13 @@ fn test_enum_parser() {
             yield()
         }
         fn exec(self, arg0: string, args: vec<string>) [Vm] -> i32 {
-            self.host.read("jobserver")
-            if self.host.exec(arg0, args) {
+            self.host.read("jobserver").await
+            if self.host.exec(arg0, args).await {
                 raise(1)
             }
         }
     }"#;
-    let mut errors: Vec<lalrpop_util::ErrorRecovery<usize, crate::lexer::Token, &str>> = vec![];
+    let mut errors: Vec<lalrpop_util::ErrorRecovery<Coord, crate::lexer::Token, &str>> = vec![];
     let wrapper = crate::lexer::TripleIterator::new(input);
     let t = crate::parser::src::SourceParser::new().parse(&mut errors, wrapper);
     if !errors.is_empty() {

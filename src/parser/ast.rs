@@ -41,6 +41,7 @@ pub enum Keyword {
     Where,
     Self_,
 }
+
 #[derive(PartialEq, Debug)]
 pub enum Value {
     Literal(Literal),
@@ -52,6 +53,7 @@ pub struct Block<T>(pub Vec<T>);
 
 #[derive(PartialEq, Debug)]
 pub struct Tuple<T>(pub Vec<T>);
+
 #[derive(PartialEq, Debug)]
 pub struct Array<T>(pub Vec<T>);
 
@@ -63,7 +65,7 @@ pub struct BinaryOperation {
 }
 
 #[derive(PartialEq, Debug)]
-pub struct FnCall(pub Ident, pub Vec<Box<Expression>>);
+pub struct FnCall(pub Ident, pub Vec<Expression>);
 
 #[derive(PartialEq, Debug)]
 pub enum Expression {
@@ -76,13 +78,13 @@ pub enum Expression {
     FnCall(FnCall),
     String(String),
     FnDef(FnDef),
-    ShellCommand(Vec<Ident>, Vec<Box<Expression>>),
     EffectDef(EffectDef),
     StructDef(StructDef),
     UseDef(UseDef),
     Keyword(Keyword),
     ImplDef(ImplDef),
     Branch(Branch),
+    FieldAccess(FieldAccess),
     Error,
 }
 
@@ -92,7 +94,7 @@ pub struct Field(pub Ident, pub Ident);
 #[derive(PartialEq, Debug)]
 pub enum FnArg {
     Reciever,
-    Field(Field)
+    Field(Field),
 }
 
 #[derive(PartialEq, Debug)]
@@ -106,8 +108,8 @@ pub struct Prototype {
 #[derive(PartialEq, Debug)]
 pub struct FnDef(
     pub Prototype,
-    pub Block<Box<Expression>>,
-    pub Vec<(Ident, Block<Box<Expression>>)>,
+    pub Block<Expression>,
+    pub Vec<(Ident, Block<Expression>)>,
 );
 
 #[derive(PartialEq, Debug)]
@@ -129,6 +131,10 @@ pub enum Operator {
     Maybe,
     Not,
     Neg,
+    Dot,
+    Arrow,
+    FatArrow,
+    DoubleColon,
 }
 
 impl Display for Operator {
@@ -144,10 +150,17 @@ impl Display for Operator {
             Operator::Maybe => "?",
             Operator::Not => "!",
             Operator::Neg => "-",
+            Operator::Dot => ".",
+            Operator::Arrow => "->",
+            Operator::FatArrow => "=>",
+            Operator::DoubleColon => "::",
         };
         write!(f, "{}", op)
     }
 }
+
+#[derive(PartialEq, Debug)]
+pub struct FieldAccess(pub Box<Expression>, pub Box<Expression>);
 
 #[derive(PartialEq, Debug)]
 pub struct StructDef(pub Ident, pub Block<Field>);
@@ -162,18 +175,16 @@ pub struct EffectDef(pub Ident, pub Vec<Ident>, pub Block<Prototype>);
 pub struct UseDef(pub Vec<Ident>, pub Ident);
 
 #[derive(PartialEq, Debug)]
-pub struct ImplDef(pub Ident, pub Option<Ident>, pub Block<Box<Expression>>);
+pub struct ImplDef(pub Ident, pub Option<Ident>, pub Block<Expression>);
 
 #[derive(PartialEq, Debug)]
-pub struct Branch(pub Box<Expression>, pub Vec<(Expression, Block<Box<Expression>>)>);
+pub struct Branch(pub Box<Expression>, pub Vec<(Expression, Block<Expression>)>);
 
 #[derive(PartialEq, Debug)]
-pub struct Module(pub Vec<Box<Expression>>);
-
+pub struct Module(pub Vec<Expression>);
 
 #[cfg(test)]
 use proptest::prelude::*;
-
 
 #[cfg(test)]
 impl Arbitrary for Operator {

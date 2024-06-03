@@ -3,9 +3,7 @@ use std::collections::BTreeMap;
 use okstd::prelude::debug;
 
 use crate::{
-    compiler::errors::Errors,
-    parser::ast::{self},
-    Db,
+    compiler::errors::Errors, lexer::Coord, parser::ast, Db
 };
 
 use self::text::SourceProgram;
@@ -20,7 +18,7 @@ mod tests;
 
 #[salsa::tracked]
 pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
-    let mut errors: Vec<lalrpop_util::ErrorRecovery<usize, crate::lexer::Token, &str>> = vec![];
+    let mut errors: Vec<lalrpop_util::ErrorRecovery<Coord, crate::lexer::Token<'_>, &str>> = vec![];
     let wrapper = crate::lexer::TripleIterator::new(src.text(db));
     let t = crate::parser::src::SourceParser::new().parse(&mut errors, wrapper);
     // let mut errors_in_positions: Vec<ir::Position> = vec![];
@@ -38,7 +36,7 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
     let modul = t.unwrap();
     let mut symbol_table = BTreeMap::new();
     for toplevel in modul.0 {
-        match *toplevel {
+        match toplevel {
             ast::Expression::BinaryExpression(_) => todo!(),
             ast::Expression::Bool(_) => todo!(),
             ast::Expression::Integer(_) => todo!(),
@@ -50,7 +48,6 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
             ast::Expression::FnDef(_) => {
                 debug!("Function definition");
             }
-            ast::Expression::ShellCommand(_, _) => todo!(),
             ast::Expression::EffectDef(_) => todo!(),
             ast::Expression::StructDef(_) => todo!(),
             ast::Expression::UseDef(usedef) => {
@@ -64,6 +61,7 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
             ast::Expression::ImplDef(_) => todo!(),
             ast::Expression::Branch(_) => todo!(),
             ast::Expression::Error => todo!(),
+            ast::Expression::FieldAccess(_) => todo!(),
         }
     }
     let program = ir::Program::new(db, vec![], symbol_table);

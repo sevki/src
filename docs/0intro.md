@@ -44,8 +44,11 @@ impl Make for Local {
 
 ## Acknowledgements
 
-Building upon the incredible work of the Rust community, src would not be possible without the following projects:
+Building upon the incredible work of the Rust community and many others, src would not be possible without the following projects:
 
 - [salsa-rs](https://github.com/salsa-rs/salsa)
 - [lalrpop](https://github.com/lalrpop/lalrpop)
 - [tower-lsp-web-demo](https://github.com/silvanshade/tower-lsp-web-demo)
+- [tower-lsp-boilerplate](https://github.com/IWANABETHATGUY/tower-lsp-boilerplate)
+- [tower-lsp](https:://github.com/tower-rs/tower-lsp)
+- [gluon-lang](https://gluon-lang.org/)

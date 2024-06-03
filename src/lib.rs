@@ -1,9 +1,9 @@
+pub mod analyzer;
+pub mod compiler;
 pub mod lexer;
 pub mod parser;
-pub mod compiler;
 
 use compiler::text;
-
 
 use crate::compiler::ir;
 
@@ -26,6 +26,10 @@ pub struct Jar(
     ir::EffectDef,
     ir::Import,
     ir::Mangled,
+    analyzer::get_symbol,
+    analyzer::add_file,
+    analyzer::Url,
+    analyzer::span_text,
 );
 
 pub trait Db: salsa::DbWithJar<Jar> {}

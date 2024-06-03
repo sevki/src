@@ -39,7 +39,6 @@ pub async fn serve(config: ServerConfig) -> Result<(), JsValue> {
         from_server,
     } = config;
 
-    
     let input = JsStream::from(into_server);
     let input = input
         .map_ok(|value| {
@@ -60,3 +59,7 @@ pub async fn serve(config: ServerConfig) -> Result<(), JsValue> {
 
     Ok(())
 }
+
+mod tokenizer;
+
+pub use tokenizer::{token_type_as_js_string, tokenize};

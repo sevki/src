@@ -3,7 +3,9 @@ import * as proto from "vscode-languageserver-protocol";
 
 import { Codec, FromServer, IntoServer } from "./codec";
 
-const consoleChannel = document.getElementById("channel-console") as HTMLTextAreaElement;
+const consoleChannel = document.getElementById(
+  "channel-console"
+) as HTMLTextAreaElement;
 
 export default class Client extends jsrpc.JSONRPCServerAndClient {
   afterInitializedHooks: (() => Promise<void>)[] = [];
@@ -20,7 +22,7 @@ export default class Client extends jsrpc.JSONRPCServerAndClient {
           const response = await fromServer.responses.get(json.id)!;
           this.client.receive(response as jsrpc.JSONRPCResponse);
         }
-      }),
+      })
     );
     this.#fromServer = fromServer;
   }
@@ -28,7 +30,10 @@ export default class Client extends jsrpc.JSONRPCServerAndClient {
   async start(): Promise<void> {
     // process "window/logMessage": client <- server
     this.addMethod(proto.LogMessageNotification.type.method, (params) => {
-      const { type, message } = params as { type: proto.MessageType; message: string };
+      const { type, message } = params as {
+        type: proto.MessageType;
+        message: string;
+      };
       switch (type) {
         case proto.MessageType.Error: {
           consoleChannel.value += "[error] ";
@@ -56,16 +61,41 @@ export default class Client extends jsrpc.JSONRPCServerAndClient {
     await (this.request(proto.InitializeRequest.type.method, {
       processId: null,
       clientInfo: {
-        name: "demo-language-client",
+        name: "src-language-client",
       },
-      capabilities: {},
+      trace: proto.TraceValues.Messages,
+      capabilities: {
+        general: {
+          
+        },
+        window : {
+          showMessage: {
+            dynamicRegistration: true,
+          },
+        },
+        textDocument: {
+          definition: {
+            dynamicRegistration: true,
+            symbolKind: [proto.SymbolKind.String],
+          },
+          documentHighlight: {
+            dynamicRegistration: true,
+          },
+          documentSymbol: {
+            dynamicRegistration: true,
+          },
+          hover: {},
+        },
+      },
       rootUri: null,
     } as proto.InitializeParams) as Promise<jsrpc.JSONRPCResponse>);
 
     // notify "initialized": client --> server
     this.notify(proto.InitializedNotification.type.method, {});
 
-    await Promise.all(this.afterInitializedHooks.map((f: () => Promise<void>) => f()));
+    await Promise.all(
+      this.afterInitializedHooks.map((f: () => Promise<void>) => f())
+    );
     await Promise.all([this.processNotifications(), this.processRequests()]);
   }
 

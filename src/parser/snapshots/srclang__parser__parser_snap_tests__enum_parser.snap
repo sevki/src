@@ -415,41 +415,101 @@ Module(
                                 },
                                 Block(
                                     [
-                                        FnCall(
-                                            FnCall(
-                                                Ident(
-                                                    "self.host.read",
-                                                    None,
-                                                ),
-                                                [
-                                                    String(
-                                                        "jobserver",
+                                        FieldAccess(
+                                            FieldAccess(
+                                                FieldAccess(
+                                                    FieldAccess(
+                                                        FieldAccess(
+                                                            FieldAccess(
+                                                                Ident(
+                                                                    Ident(
+                                                                        "self",
+                                                                        None,
+                                                                    ),
+                                                                ),
+                                                                Ident(
+                                                                    Ident(
+                                                                        "host",
+                                                                        None,
+                                                                    ),
+                                                                ),
+                                                            ),
+                                                        ),
+                                                        FnCall(
+                                                            FnCall(
+                                                                Ident(
+                                                                    "read",
+                                                                    None,
+                                                                ),
+                                                                [
+                                                                    String(
+                                                                        "jobserver",
+                                                                    ),
+                                                                ],
+                                                            ),
+                                                        ),
                                                     ),
-                                                ],
+                                                ),
+                                                Ident(
+                                                    Ident(
+                                                        "await",
+                                                        None,
+                                                    ),
+                                                ),
                                             ),
                                         ),
                                         Branch(
                                             Branch(
-                                                FnCall(
-                                                    FnCall(
-                                                        Ident(
-                                                            "self.host.exec",
-                                                            None,
+                                                FieldAccess(
+                                                    FieldAccess(
+                                                        FieldAccess(
+                                                            FieldAccess(
+                                                                FieldAccess(
+                                                                    FieldAccess(
+                                                                        Ident(
+                                                                            Ident(
+                                                                                "self",
+                                                                                None,
+                                                                            ),
+                                                                        ),
+                                                                        Ident(
+                                                                            Ident(
+                                                                                "host",
+                                                                                None,
+                                                                            ),
+                                                                        ),
+                                                                    ),
+                                                                ),
+                                                                FnCall(
+                                                                    FnCall(
+                                                                        Ident(
+                                                                            "exec",
+                                                                            None,
+                                                                        ),
+                                                                        [
+                                                                            Ident(
+                                                                                Ident(
+                                                                                    "arg0",
+                                                                                    None,
+                                                                                ),
+                                                                            ),
+                                                                            Ident(
+                                                                                Ident(
+                                                                                    "args",
+                                                                                    None,
+                                                                                ),
+                                                                            ),
+                                                                        ],
+                                                                    ),
+                                                                ),
+                                                            ),
                                                         ),
-                                                        [
+                                                        Ident(
                                                             Ident(
-                                                                Ident(
-                                                                    "arg0",
-                                                                    None,
-                                                                ),
+                                                                "await",
+                                                                None,
                                                             ),
-                                                            Ident(
-                                                                Ident(
-                                                                    "args",
-                                                                    None,
-                                                                ),
-                                                            ),
-                                                        ],
+                                                        ),
                                                     ),
                                                 ),
                                                 [

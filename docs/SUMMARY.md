@@ -10,5 +10,5 @@
 
 # Playground
 
-* [Compiler ExplorerExpoker](playground/index.md)
+* [Compiler Explorer](playground/index.md)
 

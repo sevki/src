@@ -45,6 +45,6 @@ jobs:
         rustup target add ${{ matrix.targets }}
         rustup update
     - name: Build ${{ matrix.packages }} for ${{ matrix.targets }}
-      run: cargo build --verbose --target ${{ matrix.targets }} -p ${{ matrix.packages }}
+      run: cargo build -Zbuild-std --verbose --target ${{ matrix.targets }} -p ${{ matrix.packages }}
     - name: Test ${{ matrix.packages }} for ${{ matrix.targets }}
       run: cargo test --verbose --target ${{ matrix.targets }} -p ${{ matrix.packages }}

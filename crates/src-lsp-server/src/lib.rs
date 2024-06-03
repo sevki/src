@@ -7,4 +7,8 @@ mod server;
 
 mod db;
 
+use srclang::compiler;
+
 pub use server::*;
+
+pub use srclang::Jar;

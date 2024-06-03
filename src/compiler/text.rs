@@ -1,12 +1,14 @@
 use std::ops::Range;
 
-use crate::Db;
+use crate::{lexer::Token, Db};
 use bitflags::bitflags;
-use okstd::prelude::*;
 
 /// Represents the source program text.
 #[salsa::input]
 pub struct SourceProgram {
+    #[id]
+    pub url: String,
+
     #[return_ref]
     pub text: String,
 }
@@ -31,16 +33,16 @@ pub struct Spanned {
 #[salsa::interned]
 pub struct Span {
     /// The range of the span in the source program text.
-    pub span: Range<usize>
+    pub span: Range<usize>,
 }
 /// Represents a position in the source code.
 #[salsa::interned]
 pub struct Position {
     /// The line number of the position.
-    l: usize,
+    pub line: usize,
 
     /// The column number of the position.
-    c: usize,
+    pub column: usize,
 }
 
 /// Represents the source map of the program.
@@ -69,7 +71,7 @@ bitflags! {
 }
 
 #[inline]
-fn cmp_range<T: Ord>(a: &Range<T>, b: &Range<T>) -> SpanOverlap {
+pub fn cmp_range<T: Ord>(a: &Range<T>, b: &Range<T>) -> SpanOverlap {
     let mut overlap = SpanOverlap::NONE;
     if a.contains(&b.start) {
         overlap |= SpanOverlap::START;
@@ -80,22 +82,8 @@ fn cmp_range<T: Ord>(a: &Range<T>, b: &Range<T>) -> SpanOverlap {
     overlap
 }
 
-/// todo(sevki): split this into two functions
 #[salsa::tracked]
 pub fn to_spans(db: &dyn Db, src: SourceProgram) -> SourceMap {
-    let line_lengths: Vec<Range<usize>> = calculate_line_lengths(db, src)
-        .into_iter()
-        .scan(0, |acc, x| {
-            let range = *acc..*acc + x;
-            *acc += x;
-            Some(range)
-        })
-        .collect();
-
-    // reverse the line lengths and make it peakable essentially
-    // turinging it into a stack
-    let mut line_lengths = line_lengths.into_iter().enumerate().rev().peekable();
-
     let mut spans = vec![];
 
     let lexer = crate::lexer::Lexer::new(src.text(db), 0);
@@ -105,55 +93,65 @@ pub fn to_spans(db: &dyn Db, src: SourceProgram) -> SourceMap {
     // Lexer tokens have a start and end position, and we want to map these to the line lengths
     // first we iterate over the lexer tokens
     for token in lexer {
-        let _size = token.end - token.start;
-        // then we peek at the first line
-        let mut start: Option<(usize, usize)> = None;
-
-        while let Some((line_no, span)) = line_lengths.clone().peek() {
-            // if the token is within the line
-            let overlap = cmp_range(&span, &(token.start..token.end));
-            if overlap == SpanOverlap::NONE && start.is_none() {
-                // if the token is not within the line
-                line_lengths.next();
-            }
-            if overlap == SpanOverlap::START || overlap == SpanOverlap::BOTH {
-                // if the token is within the line
-                start = Some((*line_no, span.start));
-                // we do not need to iterate more.
-                break;
-            }
-            if overlap == SpanOverlap::END {
-                // if the token is within the line
-                start = Some((*line_no, span.start));
-                // we do not need to iterate more.
-                break;
-            }
+        match token.node {
+            crate::lexer::Token::Eof => break,
+            crate::lexer::Token::NewLine => continue,
+            _ => {}
         }
-
-        if start.is_none() {
-            // if the token is not within the line
-            break;
-        }
-        let start = start.unwrap();
-        let leading_chars = src.text(db).get(start.1..token.start);
-        let column = leading_chars.map(|x| x.chars().count()).unwrap_or(0);
-        /*
-        ```text
-           1,1   7
-           |     |
-           # Intro
-        8  lorem ipsum dolor sit amet
-                 │
-                 13 byte start
-                 6th column, 2nd line
-        ```
-        */
         spans.push(Spanned::new(
             db,
             Span::new(db, token.start..token.end),
             src,
-            Position::new(db, start.0, column),
+            Position::new(db, token.pos.line, token.pos.col),
         ));
     }
     SourceMap::new(db, spans)
+}
+use okstd::prelude::*;
+use syn::token;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::compiler::db::Database;
+    use okstd::prelude::*;
+    #[okstd::log(off)]
+    #[okstd::test]
+    fn test_to_spans() {
+        let db = Database::default();
+        let src = SourceProgram::new(
+            &db,
+            "inmemory://test".to_string(),
+            r#"fn main() {}"#.to_string(),
+        );
+        let spans = to_spans(&db, src);
+        let tokens = spans.tokens(&db);
+        for token in tokens.iter() {
+            debug!("line {:?}", token.pos(&db).line(&db));
+            debug!("column {:?}", token.pos(&db).column(&db));
+        }
+        assert_eq!(tokens.len(), 6);
+        assert_eq!(tokens[0].pos(&db).line(&db), 0);
+    }
+    #[okstd::log(trace)]
+    #[okstd::test]
+    fn test_to_spans_multiline() {
+        let db = Database::default();
+        let src = SourceProgram::new(
+            &db,
+            "inmemory://test".to_string(),
+            r#"fn main() {
+    let x = 1
+}"#
+            .to_string(),
+        );
+        let spans = to_spans(&db, src);
+        let tokens = spans.tokens(&db);
+        for token in tokens.iter() {
+            debug!("line {:?}", token.pos(&db).line(&db));
+            debug!("column {:?}", token.pos(&db).column(&db));
+        }
+        assert_eq!(tokens.len(), 10);
+        assert_eq!(tokens[0].pos(&db).line(&db), 0);
+    }
 }

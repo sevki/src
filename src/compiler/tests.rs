@@ -2,7 +2,7 @@ use okstd::prelude::*;
 
 use super::*;
 
-#[okstd::log(debug)]
+#[okstd::log(off)]
 #[okstd::test]
 fn debug() {
     let src = r#"use { native_fs, native_exec } from host
@@ -16,7 +16,7 @@ struct Innitguv {
 "#;
     let db = &db::Database::default().enable_logging();
 
-    let prog = SourceProgram::new(db, src.to_string());
+    let prog = SourceProgram::new(db, src.to_string(), "test".to_string());
     let res = super::compile(db, prog);
     println!("{:?}", prog);
     println!("{:?}", res.symbols(db));

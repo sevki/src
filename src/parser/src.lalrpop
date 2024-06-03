@@ -3,14 +3,14 @@ use std::str::FromStr;
 use crate::parser::string::apply_string_escapes;
 use super::ast::*;
 use lalrpop_util::{ErrorRecovery, ParseError};
-use crate::lexer::{Position, Token, Word, Variable};
+use crate::lexer::{Position, Token, Word, Variable, Coord};
 use okstd::prelude::*;
 
 #[LALR]
-grammar<'input, 'err>(errors: &'err mut Vec<ErrorRecovery<usize, Token<'input>, &'static str>>);
+grammar<'input, 'err>(errors: &'err mut Vec<ErrorRecovery<Coord, Token<'input>, &'static str>>);
 
 extern {
-    type Location = usize;
+    type Location = Coord;
 
     enum Token<'input> {
         // Operators
@@ -163,6 +163,7 @@ IdentWithGenerics: Ident = {
 IdentOrIdentWithGenerics: Ident = {
     <i:Ident> => i,
     <i:IdentWithGenerics> => i,
+    Self_ => Ident("self".to_string(), None),
 };
 
 Punctuated<T, Token>: Vec<T> = {
@@ -174,7 +175,6 @@ Punctuated<T, Token>: Vec<T> = {
         }
     }
 };
-
 
 Atom: Value = {
     #[precedence(level="0")]
@@ -189,46 +189,66 @@ Atom: Value = {
     <i:Ident> => Value::Ident(i),
 };
 
-Expression: Box<Expression> = {
-    #[precedence(level="1")]
+Term: Expression = {
+    <s:String> => s,
+    <val:"int"> => Expression::Integer(val),
+    <i:Ident> => Expression::Ident(i),
+    <f:FnCall> => f,
+    <true_:True> => true_,
+    <false_:False> => false_,
+    "(" <Expression> ")",
+};
+
+IdentOrIdentWithGenericsOrFnCall: Expression = {
+    <i:IdentOrIdentWithGenerics> => Expression::Ident(i),
+    <f:FnCall> => f,
+};
+
+FieldAccess: Expression = {
+    <lhs:FieldAccess> "." <rhs:IdentOrIdentWithGenericsOrFnCall> => Expression::FieldAccess(FieldAccess(Box::new(lhs), Box::new(rhs))),
+    <lhs:IdentOrIdentWithGenericsOrFnCall> => lhs,
+};
+
+Expression: Expression = {
+    #[precedence(level="1")] 
     Term,
 
     #[precedence(level="2")] #[assoc(side="left")]
     <lhs:Expression> "*" <rhs:Expression> => {
-        Box::new(Expression::BinaryExpression(BinaryOperation {
-        lhs,
-        op: Operator::Mul,
-        rhs
-        }))
+        Expression::BinaryExpression(BinaryOperation {
+            lhs: Box::new(lhs),
+            op: Operator::Mul,
+            rhs: Box::new(rhs)
+        })
     },
     <lhs:Expression> "/" <rhs:Expression> => {
-        Box::new(Expression::BinaryExpression(BinaryOperation {
-        lhs,
-        op: Operator::Div,
-        rhs
-        }))
+        Expression::BinaryExpression(BinaryOperation {
+            lhs: Box::new(lhs),
+            op: Operator::Div,
+            rhs: Box::new(rhs)
+        })
     },
 
     #[precedence(level="3")] #[assoc(side="left")]
     <lhs:Expression> "+" <rhs:Expression> => {
-        Box::new(Expression::BinaryExpression(BinaryOperation {
-        lhs,
-        op: Operator::Add,
-        rhs
-        }))
+        Expression::BinaryExpression(BinaryOperation {
+            lhs: Box::new(lhs),
+            op: Operator::Add,
+            rhs: Box::new(rhs)
+        })
     },
     <lhs:Expression> "-" <rhs:Expression> => {
-        Box::new(Expression::BinaryExpression(BinaryOperation {
-        lhs,
-        op: Operator::Sub,
-        rhs
-        }))
+        Expression::BinaryExpression(BinaryOperation {
+            lhs: Box::new(lhs),
+            op: Operator::Sub,
+            rhs: Box::new(rhs)
+        })
     },
-}
+};
 
 Field: Field = {
     <name:Ident> ":" <ty:IdentOrIdentWithGenerics> => Field(name, ty)
-}
+};
 
 TypeParameters: Vec<Ident> =
     "<" <Comma<Ident>> ">";
@@ -236,7 +256,7 @@ TypeParameters: Vec<Ident> =
 FnArg: FnArg = {
     <self_:Self_> => FnArg::Reciever,
     <field:Field> => FnArg::Field(field),
-}
+};
 
 Prototype: Prototype = {
     <name:IdentOrIdentWithGenerics> "("<args:Comma<FnArg>> ")" "[" <effects:Comma<Ident>> "]" <ret:("->" Ident)?> => {
@@ -246,112 +266,83 @@ Prototype: Prototype = {
         };
         Prototype{name, args, ret, effects}
     }
-}
+};
 
-
-String: Box<Expression> = {
+String: Expression = {
     <s:"string"> => {
         let start = 1;
         let end = s.len() - 1;
-        Box::new(Expression::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string()))
+        Expression::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string())
     },
-}
-    
+};
 
-FnCall: Box<Expression> = {
-    <name:IdentOrIdentWithGenerics> "(" <args:Comma<Expression>> ")" <i:("[" <Ident> "]")?> => Box::new(Expression::FnCall(FnCall(name, args)))
-}
-
-Term: Box<Expression> = {
-    <s:String> => <>,
-    <val:"int"> => {
-        Box::new(Expression::Integer(val))
-    },
-    <i:Ident> => {
-        Box::new(Expression::Ident(i))
-    },
-    <f:FnCall> => <>,
-    <true_:True> => Box::new(<>),
-    <false_:False> => Box::new(<>),
-    "(" <Expression> ")",
-}
+FnCall: Expression = {
+    <name:IdentOrIdentWithGenerics> "(" <args:Comma<Expression>> ")" => Expression::FnCall(FnCall(name, args))
+};
 
 Block<T>: Block<T> = {
     "{" ("\n"?) <lines:Lines<T>> "}" => Block(lines)
-}
+};
 
-WhenBlock: (Ident,Block<Box<Expression>>) = {
+WhenBlock: (Ident,Block<Expression>) = {
     When <i:Ident> <lines:Block<Statement>> => (i, lines)
-}
+};
 
+FnDef: Expression = {
+    Fn <proto:Prototype> <block:Block<Statement>> <handlers:(WhenBlock)*> => Expression::FnDef(FnDef(proto, block, handlers)),
+};
 
-FnDef: Box<Expression> = {
-    Fn <proto:Prototype> <block:Block<Statement>> <handlers:(WhenBlock)*> => Box::new(Expression::FnDef(FnDef(proto, block, handlers))),
-}
+EffectDef: Expression = {
+    Effect <i:Ident> ":" <effects:Plus<Ident>> <block:Block<Prototype>> => Expression::EffectDef(EffectDef(i, effects,block)),
+};
 
-EffectDef: Box<Expression> = {
-    Effect <i:Ident> ":" <effects:Plus<Ident>> <block:Block<Prototype>> => Box::new(Expression::EffectDef(EffectDef(i, effects,block))),
-}
+StructDef: Expression = {
+    Struct <i:Ident> <fields:Block<Field>> => Expression::StructDef(StructDef(i, fields)),
+};
 
-ShellComponent: Box<Expression> = {
-    <s:"string"> => Box::new(Expression::String((s).to_string())),
-    <i:Ident> => Box::new(Expression::Ident(i)),
-}
-
-ShebangLine: Box<Expression> = {
-    "#!" <path:("/" Ident)*> <components:(ShellComponent)*>  => Box::new(Expression::ShellCommand(path.into_iter().map(|i| i.1.into()).collect(), components)),
-}
-
-StructDef: Box<Expression> = {
-    Struct <i:Ident> <fields:Block<Field>> => Box::new(Expression::StructDef(StructDef(i, fields))),
-}
-
-IfDef: Box<Expression> = {
-    If <cond:Expression> <if_:Block<Statement>> => {
+IfDef: Expression = {
+    If <cond:Statement> <if_:Block<Statement>> => {
         let branch = Branch (
-            cond,
+            Box::new(cond),
             vec![
                 (Expression::Bool(true), if_),
             ]
         );
-        Box::new(Expression::Branch(branch))
+        Expression::Branch(branch)
     },
-    If <cond:Expression> <if_:Block<Statement>> Else <else_:Block<Statement>> => {
+    If <cond:Statement> <if_:Block<Statement>> Else <else_:Block<Statement>> => {
         let branch = Branch (
-            cond,
+            Box::new(cond),
             vec![
                 (Expression::Bool(true), if_),
                 (Expression::Bool(false), else_),
             ]
         );
-        Box::new(Expression::Branch(branch))
+        Expression::Branch(branch)
     },
-}
+};
 
-Statement: Box<Expression> = {
-    #[precedence(level="0")]
-    <FnCall> => <>,
-    #[precedence(level="1")]
-    Let <name:Ident> "=" <value:Expression> => Box::new(Expression::Binding(Binding(name, value))),
+Statement: Expression = {
+    Let <name:Ident> "=" <value:Expression> => Expression::Binding(Binding(name, Box::new(value))),
     <IfDef> => <>,
-}
+    FieldAccess => <>,  
+};
 
-UseDef: Box<Expression> = {
-    Use "{" <imports:Comma<Ident>> "}" From <i:Ident> => Box::new(Expression::UseDef(UseDef(imports, i))),
-}
+UseDef: Expression = {
+    Use "{" <imports:Comma<Ident>> "}" From <i:Ident> => Expression::UseDef(UseDef(imports, i)),
+};
 
-ImplDef: Box<Expression> = {
-    Impl <i:Ident> <t:("for" Ident)?> <lines:Block<FnDef>> => Box::new(Expression::ImplDef(ImplDef(i, t.map(|t| t.1), lines))),
-}
+ImplDef: Expression = {
+    Impl <i:Ident> <t:("for" Ident)?> <lines:Block<FnDef>> => Expression::ImplDef(ImplDef(i, t.map(|t| t.1), lines)),
+};
 
-
-TopLevel: Box<Expression> = {
+TopLevel: Expression = {
     <FnDef> => <>,
     <EffectDef> => <>,
-    <StructDef> => <>,    
+    <StructDef> => <>,
     <UseDef> => <>,
     <ImplDef> => <>,
-}
+};
 
 pub Source: Module = {
     <expr:("\n"* TopLevel)*> => Module(expr.into_iter().map(|e| e.1).collect()),

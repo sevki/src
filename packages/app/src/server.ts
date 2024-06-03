@@ -1,7 +1,13 @@
-import init, { InitOutput, serve, ServerConfig } from "../assets/wasm/src_lsp_browser";
+import init, { InitOutput, serve, ServerConfig, tokenize, token_type_as_js_string } from "../assets/wasm/src_lsp_browser";
+
 import { FromServer, IntoServer } from "./codec";
 
 let server: null | Server;
+
+let tokenizer: null | typeof tokenize;
+let as_js_string: null | typeof token_type_as_js_string;
+
+export { tokenizer, as_js_string };
 
 export default class Server {
   readonly initOutput: InitOutput;
@@ -18,6 +24,8 @@ export default class Server {
     if (null == server) {
       const initOutput = await init();
       server = new Server(initOutput, intoServer, fromServer);
+      tokenizer = tokenize;
+      as_js_string = token_type_as_js_string;
     } else {
       console.warn("Server already initialized; ignoring");
     }

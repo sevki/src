@@ -2,10 +2,6 @@ use std::sync::{Arc, Mutex};
 
 use salsa::DebugWithDb;
 
-
-
-
-
 #[derive(Default)]
 #[salsa::db(crate::Jar)]
 pub struct Database {
