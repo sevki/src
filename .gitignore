@@ -1,4 +1,4 @@
 book
 target
 node_modules
-packages/app/assets
+packages/app/assets/**

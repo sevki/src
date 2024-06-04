@@ -1,7 +1,17 @@
 use std::ops::Range;
 
-use crate::{lexer::Token, Db};
+use crate::Db;
 use bitflags::bitflags;
+
+
+#[salsa::input]
+#[derive(Default)]
+pub struct Document {
+    #[id]
+    pub url: String,
+
+    pub text: ropey::Rope,
+}
 
 /// Represents the source program text.
 #[salsa::input]

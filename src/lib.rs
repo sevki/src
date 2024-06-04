@@ -19,6 +19,7 @@ pub struct Jar(
     text::Position,
     text::SourceMap,
     text::SourceProgram,
+    text::Document,
     ir::Program,
     ir::Function,
     ir::InternedEffect,

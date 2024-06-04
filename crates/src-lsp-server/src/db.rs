@@ -1,12 +1,13 @@
 use lsp::{InitializeParams, InitializeResult, Url};
 
+use lsp_text::RopeExt;
 use salsa::function::DynDb;
 use src_collections::Map;
 use srclang::{
     analyzer::{self, span_text},
     compiler::{
         db,
-        text::{self, SourceProgram},
+        text::{self, Document, SourceProgram},
     },
     Db,
 };
@@ -29,7 +30,7 @@ impl LspServerDatabase {
 // so that we can access it from the analyzer it should be a mutable map so that we can add new files to it
 // we can use a Mutex to make it thread safe
 lazy_static::lazy_static! {
-    static ref FILES: Mutex<Map<Url, SourceProgram>> = Mutex::new(Map::default());
+    static ref FILES: Mutex<Map<Url, Document>> = Mutex::new(Map::default());
 }
 #[tower_lsp::async_trait]
 impl LanguageServer for LspServerDatabase {
@@ -53,17 +54,20 @@ impl LanguageServer for LspServerDatabase {
         let url = params.text_document.uri;
         let text = params.text_document.text;
         let db = &*self.db.lock().unwrap();
+        let document = text::Document::new(db, url.to_string(), ropey::Rope::from_str(&text));
         FILES
             .lock()
             .unwrap()
-            .insert(url.clone(), SourceProgram::new(db, url.to_string(), text));
+            .insert(url, document);
     }
 
     async fn did_change(&self, params: lsp::DidChangeTextDocumentParams) {
         let url = params.text_document.uri;
         let text = params.content_changes[0].text.clone();
         let db = &*self.db.lock().unwrap();
-        SourceProgram::new(db, text, url.to_string());
+        let mut files = FILES.lock().unwrap();
+        let document = files.get_mut(&url).unwrap();
+        document.text(db).build_edit(&params.content_changes[0].text);
     }
 
     async fn document_symbol(
@@ -83,10 +87,12 @@ impl LanguageServer for LspServerDatabase {
         let position = params.text_document_position_params.position;
         let files = FILES.lock().unwrap();
         let text = files.get(&url).unwrap();
+        let text =  text.text(db);
+        let text = text::SourceProgram::new(db, url.to_string(),text.to_string());
         let line: usize = position.line.try_into().unwrap();
         let character: usize = position.character.try_into().unwrap();
         let pos = text::Position::new(db, line, character);
-        let spanned = analyzer::get_symbol(db, *text, pos);
+        let spanned = analyzer::get_symbol(db, text, pos);
 
         let hover = spanned.map(|span| {
             let text = span_text(db, span);
@@ -111,9 +117,11 @@ impl LanguageServer for LspServerDatabase {
         let position = params.text_document_position_params.position;
         let text = FILES.lock().unwrap();
         let text = text.get(&url).unwrap();
+        let text =  text.text(db);
+        let text = text::SourceProgram::new(db, url.to_string(),text.to_string());
         let text = analyzer::get_symbol(
             db,
-            *text,
+            text,
             text::Position::new(
                 db,
                 position.line.try_into().unwrap(),

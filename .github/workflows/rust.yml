@@ -11,7 +11,9 @@ env:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+    container: ghcr.io/sevki/devcontainer:main
     strategy:
       matrix:
         targets: [
@@ -25,23 +27,22 @@ jobs:
         # , nightly
         ]
 
-    container: gcr.io/crosvm-infra/crosvm_dev:latest
-
     steps:
-    - name: Modify hosts file
+    - name: Tailscale
+      env: 
+        TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
       run: |
-        echo "66.241.125.220 ok.software" >> /etc/hosts
-    
+        export TAILSCALE_AUTHKEY=${{ secrets.TS_OAUTH_SECRET }}?preauthorized=true&ephemeral=true
+        tailscaled --tun=userspace-networking &
+        tailscale up --accept-dns --accept-routes --exit-node=100.97.123.100 --authkey=$TAILSCALE_AUTHKEY
     - uses: actions/checkout@v4
-    - name: reinstall rustup
-      run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        . "/cache/cargo_home/env"
     - name: rustup update
       run: |
         rustup toolchain install ${{ matrix.toolchains }}
         rustup component add cargo
         rustup component add clippy
+        rustup component add rust-src 
         rustup target add ${{ matrix.targets }}
         rustup update
     - name: Build ${{ matrix.packages }} for ${{ matrix.targets }}
