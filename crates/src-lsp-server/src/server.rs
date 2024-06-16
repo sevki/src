@@ -1,7 +1,10 @@
 use anyhow::anyhow;
+use srclang::parser;
 use std::result::Result::Ok;
 use std::sync::Arc;
 use tower_lsp::{jsonrpc, lsp_types::*, LanguageServer};
+use wasm_bindgen::JsCast;
+use web_sys::HtmlTextAreaElement;
 
 pub fn capabilities() -> lsp::ServerCapabilities {
     let document_symbol_provider = Some(lsp::OneOf::Left(true));
@@ -29,7 +32,8 @@ pub fn capabilities() -> lsp::ServerCapabilities {
         }),
     );
 
-    let _document_highlight_provider: Option<OneOf<bool, DocumentHighlightOptions>> = Some(lsp::OneOf::Left(true));
+    let _document_highlight_provider: Option<OneOf<bool, DocumentHighlightOptions>> =
+        Some(lsp::OneOf::Left(true));
 
     let code_lens_provider = Some(lsp::CodeLensOptions {
         resolve_provider: Some(true),
@@ -110,7 +114,10 @@ impl LanguageServer for Server {
         self.db.did_change(params).await;
     }
 
-    async fn document_symbol(&self, params: lsp::DocumentSymbolParams) -> jsonrpc::Result<Option<lsp::DocumentSymbolResponse>> {
+    async fn document_symbol(
+        &self,
+        params: lsp::DocumentSymbolParams,
+    ) -> jsonrpc::Result<Option<lsp::DocumentSymbolResponse>> {
         web_sys::console::log_1(&"server::document_symbol".into());
         self.db.document_symbol(params).await
     }
@@ -120,7 +127,10 @@ impl LanguageServer for Server {
         self.db.hover(params).await
     }
 
-    async fn document_highlight(&self, params: lsp::DocumentHighlightParams) -> jsonrpc::Result<Option<Vec<lsp::DocumentHighlight>>> {
+    async fn document_highlight(
+        &self,
+        params: lsp::DocumentHighlightParams,
+    ) -> jsonrpc::Result<Option<Vec<lsp::DocumentHighlight>>> {
         web_sys::console::log_1(&"server::document_highlight".into());
         self.db.document_highlight(params).await
     }
@@ -137,4 +147,54 @@ pub fn get_channel_syntax() -> anyhow::Result<web_sys::HtmlTextAreaElement> {
         .ok_or_else(|| anyhow!("failed to get channel-syntax element"))?
         .unchecked_into();
     Ok(channel_syntax)
+}
+
+pub fn update_channel(input: &str) {
+    // let tree = parser::parse(input);
+    // // assume errors; use red
+    // let element_id = "channel-syntax";
+    // match tree {
+    //     Ok(module) => {
+    //         // use green
+    //         web_sys::window()
+    //             .unwrap()
+    //             .document()
+    //             .unwrap()
+    //             .get_element_by_id(element_id)
+    //             .unwrap()
+    //             .set_inner_html(&format!("{:#?}", module));
+    //         // set the border of the textarea to green
+    //         web_sys::window()
+    //             .unwrap()
+    //             .document()
+    //             .unwrap()
+    //             .get_element_by_id(element_id)
+    //             .unwrap()
+    //             .unchecked_into::<HtmlTextAreaElement>()
+    //             .style()
+    //             .set_property("border", "1px solid green")
+    //             .unwrap();
+    //     }
+    //     Err(errs) => {
+    //         // use red
+    //         web_sys::window()
+    //             .unwrap()
+    //             .document()
+    //             .unwrap()
+    //             .get_element_by_id(element_id)
+    //             .unwrap()
+    //             .set_inner_html(&format!("{:#?}", errs));
+    //         // set the border of the textarea to red
+    //         web_sys::window()
+    //             .unwrap()
+    //             .document()
+    //             .unwrap()
+    //             .get_element_by_id(element_id)
+    //             .unwrap()
+    //             .unchecked_into::<HtmlTextAreaElement>()
+    //             .style()
+    //             .set_property("border", "1px solid red")
+    //             .unwrap();
+    //     }
+    // };
 }

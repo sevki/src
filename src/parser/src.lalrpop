@@ -1,16 +1,16 @@
-use std::str::FromStr;
-
-use crate::parser::string::apply_string_escapes;
 use super::ast::*;
-use lalrpop_util::{ErrorRecovery, ParseError};
-use crate::lexer::{Position, Token, Word, Variable, Coord};
-use okstd::prelude::*;
+use lalrpop_util::ErrorRecovery;
+use crate::lexer::{Token,  Location};
+use crate::lexer::Word;
+use crate::Db;
+use super::span::Spanned;
+use crate::span;
 
 #[LALR]
-grammar<'input, 'err>(errors: &'err mut Vec<ErrorRecovery<Coord, Token<'input>, &'static str>>);
+grammar<'input, 'err>(errors: &'err mut Vec<ErrorRecovery<Location, Token<'input>, &'static str>>, db: &dyn Db);
 
 extern {
-    type Location = Coord;
+    type Location = Location;
 
     enum Token<'input> {
         // Operators
@@ -47,7 +47,8 @@ extern {
         "where" => Token::Word(Word::Where),  // where
         "self" => Token::Word(Word::Self_),   // self
         "for" => Token::Word(Word::For),    // for
-
+        "pub" => Token::Word(Word::Pub),    // pub
+        "priv" => Token::Word(Word::Priv),   // priv
         "#!" => Token::Shebang, // #!
         
         "ident" => Token::Word(Word::Ident(<&'input str>)),     // a-z, A-Z, 0-9, _
@@ -85,20 +86,12 @@ extern {
     }
 }
 
-Spanned<T>: (usize, T, usize) = {
-    <@L> <T> <@R> => (<>)
+#[inline]
+Span<T>: Spanned<T> = {
+    <@L> <T> <@R> => span!(<>)
 };
 
-Path<T>: Vec<Ident> = {
-    <mut v:("/" <T>)*> <e:T?> => match e {
-        None => v,
-        Some(e) => {
-            v.push(e);
-            v
-        }
-    }
-}
-        
+#[inline]
 Lines<T>: Vec<T> = {
     <mut v:(<T> "\n")*> <e:T?> => match e {
         None => v,
@@ -109,6 +102,7 @@ Lines<T>: Vec<T> = {
     }
 }
 
+#[inline]
 Comma<T>: Vec<T> = { // (0)
     <mut v:(<T> ",")*> <e:T?> => match e { // (1)
         None=> v,
@@ -119,7 +113,7 @@ Comma<T>: Vec<T> = { // (0)
     }
 };
 
-
+#[inline]
 Plus<T>: Vec<T> = {
     <mut v:(<T> "+")*> <e:T?> => match e { // (1)
         None=> v,
@@ -130,40 +124,44 @@ Plus<T>: Vec<T> = {
     }
 };
 
-
-None: Expression = "none" => Expression::Keyword(Keyword::None);
-When: Expression = "when" => Expression::Keyword(Keyword::When);
-Fn: Expression = "fn" => Expression::Keyword(Keyword::Fn);
-Let: Expression = "let" => Expression::Keyword(Keyword::Let);
-Effect: Expression = "effect" => Expression::Keyword(Keyword::Effect);
-Struct: Expression = "struct" => Expression::Keyword(Keyword::Struct);
-Impl: Expression = "impl" => Expression::Keyword(Keyword::Impl);
-Use: Expression = "use" => Expression::Keyword(Keyword::Use);
-From: Expression = "from" => Expression::Keyword(Keyword::From);
-Where: Expression = "where" => Expression::Keyword(Keyword::Where);
-Self_: Expression = "self" => Expression::Keyword(Keyword::Self_);
-Else: Expression = "else" => Expression::Keyword(Keyword::Else);
-If: Expression = "if" => Expression::Keyword(Keyword::If);
-True: Expression = "true" => Expression::Bool(true);
-False: Expression = "false" => Expression::Bool(false);
-
-Consecutive<L, R>: bool = {
-    Consecutive<L, R> <lhs:Spanned<L>> <rhs:Spanned<R>> => match l.2 == r.0,
-    L => false
+#[inline]
+Block<T>: Block<T> = {
+    "{" ("\n"?) <lines:Lines<T>> "}" => Block(lines)
 };
 
-Ident: Ident = {
-    <i:"ident"> => Ident(i.to_string(), None),
+// Keywords
+None: Spanned<Keyword> = <lo:@L> "none" <hi:@R> => span!(lo, Keyword::None, hi);
+Fn: Spanned<Keyword> = <lo:@L> "fn" <hi:@R> => span!(lo, Keyword::Fn, hi);
+Effect: Spanned<Keyword> = <lo:@L> "effect" <hi:@R> => span!(lo, Keyword::Effect, hi);
+Struct: Spanned<Keyword> = <lo:@L> "struct" <hi:@R> => span!(lo, Keyword::Struct, hi);
+If: Spanned<Keyword> = <lo:@L> "if" <hi:@R> => span!(lo, Keyword::If, hi);
+Else: Spanned<Keyword> = <lo:@L> "else" <hi:@R> => span!(lo, Keyword::Else, hi);
+When: Spanned<Keyword> = <lo:@L> "when" <hi:@R> => span!(lo, Keyword::When, hi);
+Use: Spanned<Keyword> = <lo:@L> "use" <hi:@R> => span!(lo, Keyword::Use, hi);
+From: Spanned<Keyword> = <lo:@L> "from" <hi:@R> => span!(lo, Keyword::From, hi);
+Impl: Spanned<Keyword> = <lo:@L> "impl" <hi:@R> => span!(lo, Keyword::Impl, hi);
+Let: Spanned<Keyword> = <lo:@L> "let" <hi:@R> => span!(lo, Keyword::Let, hi);
+
+True: Node = "true" => Node::Bool(true);
+False: Node = "false" => Node::Bool(false);
+
+KeywordAndVisibility<T>: KeywordAndVisibility = {
+    <v:Visibility> <k:T> => KeywordAndVisibility(k, v),
 };
 
-IdentWithGenerics: Ident = {
-    <i:"ident"> "<" <g:Comma<Ident>> ">" => Ident(i.to_string(), Some(g)),
+Ident: Spanned<Ident> = {
+    <l:@L> <i:"ident"> <r:@R> =>  span!(l,Ident(i.to_string(), None),r),
 };
 
-IdentOrIdentWithGenerics: Ident = {
+IdentWithGenerics: Spanned<Ident> = {
+    <l:@L> <i:"ident"> "<" <g:Comma<Ident>> ">" <r:@R> => span!(l,Ident(i.to_string(), Some(g)),r),
+    
+};
+
+IdentOrIdentWithGenerics: Spanned<Ident> = {
     <i:Ident> => i,
     <i:IdentWithGenerics> => i,
-    Self_ => Ident("self".to_string(), None),
+    <l:@L> "self" <r:@R> => span!(l, Ident("self".to_string(), None),r),
 };
 
 Punctuated<T, Token>: Vec<T> = {
@@ -176,167 +174,197 @@ Punctuated<T, Token>: Vec<T> = {
     }
 };
 
-Atom: Value = {
+Atom: Spanned<Value> = {
     #[precedence(level="0")]
-    <i:"int"> => Value::Literal(Literal::Integer(i)),
-    <f:"float"> => Value::Literal(Literal::Float(f)),
-    <s:"string"> => {
+    <l:@L> <i:"int"> <r:@R> => span!(l, Value::Literal(Literal::Integer(i)),r),
+    <l:@L> <f:"float"> <r:@R>=> span!(l, Value::Literal(Literal::Float(f)),r),
+    <l:@L> <s:"string"> <r:@R> => {
         let start = 1;
         let end = s.len() - 1;
-        Value::Literal(Literal::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string()))
+        span!(l, Value::Literal(Literal::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string())), r)
     },    
     #[precedence(level="1")]
-    <i:Ident> => Value::Ident(i),
+    <i:Ident> => span!(i.0, Value::Ident(i.1), i.2),
 };
 
-Term: Expression = {
-    <s:String> => s,
-    <val:"int"> => Expression::Integer(val),
-    <i:Ident> => Expression::Ident(i),
-    <f:FnCall> => f,
-    <true_:True> => true_,
-    <false_:False> => false_,
-    "(" <Expression> ")",
+
+String: Spanned<Node> = {
+    <l:@L> <s:"string"> <r:@R> => {
+        let start = 1;
+        let end = s.len() - 1;
+        span!(l, Node::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string()),r)
+    },
 };
 
-IdentOrIdentWithGenericsOrFnCall: Expression = {
-    <i:IdentOrIdentWithGenerics> => Expression::Ident(i),
-    <f:FnCall> => f,
-};
 
-FieldAccess: Expression = {
-    <lhs:FieldAccess> "." <rhs:IdentOrIdentWithGenericsOrFnCall> => Expression::FieldAccess(FieldAccess(Box::new(lhs), Box::new(rhs))),
-    <lhs:IdentOrIdentWithGenericsOrFnCall> => lhs,
-};
-
-Expression: Expression = {
+Expression: Spanned<Node> = {
     #[precedence(level="1")] 
     Term,
 
     #[precedence(level="2")] #[assoc(side="left")]
     <lhs:Expression> "*" <rhs:Expression> => {
-        Expression::BinaryExpression(BinaryOperation {
+        let (l, r) = (lhs.2, rhs.0);
+        span!(l,Node::BinaryExpression(BinaryOperation {
             lhs: Box::new(lhs),
             op: Operator::Mul,
             rhs: Box::new(rhs)
-        })
+        }),r)
     },
-    <lhs:Expression> "/" <rhs:Expression> => {
-        Expression::BinaryExpression(BinaryOperation {
+    <l:@L> <lhs:Expression> "/" <rhs:Expression> <r:@R>  => {
+        let (l, r) = (lhs.2, rhs.0);
+        span!(l,Node::BinaryExpression(BinaryOperation {
             lhs: Box::new(lhs),
             op: Operator::Div,
             rhs: Box::new(rhs)
-        })
+        }),r)
     },
 
     #[precedence(level="3")] #[assoc(side="left")]
     <lhs:Expression> "+" <rhs:Expression> => {
-        Expression::BinaryExpression(BinaryOperation {
+        let (l, r) = (lhs.2, rhs.0);
+        span!(l,Node::BinaryExpression(BinaryOperation {
             lhs: Box::new(lhs),
             op: Operator::Add,
             rhs: Box::new(rhs)
-        })
+        }),r)
     },
     <lhs:Expression> "-" <rhs:Expression> => {
-        Expression::BinaryExpression(BinaryOperation {
+        let (l, r) = (lhs.2, rhs.0);
+        span!(l, Node::BinaryExpression(BinaryOperation {
             lhs: Box::new(lhs),
             op: Operator::Sub,
             rhs: Box::new(rhs)
-        })
+        }),r)
     },
 };
 
-Field: Field = {
-    <name:Ident> ":" <ty:IdentOrIdentWithGenerics> => Field(name, ty)
+
+FnCall: Spanned<Node> = {
+    <name:IdentOrIdentWithGenerics> "(" <args:Comma<Expression>> ")" <r:@R> => span!(name.0, Node::FnCall(FnCall(name, args)) ,r),
 };
 
-TypeParameters: Vec<Ident> =
-    "<" <Comma<Ident>> ">";
 
-FnArg: FnArg = {
-    <self_:Self_> => FnArg::Reciever,
-    <field:Field> => FnArg::Field(field),
+Term: Spanned<Node> = {
+    <s:Span<String>> => s.1,
+    <l:@L> <val:"int"> <r:@R> => span!(l, Node::Integer(val),r),
+    <i:Ident> => {
+        let (l, r) = (i.0, i.2);
+        span!(l, Node::Ident(i), r)},
+    <f:FnCall> => <>,
+    <l:@L> <true_:True> <r:@R> => span!(l,true_, r),
+    <l:@L> <false_:False> <r:@R> => span!(l,false_, r),
+    "(" <Expression> ")",
 };
 
-Prototype: Prototype = {
-    <name:IdentOrIdentWithGenerics> "("<args:Comma<FnArg>> ")" "[" <effects:Comma<Ident>> "]" <ret:("->" Ident)?> => {
+
+IdentOrIdentWithGenericsOrFnCall: Spanned<Node> = {
+    <i:IdentOrIdentWithGenerics> => {
+        let (l, r) = (i.0, i.2);
+        span!(l, Node::Ident(i), r)
+    },
+    <f:FnCall> => f,
+};
+
+FieldAccess: Spanned<Node> = {
+    <lhs:FieldAccess> "." <rhs:IdentOrIdentWithGenericsOrFnCall> => {
+        let (l, r) = (lhs.0, rhs.2);
+        span!(l,Node::FieldAccess(FieldAccess(Box::new(lhs), Box::new(rhs))),r)
+    },
+    <lhs:IdentOrIdentWithGenericsOrFnCall> => lhs,
+};
+
+
+Field: Spanned<FieldDef> = {
+    <vis:Visibility> <name:Ident> ":" <ty:IdentOrIdentWithGenerics> => {
+        let (l, r) = (name.0, ty.2);
+        span!(l, FieldDef(vis, name, ty), r)
+    }
+};
+
+TypeParameters: Spanned<Vec<Spanned<Ident>>> =
+    <l:@L> "<" <is:Comma<Ident>> ">" <r:@R> => span!(l,is ,r);
+
+FnArg: Spanned<FnArg> = {
+    <self_:Span<"self">> => span!(self_.0, FnArg::Reciever, self_.2),
+    <field:Span<Field>> => {
+        let (l, r) = (field.0, field.2);
+        span!(l, FnArg::Field(field.1), r)
+    },
+};
+
+Prototype: Spanned<Prototype> = {
+    <l:@L> <name:IdentOrIdentWithGenerics> "("<args:Comma<FnArg>> ")" "[" <effects:Comma<Ident>> "]" <ret:("->" Ident)?> <r:@R> => {
         let ret = match ret {
             None => None,
             Some(r) => Some(r.1),
         };
-        Prototype{name, args, ret, effects}
+        span!(l, Prototype{name, args, ret, effects},r)
     }
 };
 
-String: Expression = {
-    <s:"string"> => {
-        let start = 1;
-        let end = s.len() - 1;
-        Expression::String(s.get(start..end).expect(format!("malformed string {s}, strings must be quoted").as_str()).to_string())
-    },
-};
 
-FnCall: Expression = {
-    <name:IdentOrIdentWithGenerics> "(" <args:Comma<Expression>> ")" => Expression::FnCall(FnCall(name, args))
-};
-
-Block<T>: Block<T> = {
-    "{" ("\n"?) <lines:Lines<T>> "}" => Block(lines)
-};
-
-WhenBlock: (Ident,Block<Expression>) = {
-    When <i:Ident> <lines:Block<Statement>> => (i, lines)
-};
-
-FnDef: Expression = {
-    Fn <proto:Prototype> <block:Block<Statement>> <handlers:(WhenBlock)*> => Expression::FnDef(FnDef(proto, block, handlers)),
-};
-
-EffectDef: Expression = {
-    Effect <i:Ident> ":" <effects:Plus<Ident>> <block:Block<Prototype>> => Expression::EffectDef(EffectDef(i, effects,block)),
-};
-
-StructDef: Expression = {
-    Struct <i:Ident> <fields:Block<Field>> => Expression::StructDef(StructDef(i, fields)),
-};
-
-IfDef: Expression = {
-    If <cond:Statement> <if_:Block<Statement>> => {
-        let branch = Branch (
-            Box::new(cond),
-            vec![
-                (Expression::Bool(true), if_),
-            ]
-        );
-        Expression::Branch(branch)
-    },
-    If <cond:Statement> <if_:Block<Statement>> Else <else_:Block<Statement>> => {
-        let branch = Branch (
-            Box::new(cond),
-            vec![
-                (Expression::Bool(true), if_),
-                (Expression::Bool(false), else_),
-            ]
-        );
-        Expression::Branch(branch)
-    },
-};
-
-Statement: Expression = {
-    Let <name:Ident> "=" <value:Expression> => Expression::Binding(Binding(name, Box::new(value))),
+Statement: Spanned<Node> = {
+    <l:@L> Let <name:Ident> "=" <value:Expression> <r:@R> => span!(l, Node::Binding(Binding(name, Box::new(value))),r),
     <IfDef> => <>,
     FieldAccess => <>,  
 };
 
-UseDef: Expression = {
-    Use "{" <imports:Comma<Ident>> "}" From <i:Ident> => Expression::UseDef(UseDef(imports, i)),
+Visibility: Spanned<Visibility> = {
+    <l:@L> "pub" <r:@R> => span!(l, Visibility::Public, r),
+    <l:@L> "priv" <r:@R> => span!(l, Visibility::Private, r),
+    // elided
+    <l:@L> () <r:@R> => span!(l, Visibility::Private, r),
 };
 
-ImplDef: Expression = {
-    Impl <i:Ident> <t:("for" Ident)?> <lines:Block<FnDef>> => Expression::ImplDef(ImplDef(i, t.map(|t| t.1), lines)),
+WhenBlock: (Spanned<Ident>,Block<Spanned<Node>>) = {
+    <l:@L> When <i:Ident> <lines:Block<Statement>> <r:@R> => (i, lines)
 };
 
-TopLevel: Expression = {
+FnDef: Spanned<Node> = {
+    <l:@L> <kwv:KeywordAndVisibility<Fn>> <proto:Prototype> <block:Block<Statement>> <handlers:(WhenBlock)*> <r:@R> => span!(l, Node::FnDef(FnDef(kwv,proto, block, handlers)), r),
+};
+
+EffectDef: Spanned<Node> = {
+    <l:@L> <kwv:KeywordAndVisibility<Effect>> <i:Ident> ":" <effects:Plus<Ident>> <block:Block<Prototype>> <r:@R> => span!(l,Node::EffectDef(EffectDef(kwv, i, effects,block)), r),
+};
+
+StructDef: Spanned<Node> = {
+    <l:@L> <kwv:KeywordAndVisibility<Struct>> <i:Ident> <fields:Block<Field>> <r:@R> => span!(l, Node::StructDef(StructDef(kwv, i, fields)),r),
+};
+
+IfDef: Spanned<Node> = {
+    <l:@L> If <cl:@L><cond:Statement><cr:@R> <if_:Block<Statement>> <r:@R> => {
+        let branch = BranchDef (
+            Box::new(cond),
+            vec![
+                (span!(l, Node::Bool(true), cl), if_),
+            ]
+        );
+        span!(l, Node::Branch(branch), r)
+    },
+    <l:@L> If <cl:@L> <cond:Statement> <cr:@R> <if_:Block<Statement>> <el:@L> Else <er:@R> <else_:Block<Statement>> <r:@R> => {
+        let branch = BranchDef (
+            Box::new(cond),
+            vec![
+                (span!(l,Node::Bool(true),cl), if_),
+                (span!(el, Node::Bool(false), er), else_),
+            ]
+        );
+        span!(l, Node::Branch(branch), r)
+    },
+};
+
+UseDef: Spanned<Node> = {
+    <l:@L> <kwv:KeywordAndVisibility<Use>> "{" <imports:Comma<Ident>> "}" From <i:Ident> <r:@R> => {
+        span!(l, Node::UseDef(UseDef(kwv,imports, i)), r)
+    },
+};
+
+ImplDef: Spanned<Node> = {
+    <l:@L> <kwv:KeywordAndVisibility<Impl>> <i:Ident> <t:("for" Ident)?> <lines:Block<FnDef>> <r:@R> => span!(l,Node::ImplDef(ImplDef(kwv, i, t.map(|t| t.1), lines)),r),
+};
+
+TopLevel: Spanned<Node> = {
     <FnDef> => <>,
     <EffectDef> => <>,
     <StructDef> => <>,

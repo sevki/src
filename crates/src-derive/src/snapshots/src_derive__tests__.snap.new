@@ -1,0 +1,6 @@
+---
+source: crates/src-derive/src/lib.rs
+assertion_line: 157
+expression: expected.to_string()
+---
+pub trait BinaryOperationVisitor : BoxVisitor + SpannedVisitor + NodeVisitor + OperatorVisitor { fn visit (& mut self , node : & BinaryOperation) { self . visit_lhs (& node . lhs) ; self . visit_op (& node . op) ; self . visit_rhs (& node . rhs) ; } fn visit_lhs (& mut self , value : & Box < Spanned < Node >>) { } fn visit_op (& mut self , value : & Operator) { } fn visit_rhs (& mut self , value : & Box < Spanned < Node >>) { } }

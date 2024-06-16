@@ -12,3 +12,10 @@
 
 * [Compiler Explorer](playground/index.md)
 
+# Skills
+
+- [Skills](skill-tree.md)
+
+# Research Notes
+
+- [Research](research.md)

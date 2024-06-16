@@ -5,23 +5,26 @@ use salsa::function::DynDb;
 use src_collections::Map;
 use srclang::{
     analyzer::{self, span_text},
-    compiler::{
-        db,
-        text::{self, Document, SourceProgram},
+    compiler::text::{self, Document, SourceProgram},
+    parser::{
+        self,
+        span::{ByteOrLineColOrCoord, ByteOrLineColOrCoordInterned},
     },
     Db,
 };
 use std::{borrow::BorrowMut, sync::Mutex};
 use tower_lsp::{jsonrpc, LanguageServer};
 
+use crate::update_channel;
+
 pub struct LspServerDatabase {
-    db: Mutex<srclang::compiler::db::Database>,
+    db: Mutex<srclang::analyzer::db::Database>,
 }
 
 impl LspServerDatabase {
     pub fn new() -> Self {
         Self {
-            db: Mutex::new(srclang::compiler::db::Database::default()),
+            db: Mutex::new(srclang::analyzer::db::Database::default()),
         }
     }
 }
@@ -55,19 +58,21 @@ impl LanguageServer for LspServerDatabase {
         let text = params.text_document.text;
         let db = &*self.db.lock().unwrap();
         let document = text::Document::new(db, url.to_string(), ropey::Rope::from_str(&text));
-        FILES
-            .lock()
-            .unwrap()
-            .insert(url, document);
+        FILES.lock().unwrap().insert(url, document);
+        update_channel(&text);
     }
 
     async fn did_change(&self, params: lsp::DidChangeTextDocumentParams) {
         let url = params.text_document.uri;
-        let text = params.content_changes[0].text.clone();
         let db = &*self.db.lock().unwrap();
         let mut files = FILES.lock().unwrap();
-        let document = files.get_mut(&url).unwrap();
-        document.text(db).build_edit(&params.content_changes[0].text);
+        let file = files.get(&url).unwrap();
+        let mut rope = file.text(db);
+        let text_edit = rope.build_edit(&params.content_changes[0]).unwrap();
+        rope.apply_edit(&text_edit);
+        let text = rope.clone().to_string();
+        files.insert(url.clone(), text::Document::new(db, url.to_string(), rope));
+        update_channel(&text);
     }
 
     async fn document_symbol(
@@ -87,19 +92,24 @@ impl LanguageServer for LspServerDatabase {
         let position = params.text_document_position_params.position;
         let files = FILES.lock().unwrap();
         let text = files.get(&url).unwrap();
-        let text =  text.text(db);
-        let text = text::SourceProgram::new(db, url.to_string(),text.to_string());
+        let text = text.text(db);
+        let text = text::SourceProgram::new(db, url.to_string(), text.to_string());
         let line: usize = position.line.try_into().unwrap();
         let character: usize = position.character.try_into().unwrap();
-        let pos = text::Position::new(db, line, character);
-        let spanned = analyzer::get_symbol(db, text, pos);
+        web_sys::console::log_1(&format!("line: {}, character: {}", line, character).into());
+        let spanned = analyzer::get_symbol(
+            db,
+            text,
+            ByteOrLineColOrCoordInterned::new(db, ByteOrLineColOrCoord::LineCol(line, character)),
+        );
 
+        web_sys::console::log_1(&format!("{:#?}", spanned).into());
         let hover = spanned.map(|span| {
-            let text = span_text(db, span);
+            // let text = span_text(db, span);
             lsp::Hover {
                 contents: lsp::HoverContents::Markup(lsp::MarkupContent {
                     kind: lsp::MarkupKind::Markdown,
-                    value: format!("```src\n{}\n```src anaylzer", text),
+                    value: format!("```src\n{:#?}\n```src anaylzer", span),
                 }),
                 range: None,
             }
@@ -117,15 +127,14 @@ impl LanguageServer for LspServerDatabase {
         let position = params.text_document_position_params.position;
         let text = FILES.lock().unwrap();
         let text = text.get(&url).unwrap();
-        let text =  text.text(db);
-        let text = text::SourceProgram::new(db, url.to_string(),text.to_string());
+        let text = text.text(db);
+        let text = text::SourceProgram::new(db, url.to_string(), text.to_string());
         let text = analyzer::get_symbol(
             db,
             text,
-            text::Position::new(
+            ByteOrLineColOrCoordInterned::new(
                 db,
-                position.line.try_into().unwrap(),
-                position.character.try_into().unwrap(),
+                ByteOrLineColOrCoord::LineCol(position.line as usize, position.character as usize),
             ),
         );
         let hightlight_kind = lsp::DocumentHighlightKind::TEXT;

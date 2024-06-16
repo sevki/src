@@ -1,8 +1,8 @@
-use crate::lexer::Coord;
+use crate::lexer::Location;
 
 pub fn pretty_errors<'input>(
     src: &'input str,
-    errors: Vec<lalrpop_util::ErrorRecovery<Coord, crate::lexer::Token<'_>, &str>>,
+    errors: Vec<lalrpop_util::ErrorRecovery<Location, crate::lexer::Token<'_>, &str>>,
 ) -> String {
     let mut pretty = String::new();
 

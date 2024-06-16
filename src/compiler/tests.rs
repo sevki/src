@@ -14,7 +14,7 @@ struct Innitguv {
     current_pid: i32
 }
 "#;
-    let db = &db::Database::default().enable_logging();
+    let db = &crate::analyzer::db::Database::default().enable_logging();
 
     let prog = SourceProgram::new(db, src.to_string(), "test".to_string());
     let res = super::compile(db, prog);

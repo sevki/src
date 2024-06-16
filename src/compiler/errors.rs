@@ -1,23 +1,23 @@
 use std::ops::Range;
 
-use crate::lexer::Coord;
+use crate::lexer::Location;
 
-pub struct Errors<'a>(Vec<lalrpop_util::ErrorRecovery<Coord, crate::lexer::Token<'a>, &'a str>>);
+pub struct Errors<'a>(Vec<lalrpop_util::ErrorRecovery<Location, crate::lexer::Token<'a>, &'a str>>);
 
-impl<'a> From<Vec<lalrpop_util::ErrorRecovery<Coord, crate::lexer::Token<'a>, &'a str>>>
+impl<'a> From<Vec<lalrpop_util::ErrorRecovery<Location, crate::lexer::Token<'a>, &'a str>>>
     for Errors<'a>
 {
     fn from(
-        value: Vec<lalrpop_util::ErrorRecovery<Coord, crate::lexer::Token<'a>, &'a str>>,
+        value: Vec<lalrpop_util::ErrorRecovery<Location, crate::lexer::Token<'a>, &'a str>>,
     ) -> Self {
         Self(value)
     }
 }
 
 impl<'a> IntoIterator for Errors<'a> {
-    type Item = Range<Coord>;
+    type Item = Range<Location>;
 
-    type IntoIter = <Vec<std::ops::Range<Coord>> as IntoIterator>::IntoIter;
+    type IntoIter = <Vec<std::ops::Range<Location>> as IntoIterator>::IntoIter;
 
     fn into_iter(self) -> Self::IntoIter {
         self.0
@@ -40,11 +40,11 @@ impl<'a> IntoIterator for Errors<'a> {
 }
 
 fn handle_errors(
-    errors: Vec<lalrpop_util::ErrorRecovery<Coord, crate::lexer::Token, &str>>,
+    errors: Vec<lalrpop_util::ErrorRecovery<Location, crate::lexer::Token, &str>>,
     src: &str,
 ) -> String {
     let mut pretty = String::new();
-    let mut last_end = Coord::default();
+    let mut last_end = Location::default();
 
     for error in errors {
         match error.error {

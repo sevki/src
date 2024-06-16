@@ -44,3 +44,4 @@ mod tests {
         assert_eq!(apply_string_escapes(r#"hello\" world"#), r#""hello\\\" world""#);
     }
 }
+

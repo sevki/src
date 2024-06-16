@@ -163,6 +163,8 @@ pub enum Word<'input> {
     From,
     Where,
     Self_,
+    Pub,
+    Priv,
     Ident(&'input str),
     FnIdent(&'input str),
     Any(&'input str),
@@ -200,6 +202,8 @@ impl<'input> Word<'input> {
             Word::From => "from".chars(),
             Word::Where => "where".chars(),
             Word::Self_ => "self".chars(),
+            Word::Pub => "pub".chars(),
+            Word::Priv => "priv".chars(),
         }
     }
 }
@@ -593,6 +597,8 @@ impl<'input> Lexer<'input> {
                     "from" => Word::From,
                     "where" => Word::Where,
                     "self" => Word::Self_,
+                    "pub" => Word::Pub,
+                    "priv" => Word::Priv,
                     _ => Word::Ident(word),
                 };
                 Ok(Token::Word(word))
@@ -1010,20 +1016,22 @@ mod lexer_snap_tests;
 
 pub struct TripleIterator<'input>(Lexer<'input>);
 
-#[derive(Debug, Clone, Default, Copy)]
-pub struct Coord {
+#[derive(Debug, Clone, Default, Copy, Hash,)]
+pub struct Location {
     pub offset: usize,
     pub line: usize,
     pub col: usize,
 }
 
-impl PartialOrd for Coord {
+impl Eq for Location {}
+
+impl PartialOrd for Location {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         Some(self.offset.cmp(&other.offset))
     }
 }
 
-impl PartialEq for Coord {
+impl PartialEq for Location {
     fn eq(&self, other: &Self) -> bool {
         self.offset == other.offset
     }
@@ -1035,19 +1043,19 @@ impl<'input> TripleIterator<'input> {
     }
 }
 
-impl From<(usize, usize, usize)> for Coord {
+impl From<(usize, usize, usize)> for Location {
     fn from((offset, line, col): (usize, usize, usize)) -> Self {
         Self { offset, line, col }
     }
 }
 
 impl<'input> Iterator for TripleIterator<'input> {
-    type Item = (Coord, Token<'input>, Coord);
+    type Item = (Location, Token<'input>, Location);
 
     fn next(&mut self) -> Option<Self::Item> {
         let token = self.0.next()?;
         debug!("token: {:?}", token);
-        let start_pos: Coord = (
+        let start_pos: Location = (
             token.start,
             token.pos.line,
             token.pos.col.wrapping_sub(token.len()),

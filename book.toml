@@ -6,12 +6,15 @@ src = "docs"
 
 # additional css https://raw.githubusercontent.com/oknotokcomputer/okcss/main/ok.css
 [output.html]
-additional-css = ["ok.css"]
+additional-css = ["ok.css", "skill-tree.css"]
 theme = "docs/theme"
 default-theme = "dark"
 git-repository-url = "https://ok.software/ok/src"
 preferred-dark-theme = "rust"
+additional-js =["viz.js", "full.render.js", "panzoom.min.js", "skill-tree.js"]
 
-[preprocessor.svgbob]
+# [preprocessor.svgbob]
 
 [preprocessor.alerts]
+[preprocessor.skill-tree]
+command = "mdbook-skill-tree"

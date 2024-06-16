@@ -1,9 +1,13 @@
-use std::fmt::Display;
+fn main() {
+    println!("Hello, world!");
+}
+use src_derive::visitor;
+use srclang::{lexer::Location, Db};
+use okstd::prelude::*;
+use std::{fmt::Display, ops::Range};
+
 pub const ANON_FN_NAME: &str = "anonymous";
-
-use crate::visitor;
-
-use super::span::*;
+use srclang::parser::span::*;
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct Ident(pub String, pub Option<Vec<Spanned<Ident>>>);
@@ -20,8 +24,6 @@ pub enum Visibility {
     Public,
 }
 
-
-
 impl Display for Visibility {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -31,6 +33,7 @@ impl Display for Visibility {
     }
 }
 
+#[visitor]
 #[derive(PartialEq, Debug, Clone)]
 pub struct StringLit(pub String);
 
@@ -353,24 +356,3 @@ impl Display for FnDef {
         write!(f, "}}")
     }
 }
-
-#[cfg(test)]
-use proptest::prelude::*;
-
-#[cfg(test)]
-impl Arbitrary for Operator {
-    type Parameters = ();
-    type Strategy = BoxedStrategy<Self>;
-
-    fn arbitrary_with(_args: ()) -> Self::Strategy {
-        prop_oneof![
-            Just(Operator::Add),
-            Just(Operator::Sub),
-            Just(Operator::Mul),
-            Just(Operator::Div),
-        ]
-        .boxed()
-    }
-}
-
-impl Eq for Node {}

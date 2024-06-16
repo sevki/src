@@ -4,7 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [ "crates/src-collections",
+members = [
+  "crates/src-collections", "crates/src-derive", "crates/src-derive-test",
   "crates/src-lsp-browser",
   "crates/src-lsp-server",
 ]
@@ -21,15 +22,17 @@ tiny-keccak = { version = "2", features = ["sha3"] }
 
 [dependencies]
 getrandom = { version = "0.2", features = ["js"] }
-salsa = {  version = "0.1.0", registry = "oksoftware", package = "salsa-2022" }
-salsa-macros = { version = "0.1.0", registry = "oksoftware" , package = "salsa-2022-macros" }
+salsa = { version = "0.1.0", registry = "oksoftware", package = "salsa-2022" }
+salsa-macros = { version = "0.1.0", registry = "oksoftware", package = "salsa-2022-macros" }
 lalrpop-util = { version = "0.20.2", features = ["lexer", "unicode"] }
-okstd = {  features = ["macros"], default-features = false, registry = "oksoftware", version = "0.1.9"}
+okstd = { features = [
+  "macros",
+], default-features = false, registry = "oksoftware", version = "0.1.9" }
 syn = "2.0.60"
 bitflags = "2.5.0"
 ropey = { version = "1.6.1", features = ["small_chunks"] }
+hashbrown = "0.14.5"
 
 [dev-dependencies]
 insta = "1.38.0"
 proptest = "1.4.0"
-

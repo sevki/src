@@ -117,13 +117,13 @@ pub fn to_spans(db: &dyn Db, src: SourceProgram) -> SourceMap {
     }
     SourceMap::new(db, spans)
 }
-use okstd::prelude::*;
-use syn::token;
+
+
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::compiler::db::Database;
+    use crate::analyzer::db::Database;
     use okstd::prelude::*;
     #[okstd::log(off)]
     #[okstd::test]
