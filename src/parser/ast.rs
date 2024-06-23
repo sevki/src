@@ -1,19 +1,44 @@
 use std::fmt::Display;
-
-use proptest::prelude::*;
-
 pub const ANON_FN_NAME: &str = "anonymous";
 
-#[derive(PartialEq, Debug, Clone)]
-pub struct Ident(pub String, pub Option<Vec<Ident>>);
+use crate::visitor;
 
-#[derive(PartialEq, Debug)]
+use super::span::*;
+
+#[derive(PartialEq, Debug, Clone)]
+pub struct Ident(pub String, pub Option<Vec<Spanned<Ident>>>);
+
+impl Display for Ident {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
+#[derive(PartialEq, Debug, Clone, Default)]
+pub enum Visibility {
+    #[default]
+    Private,
+    Public,
+}
+
+
+
+impl Display for Visibility {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Visibility::Public => write!(f, "pub"),
+            Visibility::Private => write!(f, "priv"),
+        }
+    }
+}
+
+#[derive(PartialEq, Debug, Clone)]
 pub struct StringLit(pub String);
 
-#[derive(PartialEq, Debug)]
-pub struct Binding(pub Ident, pub Box<Expression>);
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
+pub struct Binding(pub Spanned<Ident>, pub Box<Spanned<Node>>);
+
+#[derive(PartialEq, Debug, Clone)]
 pub enum Literal {
     Bool(bool),
     Float(f64),
@@ -21,13 +46,13 @@ pub enum Literal {
     String(String),
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub enum Keyword {
     None,
     Some,
     Let,
-    Action,
-    Saga,
+    Public,
+    Private,
     Fn,
     If,
     Else,
@@ -43,76 +68,153 @@ pub enum Keyword {
     Where,
     Self_,
 }
-#[derive(PartialEq, Debug)]
+
+impl Display for Keyword {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let kw = match self {
+            Keyword::None => "none",
+            Keyword::Some => "some",
+            Keyword::Let => "let",
+            Keyword::Fn => "fn",
+            Keyword::If => "if",
+            Keyword::Else => "else",
+            Keyword::Match => "match",
+            Keyword::Arrow => "=>",
+            Keyword::Struct => "struct",
+            Keyword::SelfValue => "self",
+            Keyword::When => "when",
+            Keyword::Effect => "effect",
+            Keyword::Impl => "impl",
+            Keyword::Use => "use",
+            Keyword::From => "from",
+            Keyword::Where => "where",
+            Keyword::Self_ => "Self",
+            Keyword::Public => "pub",
+            Keyword::Private => "priv",
+        };
+        write!(f, "{}", kw)
+    }
+}
+
+#[derive(PartialEq, Debug, Clone)]
 pub enum Value {
     Literal(Literal),
     Ident(Ident),
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub struct Block<T>(pub Vec<T>);
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub struct Tuple<T>(pub Vec<T>);
-#[derive(PartialEq, Debug)]
+
+#[derive(PartialEq, Debug, Clone)]
 pub struct Array<T>(pub Vec<T>);
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub struct BinaryOperation {
-    pub lhs: Box<Expression>,
+    pub lhs: Box<Spanned<Node>>,
     pub op: Operator,
-    pub rhs: Box<Expression>,
+    pub rhs: Box<Spanned<Node>>,
 }
 
-#[derive(PartialEq, Debug)]
-pub struct FnCall(pub Ident, pub Vec<Box<Expression>>);
+#[derive(PartialEq, Debug, Clone)]
+pub struct FnCall(pub Spanned<Ident>, pub Vec<Spanned<Node>>);
 
-#[derive(PartialEq, Debug)]
-pub enum Expression {
+#[derive(PartialEq, Debug, Clone)]
+pub enum Node {
     BinaryExpression(BinaryOperation),
     Bool(bool),
     Integer(i64),
     Float(f64),
-    Ident(Ident),
+    Ident(Spanned<Ident>),
     Binding(Binding),
     FnCall(FnCall),
     String(String),
     FnDef(FnDef),
-    ShellCommand(Vec<Ident>, Vec<Box<Expression>>),
     EffectDef(EffectDef),
     StructDef(StructDef),
     UseDef(UseDef),
     Keyword(Keyword),
     ImplDef(ImplDef),
-    Branch(Branch),
+    Branch(BranchDef),
+    FieldAccess(FieldAccess),
+    Visibility(Visibility),
     Error,
 }
 
-#[derive(PartialEq, Debug)]
-pub struct Field(pub Ident, pub Ident);
+impl Display for Node {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Node::BinaryExpression(bin) => write!(f, "{} {} {}", bin.lhs, bin.op, bin.rhs),
+            Node::Bool(b) => write!(f, "{}", b),
+            Node::Integer(i) => write!(f, "{}", i),
+            Node::Float(fl) => write!(f, "{}", fl),
+            Node::Ident(ident) => write!(f, "{}", ident.1),
+            Node::Binding(bind) => write!(f, "{} = {}", bind.0, bind.1),
+            Node::FnCall(call) => write!(
+                f,
+                "{}({})",
+                call.0,
+                call.1
+                    .iter()
+                    .map(|e| e.1.to_string())
+                    .collect::<Vec<String>>()
+                    .join(", ")
+            ),
+            Node::String(s) => write!(f, "{}", s),
+            Node::FnDef(def) => write!(f, "{}", def.0),
+            Node::EffectDef(def) => write!(f, "{}", def.0),
+            Node::StructDef(def) => write!(f, "{}", def.0),
+            Node::UseDef(def) => write!(f, "{:#?}", def.0),
+            Node::Keyword(kw) => write!(f, "{}", kw),
+            Node::ImplDef(def) => write!(f, "{}", def.0),
+            Node::Branch(branch) => write!(f, "{}", branch.0),
+            Node::FieldAccess(access) => write!(f, "{}.{}", access.0, access.1),
+            Node::Visibility(vis) => write!(f, "{}", vis),
+            Node::Error => write!(f, "Error"),
+        }
+    }
+}
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub enum FnArg {
     Reciever,
-    Field(Field)
+    Field(Spanned<FieldDef>),
 }
 
-#[derive(PartialEq, Debug)]
+impl Display for FnArg {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            FnArg::Reciever => write!(f, "self"),
+            FnArg::Field(field) => write!(f, "{}", field.1),
+        }
+    }
+}
+
+#[derive(PartialEq, Debug, Clone)]
 pub struct Prototype {
-    pub name: Ident,
-    pub args: Vec<FnArg>,
-    pub ret: Option<Ident>,
-    pub effects: Vec<Ident>,
+    pub name: Spanned<Ident>,
+    pub args: Vec<Spanned<FnArg>>,
+    pub ret: Option<Spanned<Ident>>,
+    pub effects: Vec<Spanned<Ident>>,
 }
 
-#[derive(PartialEq, Debug)]
-pub struct FnDef(
-    pub Prototype,
-    pub Block<Box<Expression>>,
-    pub Vec<(Ident, Block<Box<Expression>>)>,
-);
+impl Display for Prototype {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}(", self.name)?;
+        for arg in self.args.iter() {
+            write!(f, "{}", arg)?;
+        }
+        write!(f, ")")?;
+        if let Some(ret) = &self.ret {
+            write!(f, " -> {}", ret)?;
+        }
+        Ok(())
+    }
+}
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub enum Whitespace {
     Space,
     Tab,
@@ -131,21 +233,10 @@ pub enum Operator {
     Maybe,
     Not,
     Neg,
-}
-
-impl Arbitrary for Operator {
-    type Parameters = ();
-    type Strategy = BoxedStrategy<Self>;
-
-    fn arbitrary_with(_args: ()) -> Self::Strategy {
-        prop_oneof![
-            Just(Operator::Add),
-            Just(Operator::Sub),
-            Just(Operator::Mul),
-            Just(Operator::Div),
-        ]
-        .boxed()
-    }
+    Dot,
+    Arrow,
+    FatArrow,
+    DoubleColon,
 }
 
 impl Display for Operator {
@@ -161,28 +252,125 @@ impl Display for Operator {
             Operator::Maybe => "?",
             Operator::Not => "!",
             Operator::Neg => "-",
+            Operator::Dot => ".",
+            Operator::Arrow => "->",
+            Operator::FatArrow => "=>",
+            Operator::DoubleColon => "::",
         };
         write!(f, "{}", op)
     }
 }
 
-#[derive(PartialEq, Debug)]
-pub struct StructDef(pub Ident, pub Block<Field>);
+#[derive(PartialEq, Debug, Clone)]
+pub struct FieldAccess(pub Box<Spanned<Node>>, pub Box<Spanned<Node>>);
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
+pub struct Module(pub Vec<Spanned<Node>>);
+
+// defs
+
+#[derive(PartialEq, Debug, Clone)]
+pub struct FieldDef(
+    pub Spanned<Visibility>,
+    pub Spanned<Ident>,
+    pub Spanned<Ident>,
+);
+
+impl Display for FieldDef {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}: {}", self.0, self.1)
+    }
+}
+
+#[derive(PartialEq, Debug, Clone)]
+pub struct StructDef(
+    pub KeywordAndVisibility,
+    pub Spanned<Ident>,
+    pub Block<Spanned<FieldDef>>,
+);
+
+#[derive(PartialEq, Debug, Clone)]
 pub struct FnIdent(pub Ident);
 
-#[derive(PartialEq, Debug)]
-pub struct EffectDef(pub Ident, pub Vec<Ident>, pub Block<Prototype>);
+#[derive(PartialEq, Debug, Clone)]
+pub struct EffectDef(
+    pub KeywordAndVisibility,
+    pub Spanned<Ident>,
+    pub Vec<Spanned<Ident>>,
+    pub Block<Spanned<Prototype>>,
+);
 
-#[derive(PartialEq, Debug)]
-pub struct UseDef(pub Vec<Ident>, pub Ident);
+#[derive(PartialEq, Debug, Clone)]
+pub struct UseDef(
+    pub KeywordAndVisibility,
+    pub Vec<Spanned<Ident>>,
+    pub Spanned<Ident>,
+);
 
-#[derive(PartialEq, Debug)]
-pub struct ImplDef(pub Ident, pub Option<Ident>, pub Block<Box<Expression>>);
+impl Display for UseDef {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} {:?} from {}", self.0, self.1, self.2)
+    }
+}
 
-#[derive(PartialEq, Debug)]
-pub struct Branch(pub Box<Expression>, pub Vec<(Expression, Block<Box<Expression>>)>);
+#[derive(PartialEq, Debug, Clone)]
+pub struct KeywordAndVisibility(pub Spanned<Keyword>, pub Spanned<Visibility>);
 
-#[derive(PartialEq, Debug)]
-pub struct Module(pub Vec<Box<Expression>>);
+impl Display for KeywordAndVisibility {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} {}", self.1, self.0)
+    }
+}
+
+#[derive(PartialEq, Debug, Clone)]
+pub struct ImplDef(
+    pub KeywordAndVisibility,
+    pub Spanned<Ident>,
+    pub Option<Spanned<Ident>>,
+    pub Block<Spanned<Node>>,
+);
+
+#[derive(PartialEq, Debug, Clone)]
+pub struct BranchDef(
+    pub Box<Spanned<Node>>,
+    pub Vec<(Spanned<Node>, Block<Spanned<Node>>)>,
+);
+
+#[derive(PartialEq, Debug, Clone)]
+pub struct FnDef(
+    pub KeywordAndVisibility,
+    pub Spanned<Prototype>,
+    pub Block<Spanned<Node>>,
+    pub Vec<(Spanned<Ident>, Block<Spanned<Node>>)>,
+);
+
+impl Display for FnDef {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} {} {{", self.0, self.1)?;
+        for expr in self.2 .0.iter() {
+            write!(f, "{}", expr)?;
+        }
+        write!(f, "}}")
+    }
+}
+
+#[cfg(test)]
+use proptest::prelude::*;
+
+#[cfg(test)]
+impl Arbitrary for Operator {
+    type Parameters = ();
+    type Strategy = BoxedStrategy<Self>;
+
+    fn arbitrary_with(_args: ()) -> Self::Strategy {
+        prop_oneof![
+            Just(Operator::Add),
+            Just(Operator::Sub),
+            Just(Operator::Mul),
+            Just(Operator::Div),
+        ]
+        .boxed()
+    }
+}
+
+impl Eq for Node {}

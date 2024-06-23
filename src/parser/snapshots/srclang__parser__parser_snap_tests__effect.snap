@@ -1,0 +1,497 @@
+---
+source: src/parser/parser_snap_tests.rs
+expression: "format!(\"{:#?}\", t.unwrap())"
+---
+Module(
+    [
+        Spanned(
+            Coord {
+                offset: 0,
+                line: 0,
+                col: 0,
+            },
+            EffectDef(
+                EffectDef(
+                    KeywordAndVisibility(
+                        Spanned(
+                            Coord {
+                                offset: 0,
+                                line: 0,
+                                col: 0,
+                            },
+                            Effect,
+                            Coord {
+                                offset: 6,
+                                line: 0,
+                                col: 6,
+                            },
+                        ),
+                        Spanned(
+                            Coord {
+                                offset: 0,
+                                line: 0,
+                                col: 0,
+                            },
+                            Private,
+                            Coord {
+                                offset: 0,
+                                line: 0,
+                                col: 0,
+                            },
+                        ),
+                    ),
+                    Spanned(
+                        Coord {
+                            offset: 7,
+                            line: 0,
+                            col: 7,
+                        },
+                        Ident(
+                            "VM",
+                            None,
+                        ),
+                        Coord {
+                            offset: 9,
+                            line: 0,
+                            col: 9,
+                        },
+                    ),
+                    [
+                        Spanned(
+                            Coord {
+                                offset: 11,
+                                line: 0,
+                                col: 11,
+                            },
+                            Ident(
+                                "async",
+                                None,
+                            ),
+                            Coord {
+                                offset: 16,
+                                line: 0,
+                                col: 16,
+                            },
+                        ),
+                        Spanned(
+                            Coord {
+                                offset: 19,
+                                line: 0,
+                                col: 19,
+                            },
+                            Ident(
+                                "throws",
+                                None,
+                            ),
+                            Coord {
+                                offset: 25,
+                                line: 0,
+                                col: 25,
+                            },
+                        ),
+                        Spanned(
+                            Coord {
+                                offset: 28,
+                                line: 0,
+                                col: 28,
+                            },
+                            Ident(
+                                "execs",
+                                None,
+                            ),
+                            Coord {
+                                offset: 33,
+                                line: 0,
+                                col: 33,
+                            },
+                        ),
+                    ],
+                    Block(
+                        [
+                            Spanned(
+                                Coord {
+                                    offset: 44,
+                                    line: 1,
+                                    col: 8,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Coord {
+                                            offset: 44,
+                                            line: 1,
+                                            col: 8,
+                                        },
+                                        Ident(
+                                            "catch",
+                                            None,
+                                        ),
+                                        Coord {
+                                            offset: 49,
+                                            line: 1,
+                                            col: 13,
+                                        },
+                                    ),
+                                    args: [],
+                                    ret: None,
+                                    effects: [],
+                                },
+                                Coord {
+                                    offset: 54,
+                                    line: 1,
+                                    col: 18,
+                                },
+                            ),
+                            Spanned(
+                                Coord {
+                                    offset: 63,
+                                    line: 2,
+                                    col: 8,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Coord {
+                                            offset: 63,
+                                            line: 2,
+                                            col: 8,
+                                        },
+                                        Ident(
+                                            "await",
+                                            Some(
+                                                [
+                                                    Spanned(
+                                                        Coord {
+                                                            offset: 69,
+                                                            line: 2,
+                                                            col: 14,
+                                                        },
+                                                        Ident(
+                                                            "T",
+                                                            None,
+                                                        ),
+                                                        Coord {
+                                                            offset: 70,
+                                                            line: 2,
+                                                            col: 15,
+                                                        },
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                        Coord {
+                                            offset: 71,
+                                            line: 2,
+                                            col: 16,
+                                        },
+                                    ),
+                                    args: [
+                                        Spanned(
+                                            Coord {
+                                                offset: 72,
+                                                line: 2,
+                                                col: 17,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Coord {
+                                                        offset: 72,
+                                                        line: 2,
+                                                        col: 17,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 72,
+                                                                line: 2,
+                                                                col: 17,
+                                                            },
+                                                            Private,
+                                                            Coord {
+                                                                offset: 72,
+                                                                line: 2,
+                                                                col: 17,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 72,
+                                                                line: 2,
+                                                                col: 17,
+                                                            },
+                                                            Ident(
+                                                                "f",
+                                                                None,
+                                                            ),
+                                                            Coord {
+                                                                offset: 73,
+                                                                line: 2,
+                                                                col: 18,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 75,
+                                                                line: 2,
+                                                                col: 20,
+                                                            },
+                                                            Ident(
+                                                                "Future",
+                                                                Some(
+                                                                    [
+                                                                        Spanned(
+                                                                            Coord {
+                                                                                offset: 82,
+                                                                                line: 2,
+                                                                                col: 27,
+                                                                            },
+                                                                            Ident(
+                                                                                "T",
+                                                                                None,
+                                                                            ),
+                                                                            Coord {
+                                                                                offset: 83,
+                                                                                line: 2,
+                                                                                col: 28,
+                                                                            },
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ),
+                                                            Coord {
+                                                                offset: 84,
+                                                                line: 2,
+                                                                col: 29,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Coord {
+                                                        offset: 84,
+                                                        line: 2,
+                                                        col: 29,
+                                                    },
+                                                ),
+                                            ),
+                                            Coord {
+                                                offset: 84,
+                                                line: 2,
+                                                col: 29,
+                                            },
+                                        ),
+                                    ],
+                                    ret: Some(
+                                        Spanned(
+                                            Coord {
+                                                offset: 92,
+                                                line: 2,
+                                                col: 37,
+                                            },
+                                            Ident(
+                                                "T",
+                                                None,
+                                            ),
+                                            Coord {
+                                                offset: 93,
+                                                line: 2,
+                                                col: 38,
+                                            },
+                                        ),
+                                    ),
+                                    effects: [],
+                                },
+                                Coord {
+                                    offset: 93,
+                                    line: 2,
+                                    col: 38,
+                                },
+                            ),
+                            Spanned(
+                                Coord {
+                                    offset: 102,
+                                    line: 3,
+                                    col: 8,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Coord {
+                                            offset: 102,
+                                            line: 3,
+                                            col: 8,
+                                        },
+                                        Ident(
+                                            "exec",
+                                            None,
+                                        ),
+                                        Coord {
+                                            offset: 106,
+                                            line: 3,
+                                            col: 12,
+                                        },
+                                    ),
+                                    args: [
+                                        Spanned(
+                                            Coord {
+                                                offset: 107,
+                                                line: 3,
+                                                col: 13,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Coord {
+                                                        offset: 107,
+                                                        line: 3,
+                                                        col: 13,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 107,
+                                                                line: 3,
+                                                                col: 13,
+                                                            },
+                                                            Private,
+                                                            Coord {
+                                                                offset: 107,
+                                                                line: 3,
+                                                                col: 13,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 107,
+                                                                line: 3,
+                                                                col: 13,
+                                                            },
+                                                            Ident(
+                                                                "arg0",
+                                                                None,
+                                                            ),
+                                                            Coord {
+                                                                offset: 111,
+                                                                line: 3,
+                                                                col: 17,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 113,
+                                                                line: 3,
+                                                                col: 19,
+                                                            },
+                                                            Ident(
+                                                                "string",
+                                                                None,
+                                                            ),
+                                                            Coord {
+                                                                offset: 119,
+                                                                line: 3,
+                                                                col: 25,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Coord {
+                                                        offset: 119,
+                                                        line: 3,
+                                                        col: 25,
+                                                    },
+                                                ),
+                                            ),
+                                            Coord {
+                                                offset: 119,
+                                                line: 3,
+                                                col: 25,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Coord {
+                                                offset: 121,
+                                                line: 3,
+                                                col: 27,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Coord {
+                                                        offset: 121,
+                                                        line: 3,
+                                                        col: 27,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 121,
+                                                                line: 3,
+                                                                col: 27,
+                                                            },
+                                                            Private,
+                                                            Coord {
+                                                                offset: 121,
+                                                                line: 3,
+                                                                col: 27,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 121,
+                                                                line: 3,
+                                                                col: 27,
+                                                            },
+                                                            Ident(
+                                                                "args",
+                                                                None,
+                                                            ),
+                                                            Coord {
+                                                                offset: 125,
+                                                                line: 3,
+                                                                col: 31,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Coord {
+                                                                offset: 127,
+                                                                line: 3,
+                                                                col: 33,
+                                                            },
+                                                            Ident(
+                                                                "stringvec",
+                                                                None,
+                                                            ),
+                                                            Coord {
+                                                                offset: 136,
+                                                                line: 3,
+                                                                col: 42,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Coord {
+                                                        offset: 136,
+                                                        line: 3,
+                                                        col: 42,
+                                                    },
+                                                ),
+                                            ),
+                                            Coord {
+                                                offset: 136,
+                                                line: 3,
+                                                col: 42,
+                                            },
+                                        ),
+                                    ],
+                                    ret: None,
+                                    effects: [],
+                                },
+                                Coord {
+                                    offset: 140,
+                                    line: 3,
+                                    col: 46,
+                                },
+                            ),
+                        ],
+                    ),
+                ),
+            ),
+            Coord {
+                offset: 146,
+                line: 4,
+                col: 5,
+            },
+        ),
+    ],
+)

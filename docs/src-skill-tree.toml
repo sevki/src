@@ -1,0 +1,95 @@
+[graphviz]
+rankdir = "TD"
+
+[doc]
+columns = ["status", "assigned"]
+
+[doc.defaults]
+status = "tbd"
+assigned = "no"
+
+[doc.emoji.status]
+"tbd" = "░️░️░️░️░️"
+"exploration" = "█░️░️░️░️"
+"design" = "██░️░️░️"
+"implementation" = "███░️░️"
+"stabilization" = "████░️"
+"done" = "█████"
+
+[doc.emoji.assigned]
+"no" = "🫥"
+"yes" = "👍"
+"blocked" = "🤐"
+
+
+[[group]]
+name = "srclang"
+label = "src language"
+description = ["src programming language"]
+items = [
+    { label = "lexer", status = "stabilization" },
+    { label = "parser", status = "stabilization" },
+    { label = "lsp-server", status = "implementation" },
+    { label = "type checker", status = "exploration" },
+    { label = "codegen", status = "exploration" },
+]
+requires = ["lexer", "parser", "type checker", "codegen", "lsp-server", "vm"]
+
+[[group]]
+name = "lexer"
+label = "lexer"
+description = ["lexer for src programming language"]
+requires = []
+items = [
+    { label = "lexer", status = "stabilization", assigned = "yes" },
+    { label = "forbid unsafe", status = "exploration", assigned = "yes" },
+    { label = "better diagnostics", status = "implementation", assigned = "yes" },
+]
+
+[[group]]
+name = "parser"
+label = "parser"
+description = ["parser for src programming language"]
+requires = ["lexer"]
+items = [
+    { label = "implement parser", status = "stabilization", assigned = "yes" },
+]
+
+[[group]]
+name = "type checker"
+label = "type checker"
+description = ["type checker for src programming language"]
+requires = ["lexer", "parser"]
+items = [
+    { label = "type inference", status = "exploration" },
+    { label = "type checking", status = "exploration" },
+    { label = "type error reporting", status = "exploration" },
+    { label = "type checker", status = "exploration" },
+]
+
+
+[[group]]
+name = "codegen"
+label = "Code Generator"
+description = ["Code Generator for src programming language"]
+requires = ["lexer", "parser", "type checker"]
+items = [{ label = "codegen", status = "exploration" }]
+
+[[group]]
+name = "lsp-server"
+label = "LSP Server"
+description = ["Language Server Protocol Server for src programming language"]
+requires = ["lexer", "parser", "type checker"]
+items = [
+    { label = "apply edits to ropey on documentDidChange", status = "done" },
+]
+
+[[group]]
+name = "vm"
+label = "VM"
+description = ["VM for src programming language"]
+requires = ["lexer", "parser", "type checker", "codegen"]
+items = [
+    { label = "vm", status = "exploration" },
+    { label = "vm tests", status = "exploration" },
+]

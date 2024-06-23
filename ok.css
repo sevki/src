@@ -2940,16 +2940,15 @@ pre {
   padding: 16px;
   overflow-x: auto;
 }
+label {
+  font-family: "Press Start 2P", cursive !important;
+  font-size: x-small !important;
+}
 nav,
 pre
 code {
   font-family: "Press Start 2P", cursive !important;
   font-size: x-small !important;
-}
-
-main {
-  margin: 0px auto;
-  max-width: 800px;
 }
 
 .nes-btn{

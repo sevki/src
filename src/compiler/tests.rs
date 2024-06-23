@@ -1,17 +1,10 @@
-#[cfg(test)]
-
-
 use okstd::prelude::*;
 
+use super::*;
+
+#[okstd::log(off)]
 #[okstd::test]
-#[okstd::log(debug)]
 fn debug() {
-    use salsa::{database::AsSalsaDatabase, storage::HasJarsDyn};
-
-    debug!("hello");
-
-    use super::{db, text::SourceProgram};
-
     let src = r#"use { native_fs, native_exec } from host
 use { fs } from std
 
@@ -21,9 +14,9 @@ struct Innitguv {
     current_pid: i32
 }
 "#;
-    let db = &crate::compiler::db::Database::default().enable_logging();
+    let db = &crate::analyzer::db::Database::default().enable_logging();
 
-    let prog = SourceProgram::new(db, src.to_string());
+    let prog = SourceProgram::new(db, src.to_string(), "test".to_string());
     let res = super::compile(db, prog);
     println!("{:?}", prog);
     println!("{:?}", res.symbols(db));
