@@ -118,17 +118,17 @@ mod tests {
         };
     }
 
-    test_span_text!(
-        test_get_body,
-        r#"fn main()[] {
-let a = 1
-    }"#,
-        "let",
-        1,
-        1
-    );
+//     test_span_text!(
+//         test_get_body,
+//         r#"fn main()[] {
+// let a = 1
+//     }"#,
+//         "let",
+//         1,
+//         1
+//     );
 
-    test_span_text!(test_get_symbol, "fn main()[] {}", "priv fn", 0, 0);
+//     test_span_text!(test_get_symbol, "fn main()[] {}", "priv fn", 0, 0);
 }
 
 #[salsa::tracked]

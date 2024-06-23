@@ -1,5 +1,19 @@
 {
-  "image": "gcr.io/crosvm-infra/crosvm_dev:latest",
+  "name": "ok.dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "bookworm-20240612",    }
+  },
+  "runArgs": [
+      "--device=/dev/kvm",
+      "--group-add=kvm",
+      "--pids-limit=4096"
+  ],
+  // "remoteUser": "root",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "updateRemoteUserUID": true,   
   "customizations": {
     "vscode": {
       "extensions": [
@@ -8,13 +22,10 @@
         "esbenp.prettier-vscode",
         "ms-python.vscode-pylance",
         "foxundermoon.shell-format",
-        "timonwong.shellcheck"
+        "timonwong.shellcheck",
+        "GitHub.copilot",
+        "SeaQL.firedbg-rust"
       ]
     }
-  },
-  "runArgs": [
-    // Allow a higher PID limit since we launch a lot of test processes.
-    "--pids-limit=4096"
-  ],
-  "updateContentCommand": "git config --global --add safe.directory '*' && git submodule update --init"
+  }
 }

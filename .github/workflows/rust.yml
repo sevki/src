@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    container: ghcr.io/sevki/devcontainer:main
+    container: ghcr.io/oknotokcomputer/devcontainer/base:latest
     strategy:
       matrix:
         targets: [
@@ -28,14 +28,6 @@ jobs:
         ]
 
     steps:
-    - name: Tailscale
-      env: 
-        TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-        TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
-      run: |
-        export TAILSCALE_AUTHKEY=${{ secrets.TS_OAUTH_SECRET }}?preauthorized=true&ephemeral=true
-        tailscaled --tun=userspace-networking &
-        tailscale up --accept-dns --accept-routes --exit-node=100.97.123.100 --authkey=$TAILSCALE_AUTHKEY
     - uses: actions/checkout@v4
     - name: rustup update
       run: |
@@ -49,3 +41,23 @@ jobs:
       run: cargo build -Zbuild-std --verbose --target ${{ matrix.targets }} -p ${{ matrix.packages }}
     - name: Test ${{ matrix.packages }} for ${{ matrix.targets }}
       run: cargo test --verbose --target ${{ matrix.targets }} -p ${{ matrix.packages }}
+    - name: Install mdBook
+      run: |
+        curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
+        rustup update
+        cargo install --version ${MDBOOK_VERSION} mdbook
+
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v5
+    - name: install deps
+      run: |
+        cargo install mdbook-svgbob@0.2.0
+        cargo install mdbook-alerts
+    - name: Build with mdBook
+      run: mdbook build
+    - name: Build the ide
+      run: |
+        cd packages/app
+        npm install
+        npm run build

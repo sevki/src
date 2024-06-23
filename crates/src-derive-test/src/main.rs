@@ -1,9 +1,9 @@
 fn main() {
     println!("Hello, world!");
 }
+use okstd::prelude::*;
 use src_derive::visitor;
 use srclang::{lexer::Location, Db};
-use okstd::prelude::*;
 use std::{fmt::Display, ops::Range};
 
 pub const ANON_FN_NAME: &str = "anonymous";
@@ -33,10 +33,8 @@ impl Display for Visibility {
     }
 }
 
-#[visitor]
 #[derive(PartialEq, Debug, Clone)]
 pub struct StringLit(pub String);
-
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct Binding(pub Spanned<Ident>, pub Box<Spanned<Node>>);
@@ -355,4 +353,9 @@ impl Display for FnDef {
         }
         write!(f, "}}")
     }
+}
+
+trait Visitor {
+    fn visit_module(&mut self, module: &Module, span: Range<Location>);
+    fn visit_block(&mut self, block: &Block<Spanned<Node>>, span: Range<Location>); 
 }

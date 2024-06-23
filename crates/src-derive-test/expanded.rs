@@ -97,7 +97,6 @@ impl Display for Visibility {
         }
     }
 }
-pub trait StringLitVisitor {}
 pub struct StringLit(pub String);
 #[automatically_derived]
 impl ::core::marker::StructuralPartialEq for StringLit {}
@@ -122,6 +121,7 @@ impl ::core::clone::Clone for StringLit {
         StringLit(::core::clone::Clone::clone(&self.0))
     }
 }
+pub trait BindingVisitor {}
 pub struct Binding(pub Spanned<Ident>, pub Box<Spanned<Node>>);
 #[automatically_derived]
 impl ::core::marker::StructuralPartialEq for Binding {}
