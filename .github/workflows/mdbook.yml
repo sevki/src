@@ -28,11 +28,11 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/oknotokcomputer/devcontainer/base:latest
+    container: ghcr.io/sevki/devcontainer:main
     env:
       MDBOOK_VERSION: 0.4.40
     steps:
-      - uses: actions/checkout@v4 
+      - uses: actions/checkout@v4
       - name: Install mdBook
         run: |
           curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
@@ -45,7 +45,7 @@ jobs:
           rustup component add clippy
           rustup component add rust-src 
           rustup target add ${{ matrix.targets }}
-          rustup update          
+          rustup update
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
