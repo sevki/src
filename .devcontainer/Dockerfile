@@ -75,6 +75,9 @@ ENV CARGO_HOME=/root/.cargo
 # install wasm32-unknown-unknown
 RUN rustup target add wasm32-unknown-unknown
 
+# update rust
+RUN rustup update
+
 RUN curl https://raw.githubusercontent.com/SeaQL/FireDBG.for.Rust/main/install.sh -sSf | sh
 
 WORKDIR /workspaces
