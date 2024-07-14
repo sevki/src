@@ -1,0 +1,2506 @@
+---
+source: src/parser/parser_snap_tests.rs
+expression: "format!(\"{:#?}\", t.unwrap())"
+---
+Module(
+    [
+        Spanned(
+            Location {
+                offset: 0,
+                line: 0,
+                col: 0,
+            },
+            UseDef(
+                UseDef(
+                    Spanned(
+                        Location {
+                            offset: 0,
+                            line: 0,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Use,
+                                Location {
+                                    offset: 3,
+                                    line: 0,
+                                    col: 3,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                            ),
+                        ),
+                        Location {
+                            offset: 3,
+                            line: 0,
+                            col: 3,
+                        },
+                    ),
+                    [
+                        Spanned(
+                            Location {
+                                offset: 6,
+                                line: 0,
+                                col: 6,
+                            },
+                            Ident(
+                                "exec",
+                                None,
+                            ),
+                            Location {
+                                offset: 10,
+                                line: 0,
+                                col: 10,
+                            },
+                        ),
+                    ],
+                    Spanned(
+                        Location {
+                            offset: 18,
+                            line: 0,
+                            col: 18,
+                        },
+                        Ident(
+                            "host",
+                            None,
+                        ),
+                        Location {
+                            offset: 22,
+                            line: 0,
+                            col: 22,
+                        },
+                    ),
+                ),
+            ),
+            Location {
+                offset: 22,
+                line: 0,
+                col: 22,
+            },
+        ),
+        Spanned(
+            Location {
+                offset: 24,
+                line: 2,
+                col: 0,
+            },
+            EffectDef(
+                EffectDef(
+                    Spanned(
+                        Location {
+                            offset: 24,
+                            line: 2,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 24,
+                                    line: 2,
+                                    col: 0,
+                                },
+                                Effect,
+                                Location {
+                                    offset: 30,
+                                    line: 2,
+                                    col: 6,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 24,
+                                    line: 2,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 24,
+                                    line: 2,
+                                    col: 0,
+                                },
+                            ),
+                        ),
+                        Location {
+                            offset: 30,
+                            line: 2,
+                            col: 6,
+                        },
+                    ),
+                    Spanned(
+                        Location {
+                            offset: 31,
+                            line: 2,
+                            col: 7,
+                        },
+                        Ident(
+                            "Make",
+                            None,
+                        ),
+                        Location {
+                            offset: 35,
+                            line: 2,
+                            col: 11,
+                        },
+                    ),
+                    [
+                        Spanned(
+                            Location {
+                                offset: 37,
+                                line: 2,
+                                col: 13,
+                            },
+                            Ident(
+                                "async",
+                                None,
+                            ),
+                            Location {
+                                offset: 42,
+                                line: 2,
+                                col: 18,
+                            },
+                        ),
+                        Spanned(
+                            Location {
+                                offset: 45,
+                                line: 2,
+                                col: 21,
+                            },
+                            Ident(
+                                "throws",
+                                None,
+                            ),
+                            Location {
+                                offset: 51,
+                                line: 2,
+                                col: 27,
+                            },
+                        ),
+                        Spanned(
+                            Location {
+                                offset: 54,
+                                line: 2,
+                                col: 30,
+                            },
+                            Ident(
+                                "execs",
+                                None,
+                            ),
+                            Location {
+                                offset: 59,
+                                line: 2,
+                                col: 35,
+                            },
+                        ),
+                        Spanned(
+                            Location {
+                                offset: 62,
+                                line: 2,
+                                col: 38,
+                            },
+                            Ident(
+                                "reads",
+                                None,
+                            ),
+                            Location {
+                                offset: 67,
+                                line: 2,
+                                col: 43,
+                            },
+                        ),
+                        Spanned(
+                            Location {
+                                offset: 70,
+                                line: 2,
+                                col: 46,
+                            },
+                            Ident(
+                                "writes",
+                                None,
+                            ),
+                            Location {
+                                offset: 76,
+                                line: 2,
+                                col: 52,
+                            },
+                        ),
+                    ],
+                    Block(
+                        [
+                            Spanned(
+                                Location {
+                                    offset: 83,
+                                    line: 3,
+                                    col: 4,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Location {
+                                            offset: 83,
+                                            line: 3,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "catch",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 88,
+                                            line: 3,
+                                            col: 9,
+                                        },
+                                    ),
+                                    args: [],
+                                    ret: None,
+                                    effects: [
+                                        Spanned(
+                                            Location {
+                                                offset: 92,
+                                                line: 3,
+                                                col: 13,
+                                            },
+                                            Ident(
+                                                "throws",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 98,
+                                                line: 3,
+                                                col: 19,
+                                            },
+                                        ),
+                                    ],
+                                },
+                                Location {
+                                    offset: 99,
+                                    line: 3,
+                                    col: 20,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 104,
+                                    line: 4,
+                                    col: 4,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Location {
+                                            offset: 104,
+                                            line: 4,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "await",
+                                            Some(
+                                                [
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 110,
+                                                            line: 4,
+                                                            col: 10,
+                                                        },
+                                                        Ident(
+                                                            "T",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 111,
+                                                            line: 4,
+                                                            col: 11,
+                                                        },
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                        Location {
+                                            offset: 112,
+                                            line: 4,
+                                            col: 12,
+                                        },
+                                    ),
+                                    args: [
+                                        Spanned(
+                                            Location {
+                                                offset: 113,
+                                                line: 4,
+                                                col: 13,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 113,
+                                                        line: 4,
+                                                        col: 13,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 113,
+                                                                line: 4,
+                                                                col: 13,
+                                                            },
+                                                            Private,
+                                                            Location {
+                                                                offset: 113,
+                                                                line: 4,
+                                                                col: 13,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 113,
+                                                                line: 4,
+                                                                col: 13,
+                                                            },
+                                                            Ident(
+                                                                "f",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 114,
+                                                                line: 4,
+                                                                col: 14,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 116,
+                                                                line: 4,
+                                                                col: 16,
+                                                            },
+                                                            Ident(
+                                                                "Future",
+                                                                Some(
+                                                                    [
+                                                                        Spanned(
+                                                                            Location {
+                                                                                offset: 123,
+                                                                                line: 4,
+                                                                                col: 23,
+                                                                            },
+                                                                            Ident(
+                                                                                "T",
+                                                                                None,
+                                                                            ),
+                                                                            Location {
+                                                                                offset: 124,
+                                                                                line: 4,
+                                                                                col: 24,
+                                                                            },
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ),
+                                                            Location {
+                                                                offset: 125,
+                                                                line: 4,
+                                                                col: 25,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 125,
+                                                        line: 4,
+                                                        col: 25,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 125,
+                                                line: 4,
+                                                col: 25,
+                                            },
+                                        ),
+                                    ],
+                                    ret: Some(
+                                        Spanned(
+                                            Location {
+                                                offset: 146,
+                                                line: 4,
+                                                col: 46,
+                                            },
+                                            Ident(
+                                                "T",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 147,
+                                                line: 4,
+                                                col: 47,
+                                            },
+                                        ),
+                                    ),
+                                    effects: [
+                                        Spanned(
+                                            Location {
+                                                offset: 128,
+                                                line: 4,
+                                                col: 28,
+                                            },
+                                            Ident(
+                                                "async",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 133,
+                                                line: 4,
+                                                col: 33,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Location {
+                                                offset: 135,
+                                                line: 4,
+                                                col: 35,
+                                            },
+                                            Ident(
+                                                "throws",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 141,
+                                                line: 4,
+                                                col: 41,
+                                            },
+                                        ),
+                                    ],
+                                },
+                                Location {
+                                    offset: 147,
+                                    line: 4,
+                                    col: 47,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 152,
+                                    line: 5,
+                                    col: 4,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Location {
+                                            offset: 152,
+                                            line: 5,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "exec",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 156,
+                                            line: 5,
+                                            col: 8,
+                                        },
+                                    ),
+                                    args: [
+                                        Spanned(
+                                            Location {
+                                                offset: 157,
+                                                line: 5,
+                                                col: 9,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 157,
+                                                        line: 5,
+                                                        col: 9,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 157,
+                                                                line: 5,
+                                                                col: 9,
+                                                            },
+                                                            Private,
+                                                            Location {
+                                                                offset: 157,
+                                                                line: 5,
+                                                                col: 9,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 157,
+                                                                line: 5,
+                                                                col: 9,
+                                                            },
+                                                            Ident(
+                                                                "arg0",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 161,
+                                                                line: 5,
+                                                                col: 13,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 163,
+                                                                line: 5,
+                                                                col: 15,
+                                                            },
+                                                            Ident(
+                                                                "string",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 169,
+                                                                line: 5,
+                                                                col: 21,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 169,
+                                                        line: 5,
+                                                        col: 21,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 169,
+                                                line: 5,
+                                                col: 21,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Location {
+                                                offset: 171,
+                                                line: 5,
+                                                col: 23,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 171,
+                                                        line: 5,
+                                                        col: 23,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 171,
+                                                                line: 5,
+                                                                col: 23,
+                                                            },
+                                                            Private,
+                                                            Location {
+                                                                offset: 171,
+                                                                line: 5,
+                                                                col: 23,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 171,
+                                                                line: 5,
+                                                                col: 23,
+                                                            },
+                                                            Ident(
+                                                                "args",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 175,
+                                                                line: 5,
+                                                                col: 27,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 177,
+                                                                line: 5,
+                                                                col: 29,
+                                                            },
+                                                            Ident(
+                                                                "stringvec",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 186,
+                                                                line: 5,
+                                                                col: 38,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 186,
+                                                        line: 5,
+                                                        col: 38,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 186,
+                                                line: 5,
+                                                col: 38,
+                                            },
+                                        ),
+                                    ],
+                                    ret: Some(
+                                        Spanned(
+                                            Location {
+                                                offset: 198,
+                                                line: 5,
+                                                col: 50,
+                                            },
+                                            Ident(
+                                                "i32",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 201,
+                                                line: 5,
+                                                col: 53,
+                                            },
+                                        ),
+                                    ),
+                                    effects: [
+                                        Spanned(
+                                            Location {
+                                                offset: 189,
+                                                line: 5,
+                                                col: 41,
+                                            },
+                                            Ident(
+                                                "Make",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 193,
+                                                line: 5,
+                                                col: 45,
+                                            },
+                                        ),
+                                    ],
+                                },
+                                Location {
+                                    offset: 201,
+                                    line: 5,
+                                    col: 53,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 206,
+                                    line: 6,
+                                    col: 4,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Location {
+                                            offset: 206,
+                                            line: 6,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "read",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 210,
+                                            line: 6,
+                                            col: 8,
+                                        },
+                                    ),
+                                    args: [
+                                        Spanned(
+                                            Location {
+                                                offset: 211,
+                                                line: 6,
+                                                col: 9,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 211,
+                                                        line: 6,
+                                                        col: 9,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 211,
+                                                                line: 6,
+                                                                col: 9,
+                                                            },
+                                                            Private,
+                                                            Location {
+                                                                offset: 211,
+                                                                line: 6,
+                                                                col: 9,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 211,
+                                                                line: 6,
+                                                                col: 9,
+                                                            },
+                                                            Ident(
+                                                                "name",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 215,
+                                                                line: 6,
+                                                                col: 13,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 217,
+                                                                line: 6,
+                                                                col: 15,
+                                                            },
+                                                            Ident(
+                                                                "string",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 223,
+                                                                line: 6,
+                                                                col: 21,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 223,
+                                                        line: 6,
+                                                        col: 21,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 223,
+                                                line: 6,
+                                                col: 21,
+                                            },
+                                        ),
+                                    ],
+                                    ret: Some(
+                                        Spanned(
+                                            Location {
+                                                offset: 236,
+                                                line: 6,
+                                                col: 34,
+                                            },
+                                            Ident(
+                                                "string",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 242,
+                                                line: 6,
+                                                col: 40,
+                                            },
+                                        ),
+                                    ),
+                                    effects: [
+                                        Spanned(
+                                            Location {
+                                                offset: 226,
+                                                line: 6,
+                                                col: 24,
+                                            },
+                                            Ident(
+                                                "reads",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 231,
+                                                line: 6,
+                                                col: 29,
+                                            },
+                                        ),
+                                    ],
+                                },
+                                Location {
+                                    offset: 242,
+                                    line: 6,
+                                    col: 40,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 247,
+                                    line: 7,
+                                    col: 4,
+                                },
+                                Prototype {
+                                    name: Spanned(
+                                        Location {
+                                            offset: 247,
+                                            line: 7,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "write",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 252,
+                                            line: 7,
+                                            col: 9,
+                                        },
+                                    ),
+                                    args: [
+                                        Spanned(
+                                            Location {
+                                                offset: 253,
+                                                line: 7,
+                                                col: 10,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 253,
+                                                        line: 7,
+                                                        col: 10,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 253,
+                                                                line: 7,
+                                                                col: 10,
+                                                            },
+                                                            Private,
+                                                            Location {
+                                                                offset: 253,
+                                                                line: 7,
+                                                                col: 10,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 253,
+                                                                line: 7,
+                                                                col: 10,
+                                                            },
+                                                            Ident(
+                                                                "name",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 257,
+                                                                line: 7,
+                                                                col: 14,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 259,
+                                                                line: 7,
+                                                                col: 16,
+                                                            },
+                                                            Ident(
+                                                                "string",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 265,
+                                                                line: 7,
+                                                                col: 22,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 265,
+                                                        line: 7,
+                                                        col: 22,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 265,
+                                                line: 7,
+                                                col: 22,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Location {
+                                                offset: 267,
+                                                line: 7,
+                                                col: 24,
+                                            },
+                                            Field(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 267,
+                                                        line: 7,
+                                                        col: 24,
+                                                    },
+                                                    FieldDef(
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 267,
+                                                                line: 7,
+                                                                col: 24,
+                                                            },
+                                                            Private,
+                                                            Location {
+                                                                offset: 267,
+                                                                line: 7,
+                                                                col: 24,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 267,
+                                                                line: 7,
+                                                                col: 24,
+                                                            },
+                                                            Ident(
+                                                                "value",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 272,
+                                                                line: 7,
+                                                                col: 29,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 274,
+                                                                line: 7,
+                                                                col: 31,
+                                                            },
+                                                            Ident(
+                                                                "string",
+                                                                None,
+                                                            ),
+                                                            Location {
+                                                                offset: 280,
+                                                                line: 7,
+                                                                col: 37,
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 280,
+                                                        line: 7,
+                                                        col: 37,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 280,
+                                                line: 7,
+                                                col: 37,
+                                            },
+                                        ),
+                                    ],
+                                    ret: None,
+                                    effects: [
+                                        Spanned(
+                                            Location {
+                                                offset: 283,
+                                                line: 7,
+                                                col: 40,
+                                            },
+                                            Ident(
+                                                "writes",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 289,
+                                                line: 7,
+                                                col: 46,
+                                            },
+                                        ),
+                                    ],
+                                },
+                                Location {
+                                    offset: 290,
+                                    line: 7,
+                                    col: 47,
+                                },
+                            ),
+                        ],
+                    ),
+                ),
+            ),
+            Location {
+                offset: 292,
+                line: 8,
+                col: 1,
+            },
+        ),
+        Spanned(
+            Location {
+                offset: 294,
+                line: 10,
+                col: 0,
+            },
+            StructDef(
+                StructDef(
+                    Spanned(
+                        Location {
+                            offset: 294,
+                            line: 10,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 294,
+                                    line: 10,
+                                    col: 0,
+                                },
+                                Struct,
+                                Location {
+                                    offset: 300,
+                                    line: 10,
+                                    col: 6,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 294,
+                                    line: 10,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 294,
+                                    line: 10,
+                                    col: 0,
+                                },
+                            ),
+                        ),
+                        Location {
+                            offset: 300,
+                            line: 10,
+                            col: 6,
+                        },
+                    ),
+                    Spanned(
+                        Location {
+                            offset: 301,
+                            line: 10,
+                            col: 7,
+                        },
+                        Ident(
+                            "Local",
+                            None,
+                        ),
+                        Location {
+                            offset: 306,
+                            line: 10,
+                            col: 12,
+                        },
+                    ),
+                    Block(
+                        [
+                            Spanned(
+                                Location {
+                                    offset: 313,
+                                    line: 11,
+                                    col: 4,
+                                },
+                                FieldDef(
+                                    Spanned(
+                                        Location {
+                                            offset: 313,
+                                            line: 11,
+                                            col: 4,
+                                        },
+                                        Private,
+                                        Location {
+                                            offset: 313,
+                                            line: 11,
+                                            col: 4,
+                                        },
+                                    ),
+                                    Spanned(
+                                        Location {
+                                            offset: 313,
+                                            line: 11,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "host",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 317,
+                                            line: 11,
+                                            col: 8,
+                                        },
+                                    ),
+                                    Spanned(
+                                        Location {
+                                            offset: 319,
+                                            line: 11,
+                                            col: 10,
+                                        },
+                                        Ident(
+                                            "host",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 323,
+                                            line: 11,
+                                            col: 14,
+                                        },
+                                    ),
+                                ),
+                                Location {
+                                    offset: 323,
+                                    line: 11,
+                                    col: 14,
+                                },
+                            ),
+                        ],
+                    ),
+                ),
+            ),
+            Location {
+                offset: 325,
+                line: 12,
+                col: 1,
+            },
+        ),
+        Spanned(
+            Location {
+                offset: 327,
+                line: 14,
+                col: 0,
+            },
+            ImplDef(
+                ImplDef(
+                    Spanned(
+                        Location {
+                            offset: 327,
+                            line: 14,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 327,
+                                    line: 14,
+                                    col: 0,
+                                },
+                                Impl,
+                                Location {
+                                    offset: 331,
+                                    line: 14,
+                                    col: 4,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 327,
+                                    line: 14,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 327,
+                                    line: 14,
+                                    col: 0,
+                                },
+                            ),
+                        ),
+                        Location {
+                            offset: 331,
+                            line: 14,
+                            col: 4,
+                        },
+                    ),
+                    Spanned(
+                        Location {
+                            offset: 332,
+                            line: 14,
+                            col: 5,
+                        },
+                        Ident(
+                            "Make",
+                            None,
+                        ),
+                        Location {
+                            offset: 336,
+                            line: 14,
+                            col: 9,
+                        },
+                    ),
+                    Some(
+                        Spanned(
+                            Location {
+                                offset: 341,
+                                line: 14,
+                                col: 14,
+                            },
+                            Ident(
+                                "Local",
+                                None,
+                            ),
+                            Location {
+                                offset: 346,
+                                line: 14,
+                                col: 19,
+                            },
+                        ),
+                    ),
+                    Block(
+                        [
+                            Spanned(
+                                Location {
+                                    offset: 353,
+                                    line: 15,
+                                    col: 4,
+                                },
+                                FnDef(
+                                    FnDef(
+                                        Spanned(
+                                            Location {
+                                                offset: 353,
+                                                line: 15,
+                                                col: 4,
+                                            },
+                                            KeywordAndVisibility(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 353,
+                                                        line: 15,
+                                                        col: 4,
+                                                    },
+                                                    Fn,
+                                                    Location {
+                                                        offset: 355,
+                                                        line: 15,
+                                                        col: 6,
+                                                    },
+                                                ),
+                                                Spanned(
+                                                    Location {
+                                                        offset: 353,
+                                                        line: 15,
+                                                        col: 4,
+                                                    },
+                                                    Private,
+                                                    Location {
+                                                        offset: 353,
+                                                        line: 15,
+                                                        col: 4,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 355,
+                                                line: 15,
+                                                col: 6,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Location {
+                                                offset: 356,
+                                                line: 15,
+                                                col: 7,
+                                            },
+                                            Prototype {
+                                                name: Spanned(
+                                                    Location {
+                                                        offset: 356,
+                                                        line: 15,
+                                                        col: 7,
+                                                    },
+                                                    Ident(
+                                                        "catch",
+                                                        None,
+                                                    ),
+                                                    Location {
+                                                        offset: 361,
+                                                        line: 15,
+                                                        col: 12,
+                                                    },
+                                                ),
+                                                args: [
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 362,
+                                                            line: 15,
+                                                            col: 13,
+                                                        },
+                                                        Reciever,
+                                                        Location {
+                                                            offset: 366,
+                                                            line: 15,
+                                                            col: 17,
+                                                        },
+                                                    ),
+                                                ],
+                                                ret: None,
+                                                effects: [
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 369,
+                                                            line: 15,
+                                                            col: 20,
+                                                        },
+                                                        Ident(
+                                                            "throws",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 375,
+                                                            line: 15,
+                                                            col: 26,
+                                                        },
+                                                    ),
+                                                ],
+                                            },
+                                            Location {
+                                                offset: 376,
+                                                line: 15,
+                                                col: 27,
+                                            },
+                                        ),
+                                        Block(
+                                            [],
+                                        ),
+                                    ),
+                                ),
+                                Location {
+                                    offset: 384,
+                                    line: 16,
+                                    col: 5,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 389,
+                                    line: 17,
+                                    col: 4,
+                                },
+                                FnDef(
+                                    FnDef(
+                                        Spanned(
+                                            Location {
+                                                offset: 389,
+                                                line: 17,
+                                                col: 4,
+                                            },
+                                            KeywordAndVisibility(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 389,
+                                                        line: 17,
+                                                        col: 4,
+                                                    },
+                                                    Fn,
+                                                    Location {
+                                                        offset: 391,
+                                                        line: 17,
+                                                        col: 6,
+                                                    },
+                                                ),
+                                                Spanned(
+                                                    Location {
+                                                        offset: 389,
+                                                        line: 17,
+                                                        col: 4,
+                                                    },
+                                                    Private,
+                                                    Location {
+                                                        offset: 389,
+                                                        line: 17,
+                                                        col: 4,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 391,
+                                                line: 17,
+                                                col: 6,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Location {
+                                                offset: 392,
+                                                line: 17,
+                                                col: 7,
+                                            },
+                                            Prototype {
+                                                name: Spanned(
+                                                    Location {
+                                                        offset: 392,
+                                                        line: 17,
+                                                        col: 7,
+                                                    },
+                                                    Ident(
+                                                        "await",
+                                                        Some(
+                                                            [
+                                                                Spanned(
+                                                                    Location {
+                                                                        offset: 398,
+                                                                        line: 17,
+                                                                        col: 13,
+                                                                    },
+                                                                    Ident(
+                                                                        "T",
+                                                                        None,
+                                                                    ),
+                                                                    Location {
+                                                                        offset: 399,
+                                                                        line: 17,
+                                                                        col: 14,
+                                                                    },
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 400,
+                                                        line: 17,
+                                                        col: 15,
+                                                    },
+                                                ),
+                                                args: [
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 401,
+                                                            line: 17,
+                                                            col: 16,
+                                                        },
+                                                        Field(
+                                                            Spanned(
+                                                                Location {
+                                                                    offset: 401,
+                                                                    line: 17,
+                                                                    col: 16,
+                                                                },
+                                                                FieldDef(
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 401,
+                                                                            line: 17,
+                                                                            col: 16,
+                                                                        },
+                                                                        Private,
+                                                                        Location {
+                                                                            offset: 401,
+                                                                            line: 17,
+                                                                            col: 16,
+                                                                        },
+                                                                    ),
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 401,
+                                                                            line: 17,
+                                                                            col: 16,
+                                                                        },
+                                                                        Ident(
+                                                                            "f",
+                                                                            None,
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 402,
+                                                                            line: 17,
+                                                                            col: 17,
+                                                                        },
+                                                                    ),
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 404,
+                                                                            line: 17,
+                                                                            col: 19,
+                                                                        },
+                                                                        Ident(
+                                                                            "Future",
+                                                                            Some(
+                                                                                [
+                                                                                    Spanned(
+                                                                                        Location {
+                                                                                            offset: 411,
+                                                                                            line: 17,
+                                                                                            col: 26,
+                                                                                        },
+                                                                                        Ident(
+                                                                                            "T",
+                                                                                            None,
+                                                                                        ),
+                                                                                        Location {
+                                                                                            offset: 412,
+                                                                                            line: 17,
+                                                                                            col: 27,
+                                                                                        },
+                                                                                    ),
+                                                                                ],
+                                                                            ),
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 413,
+                                                                            line: 17,
+                                                                            col: 28,
+                                                                        },
+                                                                    ),
+                                                                ),
+                                                                Location {
+                                                                    offset: 413,
+                                                                    line: 17,
+                                                                    col: 28,
+                                                                },
+                                                            ),
+                                                        ),
+                                                        Location {
+                                                            offset: 413,
+                                                            line: 17,
+                                                            col: 28,
+                                                        },
+                                                    ),
+                                                ],
+                                                ret: Some(
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 434,
+                                                            line: 17,
+                                                            col: 49,
+                                                        },
+                                                        Ident(
+                                                            "T",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 435,
+                                                            line: 17,
+                                                            col: 50,
+                                                        },
+                                                    ),
+                                                ),
+                                                effects: [
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 416,
+                                                            line: 17,
+                                                            col: 31,
+                                                        },
+                                                        Ident(
+                                                            "async",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 421,
+                                                            line: 17,
+                                                            col: 36,
+                                                        },
+                                                    ),
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 423,
+                                                            line: 17,
+                                                            col: 38,
+                                                        },
+                                                        Ident(
+                                                            "trhows",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 429,
+                                                            line: 17,
+                                                            col: 44,
+                                                        },
+                                                    ),
+                                                ],
+                                            },
+                                            Location {
+                                                offset: 435,
+                                                line: 17,
+                                                col: 50,
+                                            },
+                                        ),
+                                        Block(
+                                            [
+                                                Spanned(
+                                                    Location {
+                                                        offset: 446,
+                                                        line: 18,
+                                                        col: 8,
+                                                    },
+                                                    FnCall(
+                                                        FnCall(
+                                                            Spanned(
+                                                                Location {
+                                                                    offset: 446,
+                                                                    line: 18,
+                                                                    col: 8,
+                                                                },
+                                                                Ident(
+                                                                    "yield",
+                                                                    None,
+                                                                ),
+                                                                Location {
+                                                                    offset: 451,
+                                                                    line: 18,
+                                                                    col: 13,
+                                                                },
+                                                            ),
+                                                            [],
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 453,
+                                                        line: 18,
+                                                        col: 15,
+                                                    },
+                                                ),
+                                            ],
+                                        ),
+                                    ),
+                                ),
+                                Location {
+                                    offset: 459,
+                                    line: 19,
+                                    col: 5,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 464,
+                                    line: 20,
+                                    col: 4,
+                                },
+                                FnDef(
+                                    FnDef(
+                                        Spanned(
+                                            Location {
+                                                offset: 464,
+                                                line: 20,
+                                                col: 4,
+                                            },
+                                            KeywordAndVisibility(
+                                                Spanned(
+                                                    Location {
+                                                        offset: 464,
+                                                        line: 20,
+                                                        col: 4,
+                                                    },
+                                                    Fn,
+                                                    Location {
+                                                        offset: 466,
+                                                        line: 20,
+                                                        col: 6,
+                                                    },
+                                                ),
+                                                Spanned(
+                                                    Location {
+                                                        offset: 464,
+                                                        line: 20,
+                                                        col: 4,
+                                                    },
+                                                    Private,
+                                                    Location {
+                                                        offset: 464,
+                                                        line: 20,
+                                                        col: 4,
+                                                    },
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 466,
+                                                line: 20,
+                                                col: 6,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Location {
+                                                offset: 467,
+                                                line: 20,
+                                                col: 7,
+                                            },
+                                            Prototype {
+                                                name: Spanned(
+                                                    Location {
+                                                        offset: 467,
+                                                        line: 20,
+                                                        col: 7,
+                                                    },
+                                                    Ident(
+                                                        "exec",
+                                                        None,
+                                                    ),
+                                                    Location {
+                                                        offset: 471,
+                                                        line: 20,
+                                                        col: 11,
+                                                    },
+                                                ),
+                                                args: [
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 472,
+                                                            line: 20,
+                                                            col: 12,
+                                                        },
+                                                        Reciever,
+                                                        Location {
+                                                            offset: 476,
+                                                            line: 20,
+                                                            col: 16,
+                                                        },
+                                                    ),
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 478,
+                                                            line: 20,
+                                                            col: 18,
+                                                        },
+                                                        Field(
+                                                            Spanned(
+                                                                Location {
+                                                                    offset: 478,
+                                                                    line: 20,
+                                                                    col: 18,
+                                                                },
+                                                                FieldDef(
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 478,
+                                                                            line: 20,
+                                                                            col: 18,
+                                                                        },
+                                                                        Private,
+                                                                        Location {
+                                                                            offset: 478,
+                                                                            line: 20,
+                                                                            col: 18,
+                                                                        },
+                                                                    ),
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 478,
+                                                                            line: 20,
+                                                                            col: 18,
+                                                                        },
+                                                                        Ident(
+                                                                            "arg0",
+                                                                            None,
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 482,
+                                                                            line: 20,
+                                                                            col: 22,
+                                                                        },
+                                                                    ),
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 484,
+                                                                            line: 20,
+                                                                            col: 24,
+                                                                        },
+                                                                        Ident(
+                                                                            "string",
+                                                                            None,
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 490,
+                                                                            line: 20,
+                                                                            col: 30,
+                                                                        },
+                                                                    ),
+                                                                ),
+                                                                Location {
+                                                                    offset: 490,
+                                                                    line: 20,
+                                                                    col: 30,
+                                                                },
+                                                            ),
+                                                        ),
+                                                        Location {
+                                                            offset: 490,
+                                                            line: 20,
+                                                            col: 30,
+                                                        },
+                                                    ),
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 492,
+                                                            line: 20,
+                                                            col: 32,
+                                                        },
+                                                        Field(
+                                                            Spanned(
+                                                                Location {
+                                                                    offset: 492,
+                                                                    line: 20,
+                                                                    col: 32,
+                                                                },
+                                                                FieldDef(
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 492,
+                                                                            line: 20,
+                                                                            col: 32,
+                                                                        },
+                                                                        Private,
+                                                                        Location {
+                                                                            offset: 492,
+                                                                            line: 20,
+                                                                            col: 32,
+                                                                        },
+                                                                    ),
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 492,
+                                                                            line: 20,
+                                                                            col: 32,
+                                                                        },
+                                                                        Ident(
+                                                                            "args",
+                                                                            None,
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 496,
+                                                                            line: 20,
+                                                                            col: 36,
+                                                                        },
+                                                                    ),
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 498,
+                                                                            line: 20,
+                                                                            col: 38,
+                                                                        },
+                                                                        Ident(
+                                                                            "vec",
+                                                                            Some(
+                                                                                [
+                                                                                    Spanned(
+                                                                                        Location {
+                                                                                            offset: 502,
+                                                                                            line: 20,
+                                                                                            col: 42,
+                                                                                        },
+                                                                                        Ident(
+                                                                                            "string",
+                                                                                            None,
+                                                                                        ),
+                                                                                        Location {
+                                                                                            offset: 508,
+                                                                                            line: 20,
+                                                                                            col: 48,
+                                                                                        },
+                                                                                    ),
+                                                                                ],
+                                                                            ),
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 509,
+                                                                            line: 20,
+                                                                            col: 49,
+                                                                        },
+                                                                    ),
+                                                                ),
+                                                                Location {
+                                                                    offset: 509,
+                                                                    line: 20,
+                                                                    col: 49,
+                                                                },
+                                                            ),
+                                                        ),
+                                                        Location {
+                                                            offset: 509,
+                                                            line: 20,
+                                                            col: 49,
+                                                        },
+                                                    ),
+                                                ],
+                                                ret: Some(
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 519,
+                                                            line: 20,
+                                                            col: 59,
+                                                        },
+                                                        Ident(
+                                                            "i32",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 522,
+                                                            line: 20,
+                                                            col: 62,
+                                                        },
+                                                    ),
+                                                ),
+                                                effects: [
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 512,
+                                                            line: 20,
+                                                            col: 52,
+                                                        },
+                                                        Ident(
+                                                            "Vm",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 514,
+                                                            line: 20,
+                                                            col: 54,
+                                                        },
+                                                    ),
+                                                ],
+                                            },
+                                            Location {
+                                                offset: 522,
+                                                line: 20,
+                                                col: 62,
+                                            },
+                                        ),
+                                        Block(
+                                            [
+                                                Spanned(
+                                                    Location {
+                                                        offset: 533,
+                                                        line: 21,
+                                                        col: 8,
+                                                    },
+                                                    FieldAccess(
+                                                        FieldAccess(
+                                                            Spanned(
+                                                                Location {
+                                                                    offset: 533,
+                                                                    line: 21,
+                                                                    col: 8,
+                                                                },
+                                                                FieldAccess(
+                                                                    FieldAccess(
+                                                                        Spanned(
+                                                                            Location {
+                                                                                offset: 533,
+                                                                                line: 21,
+                                                                                col: 8,
+                                                                            },
+                                                                            FieldAccess(
+                                                                                FieldAccess(
+                                                                                    Spanned(
+                                                                                        Location {
+                                                                                            offset: 533,
+                                                                                            line: 21,
+                                                                                            col: 8,
+                                                                                        },
+                                                                                        Ident(
+                                                                                            Spanned(
+                                                                                                Location {
+                                                                                                    offset: 533,
+                                                                                                    line: 21,
+                                                                                                    col: 8,
+                                                                                                },
+                                                                                                Ident(
+                                                                                                    "self",
+                                                                                                    None,
+                                                                                                ),
+                                                                                                Location {
+                                                                                                    offset: 537,
+                                                                                                    line: 21,
+                                                                                                    col: 12,
+                                                                                                },
+                                                                                            ),
+                                                                                        ),
+                                                                                        Location {
+                                                                                            offset: 537,
+                                                                                            line: 21,
+                                                                                            col: 12,
+                                                                                        },
+                                                                                    ),
+                                                                                    Spanned(
+                                                                                        Location {
+                                                                                            offset: 538,
+                                                                                            line: 21,
+                                                                                            col: 13,
+                                                                                        },
+                                                                                        Ident(
+                                                                                            Spanned(
+                                                                                                Location {
+                                                                                                    offset: 538,
+                                                                                                    line: 21,
+                                                                                                    col: 13,
+                                                                                                },
+                                                                                                Ident(
+                                                                                                    "host",
+                                                                                                    None,
+                                                                                                ),
+                                                                                                Location {
+                                                                                                    offset: 542,
+                                                                                                    line: 21,
+                                                                                                    col: 17,
+                                                                                                },
+                                                                                            ),
+                                                                                        ),
+                                                                                        Location {
+                                                                                            offset: 542,
+                                                                                            line: 21,
+                                                                                            col: 17,
+                                                                                        },
+                                                                                    ),
+                                                                                ),
+                                                                            ),
+                                                                            Location {
+                                                                                offset: 542,
+                                                                                line: 21,
+                                                                                col: 17,
+                                                                            },
+                                                                        ),
+                                                                        Spanned(
+                                                                            Location {
+                                                                                offset: 543,
+                                                                                line: 21,
+                                                                                col: 18,
+                                                                            },
+                                                                            FnCall(
+                                                                                FnCall(
+                                                                                    Spanned(
+                                                                                        Location {
+                                                                                            offset: 543,
+                                                                                            line: 21,
+                                                                                            col: 18,
+                                                                                        },
+                                                                                        Ident(
+                                                                                            "read",
+                                                                                            None,
+                                                                                        ),
+                                                                                        Location {
+                                                                                            offset: 547,
+                                                                                            line: 21,
+                                                                                            col: 22,
+                                                                                        },
+                                                                                    ),
+                                                                                    [
+                                                                                        Spanned(
+                                                                                            Location {
+                                                                                                offset: 548,
+                                                                                                line: 21,
+                                                                                                col: 23,
+                                                                                            },
+                                                                                            String(
+                                                                                                "jobserver",
+                                                                                            ),
+                                                                                            Location {
+                                                                                                offset: 559,
+                                                                                                line: 21,
+                                                                                                col: 34,
+                                                                                            },
+                                                                                        ),
+                                                                                    ],
+                                                                                ),
+                                                                            ),
+                                                                            Location {
+                                                                                offset: 560,
+                                                                                line: 21,
+                                                                                col: 35,
+                                                                            },
+                                                                        ),
+                                                                    ),
+                                                                ),
+                                                                Location {
+                                                                    offset: 560,
+                                                                    line: 21,
+                                                                    col: 35,
+                                                                },
+                                                            ),
+                                                            Spanned(
+                                                                Location {
+                                                                    offset: 561,
+                                                                    line: 21,
+                                                                    col: 36,
+                                                                },
+                                                                Ident(
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 561,
+                                                                            line: 21,
+                                                                            col: 36,
+                                                                        },
+                                                                        Ident(
+                                                                            "await",
+                                                                            None,
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 566,
+                                                                            line: 21,
+                                                                            col: 41,
+                                                                        },
+                                                                    ),
+                                                                ),
+                                                                Location {
+                                                                    offset: 566,
+                                                                    line: 21,
+                                                                    col: 41,
+                                                                },
+                                                            ),
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 566,
+                                                        line: 21,
+                                                        col: 41,
+                                                    },
+                                                ),
+                                                Spanned(
+                                                    Location {
+                                                        offset: 575,
+                                                        line: 22,
+                                                        col: 8,
+                                                    },
+                                                    Branch(
+                                                        BranchDef(
+                                                            Spanned(
+                                                                Location {
+                                                                    offset: 578,
+                                                                    line: 22,
+                                                                    col: 11,
+                                                                },
+                                                                FieldAccess(
+                                                                    FieldAccess(
+                                                                        Spanned(
+                                                                            Location {
+                                                                                offset: 578,
+                                                                                line: 22,
+                                                                                col: 11,
+                                                                            },
+                                                                            FieldAccess(
+                                                                                FieldAccess(
+                                                                                    Spanned(
+                                                                                        Location {
+                                                                                            offset: 578,
+                                                                                            line: 22,
+                                                                                            col: 11,
+                                                                                        },
+                                                                                        FieldAccess(
+                                                                                            FieldAccess(
+                                                                                                Spanned(
+                                                                                                    Location {
+                                                                                                        offset: 578,
+                                                                                                        line: 22,
+                                                                                                        col: 11,
+                                                                                                    },
+                                                                                                    Ident(
+                                                                                                        Spanned(
+                                                                                                            Location {
+                                                                                                                offset: 578,
+                                                                                                                line: 22,
+                                                                                                                col: 11,
+                                                                                                            },
+                                                                                                            Ident(
+                                                                                                                "self",
+                                                                                                                None,
+                                                                                                            ),
+                                                                                                            Location {
+                                                                                                                offset: 582,
+                                                                                                                line: 22,
+                                                                                                                col: 15,
+                                                                                                            },
+                                                                                                        ),
+                                                                                                    ),
+                                                                                                    Location {
+                                                                                                        offset: 582,
+                                                                                                        line: 22,
+                                                                                                        col: 15,
+                                                                                                    },
+                                                                                                ),
+                                                                                                Spanned(
+                                                                                                    Location {
+                                                                                                        offset: 583,
+                                                                                                        line: 22,
+                                                                                                        col: 16,
+                                                                                                    },
+                                                                                                    Ident(
+                                                                                                        Spanned(
+                                                                                                            Location {
+                                                                                                                offset: 583,
+                                                                                                                line: 22,
+                                                                                                                col: 16,
+                                                                                                            },
+                                                                                                            Ident(
+                                                                                                                "host",
+                                                                                                                None,
+                                                                                                            ),
+                                                                                                            Location {
+                                                                                                                offset: 587,
+                                                                                                                line: 22,
+                                                                                                                col: 20,
+                                                                                                            },
+                                                                                                        ),
+                                                                                                    ),
+                                                                                                    Location {
+                                                                                                        offset: 587,
+                                                                                                        line: 22,
+                                                                                                        col: 20,
+                                                                                                    },
+                                                                                                ),
+                                                                                            ),
+                                                                                        ),
+                                                                                        Location {
+                                                                                            offset: 587,
+                                                                                            line: 22,
+                                                                                            col: 20,
+                                                                                        },
+                                                                                    ),
+                                                                                    Spanned(
+                                                                                        Location {
+                                                                                            offset: 588,
+                                                                                            line: 22,
+                                                                                            col: 21,
+                                                                                        },
+                                                                                        FnCall(
+                                                                                            FnCall(
+                                                                                                Spanned(
+                                                                                                    Location {
+                                                                                                        offset: 588,
+                                                                                                        line: 22,
+                                                                                                        col: 21,
+                                                                                                    },
+                                                                                                    Ident(
+                                                                                                        "exec",
+                                                                                                        None,
+                                                                                                    ),
+                                                                                                    Location {
+                                                                                                        offset: 592,
+                                                                                                        line: 22,
+                                                                                                        col: 25,
+                                                                                                    },
+                                                                                                ),
+                                                                                                [
+                                                                                                    Spanned(
+                                                                                                        Location {
+                                                                                                            offset: 593,
+                                                                                                            line: 22,
+                                                                                                            col: 26,
+                                                                                                        },
+                                                                                                        Ident(
+                                                                                                            Spanned(
+                                                                                                                Location {
+                                                                                                                    offset: 593,
+                                                                                                                    line: 22,
+                                                                                                                    col: 26,
+                                                                                                                },
+                                                                                                                Ident(
+                                                                                                                    "arg0",
+                                                                                                                    None,
+                                                                                                                ),
+                                                                                                                Location {
+                                                                                                                    offset: 597,
+                                                                                                                    line: 22,
+                                                                                                                    col: 30,
+                                                                                                                },
+                                                                                                            ),
+                                                                                                        ),
+                                                                                                        Location {
+                                                                                                            offset: 597,
+                                                                                                            line: 22,
+                                                                                                            col: 30,
+                                                                                                        },
+                                                                                                    ),
+                                                                                                    Spanned(
+                                                                                                        Location {
+                                                                                                            offset: 599,
+                                                                                                            line: 22,
+                                                                                                            col: 32,
+                                                                                                        },
+                                                                                                        Ident(
+                                                                                                            Spanned(
+                                                                                                                Location {
+                                                                                                                    offset: 599,
+                                                                                                                    line: 22,
+                                                                                                                    col: 32,
+                                                                                                                },
+                                                                                                                Ident(
+                                                                                                                    "args",
+                                                                                                                    None,
+                                                                                                                ),
+                                                                                                                Location {
+                                                                                                                    offset: 603,
+                                                                                                                    line: 22,
+                                                                                                                    col: 36,
+                                                                                                                },
+                                                                                                            ),
+                                                                                                        ),
+                                                                                                        Location {
+                                                                                                            offset: 603,
+                                                                                                            line: 22,
+                                                                                                            col: 36,
+                                                                                                        },
+                                                                                                    ),
+                                                                                                ],
+                                                                                            ),
+                                                                                        ),
+                                                                                        Location {
+                                                                                            offset: 604,
+                                                                                            line: 22,
+                                                                                            col: 37,
+                                                                                        },
+                                                                                    ),
+                                                                                ),
+                                                                            ),
+                                                                            Location {
+                                                                                offset: 604,
+                                                                                line: 22,
+                                                                                col: 37,
+                                                                            },
+                                                                        ),
+                                                                        Spanned(
+                                                                            Location {
+                                                                                offset: 605,
+                                                                                line: 22,
+                                                                                col: 38,
+                                                                            },
+                                                                            Ident(
+                                                                                Spanned(
+                                                                                    Location {
+                                                                                        offset: 605,
+                                                                                        line: 22,
+                                                                                        col: 38,
+                                                                                    },
+                                                                                    Ident(
+                                                                                        "await",
+                                                                                        None,
+                                                                                    ),
+                                                                                    Location {
+                                                                                        offset: 610,
+                                                                                        line: 22,
+                                                                                        col: 43,
+                                                                                    },
+                                                                                ),
+                                                                            ),
+                                                                            Location {
+                                                                                offset: 610,
+                                                                                line: 22,
+                                                                                col: 43,
+                                                                            },
+                                                                        ),
+                                                                    ),
+                                                                ),
+                                                                Location {
+                                                                    offset: 610,
+                                                                    line: 22,
+                                                                    col: 43,
+                                                                },
+                                                            ),
+                                                            [
+                                                                (
+                                                                    Spanned(
+                                                                        Location {
+                                                                            offset: 575,
+                                                                            line: 22,
+                                                                            col: 8,
+                                                                        },
+                                                                        Bool(
+                                                                            true,
+                                                                        ),
+                                                                        Location {
+                                                                            offset: 578,
+                                                                            line: 22,
+                                                                            col: 11,
+                                                                        },
+                                                                    ),
+                                                                    Block(
+                                                                        [
+                                                                            Spanned(
+                                                                                Location {
+                                                                                    offset: 625,
+                                                                                    line: 23,
+                                                                                    col: 12,
+                                                                                },
+                                                                                FnCall(
+                                                                                    FnCall(
+                                                                                        Spanned(
+                                                                                            Location {
+                                                                                                offset: 625,
+                                                                                                line: 23,
+                                                                                                col: 12,
+                                                                                            },
+                                                                                            Ident(
+                                                                                                "raise",
+                                                                                                None,
+                                                                                            ),
+                                                                                            Location {
+                                                                                                offset: 630,
+                                                                                                line: 23,
+                                                                                                col: 17,
+                                                                                            },
+                                                                                        ),
+                                                                                        [
+                                                                                            Spanned(
+                                                                                                Location {
+                                                                                                    offset: 631,
+                                                                                                    line: 23,
+                                                                                                    col: 18,
+                                                                                                },
+                                                                                                Integer(
+                                                                                                    1,
+                                                                                                ),
+                                                                                                Location {
+                                                                                                    offset: 632,
+                                                                                                    line: 23,
+                                                                                                    col: 19,
+                                                                                                },
+                                                                                            ),
+                                                                                        ],
+                                                                                    ),
+                                                                                ),
+                                                                                Location {
+                                                                                    offset: 633,
+                                                                                    line: 23,
+                                                                                    col: 20,
+                                                                                },
+                                                                            ),
+                                                                        ],
+                                                                    ),
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ),
+                                                    Location {
+                                                        offset: 643,
+                                                        line: 24,
+                                                        col: 9,
+                                                    },
+                                                ),
+                                            ],
+                                        ),
+                                    ),
+                                ),
+                                Location {
+                                    offset: 649,
+                                    line: 25,
+                                    col: 5,
+                                },
+                            ),
+                        ],
+                    ),
+                ),
+            ),
+            Location {
+                offset: 651,
+                line: 26,
+                col: 1,
+            },
+        ),
+    ],
+)

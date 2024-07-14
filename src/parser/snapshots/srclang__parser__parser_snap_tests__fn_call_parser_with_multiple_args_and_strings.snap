@@ -1,0 +1,212 @@
+---
+source: src/parser/parser_snap_tests.rs
+expression: "format!(\"{:#?}\", t.unwrap())"
+---
+Module(
+    [
+        Spanned(
+            Location {
+                offset: 0,
+                line: 0,
+                col: 0,
+            },
+            FnDef(
+                FnDef(
+                    Spanned(
+                        Location {
+                            offset: 0,
+                            line: 0,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Fn,
+                                Location {
+                                    offset: 2,
+                                    line: 0,
+                                    col: 2,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                            ),
+                        ),
+                        Location {
+                            offset: 2,
+                            line: 0,
+                            col: 2,
+                        },
+                    ),
+                    Spanned(
+                        Location {
+                            offset: 3,
+                            line: 0,
+                            col: 3,
+                        },
+                        Prototype {
+                            name: Spanned(
+                                Location {
+                                    offset: 3,
+                                    line: 0,
+                                    col: 3,
+                                },
+                                Ident(
+                                    "some",
+                                    None,
+                                ),
+                                Location {
+                                    offset: 7,
+                                    line: 0,
+                                    col: 7,
+                                },
+                            ),
+                            args: [],
+                            ret: None,
+                            effects: [],
+                        },
+                        Location {
+                            offset: 11,
+                            line: 0,
+                            col: 11,
+                        },
+                    ),
+                    Block(
+                        [
+                            Spanned(
+                                Location {
+                                    offset: 13,
+                                    line: 0,
+                                    col: 13,
+                                },
+                                Binding(
+                                    Binding(
+                                        Spanned(
+                                            Location {
+                                                offset: 17,
+                                                line: 0,
+                                                col: 17,
+                                            },
+                                            Ident(
+                                                "a",
+                                                None,
+                                            ),
+                                            Location {
+                                                offset: 18,
+                                                line: 0,
+                                                col: 18,
+                                            },
+                                        ),
+                                        Spanned(
+                                            Location {
+                                                offset: 21,
+                                                line: 0,
+                                                col: 21,
+                                            },
+                                            FnCall(
+                                                FnCall(
+                                                    Spanned(
+                                                        Location {
+                                                            offset: 21,
+                                                            line: 0,
+                                                            col: 21,
+                                                        },
+                                                        Ident(
+                                                            "some_fnExpr",
+                                                            None,
+                                                        ),
+                                                        Location {
+                                                            offset: 32,
+                                                            line: 0,
+                                                            col: 32,
+                                                        },
+                                                    ),
+                                                    [
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 33,
+                                                                line: 0,
+                                                                col: 33,
+                                                            },
+                                                            Integer(
+                                                                1,
+                                                            ),
+                                                            Location {
+                                                                offset: 34,
+                                                                line: 0,
+                                                                col: 34,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 36,
+                                                                line: 0,
+                                                                col: 36,
+                                                            },
+                                                            String(
+                                                                "2",
+                                                            ),
+                                                            Location {
+                                                                offset: 39,
+                                                                line: 0,
+                                                                col: 39,
+                                                            },
+                                                        ),
+                                                        Spanned(
+                                                            Location {
+                                                                offset: 41,
+                                                                line: 0,
+                                                                col: 41,
+                                                            },
+                                                            Integer(
+                                                                3,
+                                                            ),
+                                                            Location {
+                                                                offset: 42,
+                                                                line: 0,
+                                                                col: 42,
+                                                            },
+                                                        ),
+                                                    ],
+                                                ),
+                                            ),
+                                            Location {
+                                                offset: 43,
+                                                line: 0,
+                                                col: 43,
+                                            },
+                                        ),
+                                    ),
+                                ),
+                                Location {
+                                    offset: 43,
+                                    line: 0,
+                                    col: 43,
+                                },
+                            ),
+                        ],
+                    ),
+                ),
+            ),
+            Location {
+                offset: 44,
+                line: 0,
+                col: 44,
+            },
+        ),
+    ],
+)

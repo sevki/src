@@ -1,0 +1,10 @@
+[package]
+name = "src-collections"
+version = "0.1.0"
+edition = "2021"
+publish = ["oksoftware"]
+
+[dependencies]
+rustc-hash = "1.1.0"
+indexmap = "1.9.1"
+typed-index-collections = "3.0.3"

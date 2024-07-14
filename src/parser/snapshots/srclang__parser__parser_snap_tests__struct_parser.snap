@@ -1,0 +1,202 @@
+---
+source: src/parser/parser_snap_tests.rs
+expression: "format!(\"{:#?}\", t.unwrap())"
+---
+Module(
+    [
+        Spanned(
+            Location {
+                offset: 0,
+                line: 0,
+                col: 0,
+            },
+            StructDef(
+                StructDef(
+                    Spanned(
+                        Location {
+                            offset: 0,
+                            line: 0,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Struct,
+                                Location {
+                                    offset: 6,
+                                    line: 0,
+                                    col: 6,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                            ),
+                        ),
+                        Location {
+                            offset: 6,
+                            line: 0,
+                            col: 6,
+                        },
+                    ),
+                    Spanned(
+                        Location {
+                            offset: 7,
+                            line: 0,
+                            col: 7,
+                        },
+                        Ident(
+                            "VM",
+                            None,
+                        ),
+                        Location {
+                            offset: 9,
+                            line: 0,
+                            col: 9,
+                        },
+                    ),
+                    Block(
+                        [
+                            Spanned(
+                                Location {
+                                    offset: 16,
+                                    line: 1,
+                                    col: 4,
+                                },
+                                FieldDef(
+                                    Spanned(
+                                        Location {
+                                            offset: 16,
+                                            line: 1,
+                                            col: 4,
+                                        },
+                                        Private,
+                                        Location {
+                                            offset: 16,
+                                            line: 1,
+                                            col: 4,
+                                        },
+                                    ),
+                                    Spanned(
+                                        Location {
+                                            offset: 16,
+                                            line: 1,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "a",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 17,
+                                            line: 1,
+                                            col: 5,
+                                        },
+                                    ),
+                                    Spanned(
+                                        Location {
+                                            offset: 19,
+                                            line: 1,
+                                            col: 7,
+                                        },
+                                        Ident(
+                                            "string",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 25,
+                                            line: 1,
+                                            col: 13,
+                                        },
+                                    ),
+                                ),
+                                Location {
+                                    offset: 25,
+                                    line: 1,
+                                    col: 13,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 30,
+                                    line: 2,
+                                    col: 4,
+                                },
+                                FieldDef(
+                                    Spanned(
+                                        Location {
+                                            offset: 30,
+                                            line: 2,
+                                            col: 4,
+                                        },
+                                        Private,
+                                        Location {
+                                            offset: 30,
+                                            line: 2,
+                                            col: 4,
+                                        },
+                                    ),
+                                    Spanned(
+                                        Location {
+                                            offset: 30,
+                                            line: 2,
+                                            col: 4,
+                                        },
+                                        Ident(
+                                            "b",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 31,
+                                            line: 2,
+                                            col: 5,
+                                        },
+                                    ),
+                                    Spanned(
+                                        Location {
+                                            offset: 33,
+                                            line: 2,
+                                            col: 7,
+                                        },
+                                        Ident(
+                                            "string",
+                                            None,
+                                        ),
+                                        Location {
+                                            offset: 39,
+                                            line: 2,
+                                            col: 13,
+                                        },
+                                    ),
+                                ),
+                                Location {
+                                    offset: 39,
+                                    line: 2,
+                                    col: 13,
+                                },
+                            ),
+                        ],
+                    ),
+                ),
+            ),
+            Location {
+                offset: 41,
+                line: 3,
+                col: 1,
+            },
+        ),
+    ],
+)

@@ -1,0 +1,32 @@
+{
+  "name": "ok.dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "bookworm-20240701"   
+    }
+  },
+  "runArgs": [
+      "--device=/dev/kvm",
+      "--group-add=kvm",
+      "--pids-limit=4096"
+  ],
+  // "remoteUser": "root",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "updateRemoteUserUID": true,   
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "esbenp.prettier-vscode",
+        "ms-python.vscode-pylance",
+        "foxundermoon.shell-format",
+        "timonwong.shellcheck",
+        "GitHub.copilot",
+        "SeaQL.firedbg-rust"
+      ]
+    }
+  }
+}

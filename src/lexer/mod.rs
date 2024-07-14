@@ -4,9 +4,7 @@ lexer.rs is a lexer for the src language
 
 use std::{fmt::Display, iter::Iterator, iter::Peekable, str::Chars};
 
-
 use okstd::prelude::*;
-
 
 // Identifier
 #[derive(Debug, PartialEq, Clone, Copy)]
@@ -96,9 +94,11 @@ impl<T, P> Spanned<T, P> {
             pos,
         }
     }
+}
 
+impl Spanned<Token<'_>> {
     pub fn len(&self) -> usize {
-        self.end - self.start
+        self.node.to_string().chars().count()
     }
 }
 
@@ -163,6 +163,8 @@ pub enum Word<'input> {
     From,
     Where,
     Self_,
+    Pub,
+    Priv,
     Ident(&'input str),
     FnIdent(&'input str),
     Any(&'input str),
@@ -200,6 +202,8 @@ impl<'input> Word<'input> {
             Word::From => "from".chars(),
             Word::Where => "where".chars(),
             Word::Self_ => "self".chars(),
+            Word::Pub => "pub".chars(),
+            Word::Priv => "priv".chars(),
         }
     }
 }
@@ -255,6 +259,8 @@ pub enum Token<'input> {
 }
 
 impl<'input> Token<'input> {
+    // deprecated
+    #[deprecated(note = "to_chars is deprecated, use to_string instead")]
     fn to_chars(&'input self) -> Chars<'input> {
         match self {
             Token::Pipe => "|".chars(),
@@ -301,6 +307,49 @@ impl<'input> Token<'input> {
             Token::Shebang => "#!".chars(),
         }
     }
+
+    fn to_string(&'input self) -> String {
+        match self {
+            Token::Pipe => "|".to_string(),
+            Token::Ampersand => "&".to_string(),
+            Token::Semicolon => ";".to_string(),
+            Token::Equals => "=".to_string(),
+            Token::LessThan => "<".to_string(),
+            Token::GreaterThan => ">".to_string(),
+            Token::Variable(variable) => variable.to_string(),
+            Token::Word(word) => word.chars().collect(),
+            Token::String(string) => string.to_string(),
+            Token::Comment(comment) => comment.to_string(),
+            Token::Integer(number) => number.to_string(),
+            Token::Float(number) => number.to_string(),
+            Token::Eof => "".to_string(),
+            Token::NewLine => "\n".to_string(),
+            Token::LeftParen => "(".to_string(),
+            Token::RightParen => ")".to_string(),
+            Token::LeftBrace => "{".to_string(),
+            Token::RightBrace => "}".to_string(),
+            Token::LeftBracket => "[".to_string(),
+            Token::RightBracket => "]".to_string(),
+            Token::Comma => ",".to_string(),
+            Token::Colon => ":".to_string(),
+            Token::Underscore => "_".to_string(),
+            Token::Minus => "-".to_string(),
+            Token::Plus => "+".to_string(),
+            Token::Arrow => "->".to_string(),
+            Token::FatArrow => "=>".to_string(),
+            Token::Divide => "/".to_string(),
+            Token::Multiply => "*".to_string(),
+            Token::Percent => "%".to_string(),
+            Token::Dollar => "$".to_string(),
+            Token::Exclamation => "!".to_string(),
+            Token::Question => "?".to_string(),
+            Token::Tilde => "~".to_string(),
+            Token::At => "@".to_string(),
+            Token::Caret => "^".to_string(),
+            Token::Dot => ".".to_string(),
+            Token::Shebang => "#!".to_string(),
+        }
+    }
 }
 
 impl<'input> Iterator for Token<'input> {
@@ -327,8 +376,8 @@ impl<'input> Lexer<'input> {
         Self {
             input,
             pos,
-            line: 1,
-            col: 1,
+            line: 0, // Change from 1 to 0
+            col: 0,  // Change from 1 to 0
             state: State::Program,
             buffer: String::new(),
             peekable: input.chars().peekable(),
@@ -364,34 +413,21 @@ macro_rules! set_state {
 }
 macro_rules! emit {
     ($self:expr, $state:expr => ?) => {{
-        let r = $self.emit_buffer().unwrap();
+        let r = $self.emit_buffer()?;
         $self.buffer.clear();
         emit!($self, $state => r)
     }};
     ($self:expr, $state:expr => $token:expr) => {{
         let start = $self.pos;
-        match $token {
-            Token::Integer (number ) => {
-                for c in number.to_string().chars() {
-                    debug!("c: {}", c);
-                    $self.advance(c);
-                }
-            }
-            Token::Float ( number ) => {
-                for c in number.to_string().chars() {
-                    $self.advance(c);
-                }
-            }
-            _ => {
-                for c in $token.to_chars() {
-                    $self.advance(c);
-                }
-            }
+
+        for c in $token.to_string().chars() {
+            $self.advance(c);
         }
+
         let end = $self.pos;
         let pos = Position::new(
             $self.line,
-            $self.col - $self.buffer.len() - 1,
+            $self.col - $self.buffer.len(),
             end - start,
         );
         $self.state = $state;
@@ -421,13 +457,13 @@ impl<'input> Lexer<'input> {
 
     fn advance(&mut self, c: char) -> bool {
         if self.pos + 1 > self.input.len() {
-            unreachable!("pos: {}, input.len: {}", self.pos, self.input.len());
+            return false;
         }
         self.pos += 1;
         self.last_char = Some(c);
         if c == '\n' {
             self.line += 1;
-            self.col = 1;
+            self.col = 0; // Change from 1 to 0
         } else {
             self.col += 1;
         }
@@ -447,41 +483,52 @@ impl<'input> Lexer<'input> {
         match self.state {
             // these states cannot emit tokens
             State::Program => Err(LexicalError::InvalidStateEmission(State::Program)),
-            State::Op => Ok(match self.buffer.chars().next().unwrap() {
-                '(' => Token::LeftParen,
-                ')' => Token::RightParen,
-                '{' => Token::LeftBrace,
-                '}' => Token::RightBrace,
-                '>' => Token::GreaterThan,
-                '<' => Token::LessThan,
-                '|' => Token::Pipe,
-                '&' => Token::Ampersand,
-                ';' => Token::Semicolon,
-                ',' => Token::Comma,
-                ':' => Token::Colon,
-                '_' => Token::Underscore,
-                '+' => Token::Plus,
-                '*' => Token::Multiply,
-                '[' => Token::LeftBracket,
-                ']' => Token::RightBracket,
-                '%' => Token::Percent,
-                '@' => Token::At,
-                '/' => Token::Divide,
-                '-' => {
-                    if self.buffer.len() == 1 {
-                        Token::Minus
-                    } else if self.buffer == "->" {
-                        Token::Arrow
-                    } else {
-                        unreachable!("unexpected character: {}", self.buffer)
+            State::Op => Ok(
+                match self
+                    .buffer
+                    .chars()
+                    .next()
+                    .ok_or(LexicalError::UnexpectedEndOfInput)?
+                {
+                    '(' => Token::LeftParen,
+                    ')' => Token::RightParen,
+                    '{' => Token::LeftBrace,
+                    '}' => Token::RightBrace,
+                    '>' => Token::GreaterThan,
+                    '<' => Token::LessThan,
+                    '|' => Token::Pipe,
+                    '&' => Token::Ampersand,
+                    ';' => Token::Semicolon,
+                    ',' => Token::Comma,
+                    ':' => Token::Colon,
+                    '_' => Token::Underscore,
+                    '+' => Token::Plus,
+                    '*' => Token::Multiply,
+                    '[' => Token::LeftBracket,
+                    ']' => Token::RightBracket,
+                    '%' => Token::Percent,
+                    '@' => Token::At,
+                    '/' => Token::Divide,
+                    '.' => Token::Dot,
+                    '-' => {
+                        if self.buffer.len() == 1 {
+                            Token::Minus
+                        } else if self.buffer == "->" {
+                            Token::Arrow
+                        } else {
+                            return Err(LexicalError::UnexpectedCharacter(
+                                self.buffer.chars().next().unwrap(),
+                            ));
+                        }
                     }
-                }
-                '=' => Token::Equals,
-                _ => unreachable!(
-                    "unexpected character: {} in state: {:?}",
-                    self.buffer, self.state
-                ),
-            }),
+                    '=' => Token::Equals,
+                    _ => {
+                        return Err(LexicalError::UnexpectedCharacter(
+                            self.buffer.chars().next().unwrap(),
+                        ))
+                    }
+                },
+            ),
             State::Any => Err(LexicalError::InvalidStateEmission(State::Any)),
             // these states can emit tokens
             State::Comment => {
@@ -550,28 +597,26 @@ impl<'input> Lexer<'input> {
                     "from" => Word::From,
                     "where" => Word::Where,
                     "self" => Word::Self_,
-                    _ => {
-                        Word::Ident(word)
-                        // }
-                    }
+                    "pub" => Word::Pub,
+                    "priv" => Word::Priv,
+                    _ => Word::Ident(word),
                 };
                 Ok(Token::Word(word))
             }
-            State::String(Quotation) => {
+            State::String(quotation) => {
                 let last_char = self.buffer.chars().last();
-                let quote = if Quotation == Quotation::Double {
+                let quote = if quotation == Quotation::Double {
                     Some('"')
                 } else {
                     Some('\'')
                 };
                 if last_char != quote {
-                    panic!("expected: {:?}, got: {:?}", quote, last_char);
                     return Err(LexicalError::UnterminatedString);
                 }
                 let string = self
                     .input
                     .get(start..end)
-                    .expect("shoulld've done something");
+                    .ok_or(LexicalError::UnexpectedEndOfInput)?;
                 Ok(Token::String(string))
             }
             State::Number => {
@@ -637,13 +682,13 @@ impl<'input> Lexer<'input> {
                     return Ok(());
                 }
                 '(' | ')' | '{' | '}' | '>' | '<' | '|' | '&' | ';' | ',' | ':' | '+' | '*'
-                | '[' | ']' | '%' | '@' | '/' | '-' | '=' | '!' => {
+                | '.' | '[' | ']' | '%' | '@' | '/' | '-' | '=' | '!' => {
                     set_state!(self, State::Op;);
                     debug!("to state: {:?}", self.state);
                     return Ok(());
                 }
                 _ => {
-                    return Err(LexicalError::UnexpectedCharacter(c))?;
+                    return Err(LexicalError::UnexpectedCharacter(c));
                 }
             }
             if self.pos >= self.input.len() {
@@ -660,11 +705,11 @@ impl<'input> Lexer<'input> {
         if let Some(c) = self.peek() {
             debug!("consume_op: {}", c);
             if self.state != State::Op {
-                return Err(LexicalError::InvalidStateEmission(self.state))?;
+                return Err(LexicalError::InvalidStateEmission(self.state));
             }
             match c {
                 '(' | ')' | '{' | '}' | '>' | '<' | '|' | '&' | ';' | ',' | ':' | '_' | '+'
-                | '/' | '*' | '[' | ']' | '%' | '@' => {
+                | '.' | '/' | '*' | '[' | ']' | '%' | '@' => {
                     let state = if self.push() { State::Eof } else { State::Any };
                     return emit!(self, state => ?);
                 }
@@ -720,12 +765,11 @@ impl<'input> Lexer<'input> {
                     }
                 }
                 _ => {
-                    panic!("unexpected character: '{}'", c);
-                    return emit!(self, State::Any => ?);
+                    return Err(LexicalError::UnexpectedCharacter(c));
                 }
             }
         }
-        emit!(self, self.state=> Token::Eof)
+        emit!(self, self.state => Token::Eof)
     }
 
     // comment state
@@ -757,7 +801,7 @@ impl<'input> Lexer<'input> {
     fn consume_word(&mut self) -> Result<Spanned<Token<'input>>> {
         while let Some(c) = self.peek() {
             match c {
-                'a'..='z' | 'A'..='Z' | '0'..='9' | '-' | '.' | '/' | '_' => {
+                'a'..='z' | 'A'..='Z' | '0'..='9' | '-' | '/' | '_' => {
                     if self.push() {
                         return emit!(self, State::Eof => ?);
                     }
@@ -787,7 +831,7 @@ impl<'input> Lexer<'input> {
                         break;
                     } else if self.push() {
                         // this is a violation as it is not a number
-                        // so panic
+                        // so return error
                         return Err(LexicalError::InvalidNumberFormat);
                     }
                 }
@@ -867,7 +911,7 @@ impl<'input> Lexer<'input> {
                 }
             }
         }
-        panic!("unexpected state: {:?}", self.state);
+        return Err(LexicalError::UnexpectedEndOfInput);
     }
 
     fn consume_variable(&mut self) -> Result<Spanned<Token<'input>>> {
@@ -915,8 +959,11 @@ impl<'input> Iterator for Lexer<'input> {
             State::Variable => self.consume_variable(),
             State::Word => self.consume_word(),
             State::Number => self.consume_number(),
-            State::Any | State::Program => unreachable!(),
+            State::Any | State::Program => {
+                return None;
+            },
             State::Shebang => todo!(),
+            
         };
         debug!(
             ">>> state: {:?}, res: {:?}, pos: {}, line: {}, col: {}",
@@ -937,7 +984,7 @@ impl<'input> Iterator for Lexer<'input> {
                 return None;
             }
         }
-        panic!("unexpected state: {:?}", self.state);
+        // Removed the panic! as it's now unreachable.
     }
 }
 
@@ -962,10 +1009,33 @@ impl<'input> From<Vec<Spanned<Token<'input>>>> for TokenStreamDisplay<'input> {
     }
 }
 
+#[cfg(test)]
 mod lexer_prop_tests;
+#[cfg(test)]
 mod lexer_snap_tests;
 
 pub struct TripleIterator<'input>(Lexer<'input>);
+
+#[derive(Debug, Clone, Default, Copy, Hash,)]
+pub struct Location {
+    pub offset: usize,
+    pub line: usize,
+    pub col: usize,
+}
+
+impl Eq for Location {}
+
+impl PartialOrd for Location {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.offset.cmp(&other.offset))
+    }
+}
+
+impl PartialEq for Location {
+    fn eq(&self, other: &Self) -> bool {
+        self.offset == other.offset
+    }
+}
 
 impl<'input> TripleIterator<'input> {
     pub fn new(input: &'input str) -> Self {
@@ -973,12 +1043,25 @@ impl<'input> TripleIterator<'input> {
     }
 }
 
+impl From<(usize, usize, usize)> for Location {
+    fn from((offset, line, col): (usize, usize, usize)) -> Self {
+        Self { offset, line, col }
+    }
+}
+
 impl<'input> Iterator for TripleIterator<'input> {
-    type Item = (usize, Token<'input>, usize);
+    type Item = (Location, Token<'input>, Location);
 
     fn next(&mut self) -> Option<Self::Item> {
         let token = self.0.next()?;
         debug!("token: {:?}", token);
-        Some((token.start, token.node, token.end))
+        let start_pos: Location = (
+            token.start,
+            token.pos.line,
+            token.pos.col.wrapping_sub(token.len()),
+        )
+            .into();
+        let end_pos = (token.end, self.0.line, self.0.col).into();
+        Some((start_pos, token.node, end_pos))
     }
 }

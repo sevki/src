@@ -1,0 +1,46 @@
+[package]
+publish = false
+edition = "2021"
+name = "src-lsp-server"
+version = "0.0.0"
+
+[features]
+default = ["tower-lsp/runtime-agnostic"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+anyhow = "1.0.57"
+async-lock = "2.5.0"
+console_error_panic_hook = "0.1.7"
+dashmap = "5.3.4"
+futures = "0.3.21"
+indoc = "1.0"
+js-sys = "0.3.57"
+log = "0.4"
+lsp = { version = "0.93", package = "lsp-types" }
+lsp-text = "0.9"
+ropey = "1.6.1"
+serde_json = "1.0"
+srclang = { version = "0.1.0", path = "../..", registry = "oksoftware" }
+salsa = {  version = "0.1.0", registry = "oksoftware", package = "salsa-2022" }
+salsa-macros = { version = "0.1.0", registry = "oksoftware" , package = "salsa-2022-macros" }
+thiserror = "1.0"
+tower-lsp = { version = "0.17.0", default-features = false }
+wasm-bindgen = "0.2.81"
+wasm-bindgen-futures = { version = "0.4.30", features = ["futures-core-03-stream"] }
+wasm-streams = "0.2.3"
+src-collections = { version = "0.1.0", path = "../src-collections", registry = "oksoftware" }
+lazy_static = "1.4.0"
+
+[dependencies.web-sys]
+version = "0.3.57"
+features = [
+  "console",
+  "CssStyleDeclaration",
+  "Document",
+  "ReadableStream",
+  "Window",
+  "WritableStream",
+]

@@ -1,14 +1,19 @@
-pub mod lexer;
-pub mod parser;
+pub mod analyzer;
+pub mod ast;
 pub mod compiler;
+pub mod lexer;
+pub mod ops;
+pub mod parser;
 
 use compiler::text;
-
 
 use crate::compiler::ir;
 
 #[salsa::jar(db = Db)]
 pub struct Jar(
+    parser::span::ByteOrLineColOrCoordInterned,
+    parser::span::SourceMap,
+    analyzer::SyntaxTree,
     compiler::compile,
     compiler::compile_effect,
     compiler::add_imports,
@@ -19,6 +24,7 @@ pub struct Jar(
     text::Position,
     text::SourceMap,
     text::SourceProgram,
+    text::Document,
     ir::Program,
     ir::Function,
     ir::InternedEffect,
@@ -26,6 +32,10 @@ pub struct Jar(
     ir::EffectDef,
     ir::Import,
     ir::Mangled,
+    analyzer::get_symbol,
+    analyzer::add_file,
+    analyzer::Url,
+    analyzer::span_text,
 );
 
 pub trait Db: salsa::DbWithJar<Jar> {}

@@ -4,5 +4,12 @@ default = "oksoftware"
 [registries.oksoftware]
 index = "https://ok.software/ok/_cargo-index.git" # Git
 
+
+[registries.crates-io]
+index = "https://github.com/rust-lang/crates.io-index"
+
 [net]
 git-fetch-with-cli = true
+
+[build]
+rustflags = "--cfg=web_sys_unstable_apis"
