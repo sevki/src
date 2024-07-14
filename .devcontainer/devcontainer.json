@@ -3,7 +3,8 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "VARIANT": "bookworm-20240612",    }
+      "VARIANT": "bookworm-20240701"   
+    }
   },
   "runArgs": [
       "--device=/dev/kvm",

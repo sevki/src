@@ -145,8 +145,8 @@ Let: Spanned<Keyword> = <lo:@L> "let" <hi:@R> => span!(lo, Keyword::Let, hi);
 True: Node = "true" => Node::Bool(true);
 False: Node = "false" => Node::Bool(false);
 
-KeywordAndVisibility<T>: KeywordAndVisibility = {
-    <v:Visibility> <k:T> => KeywordAndVisibility(k, v),
+KeywordAndVisibility<T>: Spanned<KeywordAndVisibility> = {
+    <lo:@L> <v:Visibility> <k:T> <hi:@R> => span!(lo, KeywordAndVisibility(k, v), hi),
 };
 
 Ident: Spanned<Ident> = {
@@ -321,7 +321,7 @@ WhenBlock: (Spanned<Ident>,Block<Spanned<Node>>) = {
 };
 
 FnDef: Spanned<Node> = {
-    <l:@L> <kwv:KeywordAndVisibility<Fn>> <proto:Prototype> <block:Block<Statement>> <handlers:(WhenBlock)*> <r:@R> => span!(l, Node::FnDef(FnDef(kwv,proto, block, handlers)), r),
+    <l:@L> <kwv:KeywordAndVisibility<Fn>> <proto:Prototype> <block:Block<Statement>> <r:@R> => span!(l, Node::FnDef(FnDef(kwv,proto, block)), r),
 };
 
 EffectDef: Spanned<Node> = {

@@ -5,50 +5,62 @@ expression: "format!(\"{:#?}\", t.unwrap())"
 Module(
     [
         Spanned(
-            Coord {
+            Location {
                 offset: 0,
                 line: 0,
                 col: 0,
             },
             FnDef(
                 FnDef(
-                    KeywordAndVisibility(
-                        Spanned(
-                            Coord {
-                                offset: 0,
-                                line: 0,
-                                col: 0,
-                            },
-                            Fn,
-                            Coord {
-                                offset: 2,
-                                line: 0,
-                                col: 2,
-                            },
+                    Spanned(
+                        Location {
+                            offset: 0,
+                            line: 0,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Fn,
+                                Location {
+                                    offset: 2,
+                                    line: 0,
+                                    col: 2,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                            ),
                         ),
-                        Spanned(
-                            Coord {
-                                offset: 0,
-                                line: 0,
-                                col: 0,
-                            },
-                            Private,
-                            Coord {
-                                offset: 0,
-                                line: 0,
-                                col: 0,
-                            },
-                        ),
+                        Location {
+                            offset: 2,
+                            line: 0,
+                            col: 2,
+                        },
                     ),
                     Spanned(
-                        Coord {
+                        Location {
                             offset: 3,
                             line: 0,
                             col: 3,
                         },
                         Prototype {
                             name: Spanned(
-                                Coord {
+                                Location {
                                     offset: 3,
                                     line: 0,
                                     col: 3,
@@ -57,7 +69,7 @@ Module(
                                     "call",
                                     None,
                                 ),
-                                Coord {
+                                Location {
                                     offset: 7,
                                     line: 0,
                                     col: 7,
@@ -65,34 +77,34 @@ Module(
                             ),
                             args: [
                                 Spanned(
-                                    Coord {
+                                    Location {
                                         offset: 8,
                                         line: 0,
                                         col: 8,
                                     },
                                     Field(
                                         Spanned(
-                                            Coord {
+                                            Location {
                                                 offset: 8,
                                                 line: 0,
                                                 col: 8,
                                             },
                                             FieldDef(
                                                 Spanned(
-                                                    Coord {
+                                                    Location {
                                                         offset: 8,
                                                         line: 0,
                                                         col: 8,
                                                     },
                                                     Private,
-                                                    Coord {
+                                                    Location {
                                                         offset: 8,
                                                         line: 0,
                                                         col: 8,
                                                     },
                                                 ),
                                                 Spanned(
-                                                    Coord {
+                                                    Location {
                                                         offset: 8,
                                                         line: 0,
                                                         col: 8,
@@ -101,14 +113,14 @@ Module(
                                                         "a",
                                                         None,
                                                     ),
-                                                    Coord {
+                                                    Location {
                                                         offset: 9,
                                                         line: 0,
                                                         col: 9,
                                                     },
                                                 ),
                                                 Spanned(
-                                                    Coord {
+                                                    Location {
                                                         offset: 10,
                                                         line: 0,
                                                         col: 10,
@@ -117,55 +129,55 @@ Module(
                                                         "b",
                                                         None,
                                                     ),
-                                                    Coord {
+                                                    Location {
                                                         offset: 11,
                                                         line: 0,
                                                         col: 11,
                                                     },
                                                 ),
                                             ),
-                                            Coord {
+                                            Location {
                                                 offset: 11,
                                                 line: 0,
                                                 col: 11,
                                             },
                                         ),
                                     ),
-                                    Coord {
+                                    Location {
                                         offset: 11,
                                         line: 0,
                                         col: 11,
                                     },
                                 ),
                                 Spanned(
-                                    Coord {
+                                    Location {
                                         offset: 13,
                                         line: 0,
                                         col: 13,
                                     },
                                     Field(
                                         Spanned(
-                                            Coord {
+                                            Location {
                                                 offset: 13,
                                                 line: 0,
                                                 col: 13,
                                             },
                                             FieldDef(
                                                 Spanned(
-                                                    Coord {
+                                                    Location {
                                                         offset: 13,
                                                         line: 0,
                                                         col: 13,
                                                     },
                                                     Private,
-                                                    Coord {
+                                                    Location {
                                                         offset: 13,
                                                         line: 0,
                                                         col: 13,
                                                     },
                                                 ),
                                                 Spanned(
-                                                    Coord {
+                                                    Location {
                                                         offset: 13,
                                                         line: 0,
                                                         col: 13,
@@ -174,14 +186,14 @@ Module(
                                                         "b",
                                                         None,
                                                     ),
-                                                    Coord {
+                                                    Location {
                                                         offset: 14,
                                                         line: 0,
                                                         col: 14,
                                                     },
                                                 ),
                                                 Spanned(
-                                                    Coord {
+                                                    Location {
                                                         offset: 15,
                                                         line: 0,
                                                         col: 15,
@@ -190,21 +202,21 @@ Module(
                                                         "c",
                                                         None,
                                                     ),
-                                                    Coord {
+                                                    Location {
                                                         offset: 16,
                                                         line: 0,
                                                         col: 16,
                                                     },
                                                 ),
                                             ),
-                                            Coord {
+                                            Location {
                                                 offset: 16,
                                                 line: 0,
                                                 col: 16,
                                             },
                                         ),
                                     ),
-                                    Coord {
+                                    Location {
                                         offset: 16,
                                         line: 0,
                                         col: 16,
@@ -214,7 +226,7 @@ Module(
                             ret: None,
                             effects: [
                                 Spanned(
-                                    Coord {
+                                    Location {
                                         offset: 19,
                                         line: 0,
                                         col: 19,
@@ -223,14 +235,14 @@ Module(
                                         "throws",
                                         None,
                                     ),
-                                    Coord {
+                                    Location {
                                         offset: 25,
                                         line: 0,
                                         col: 25,
                                     },
                                 ),
                                 Spanned(
-                                    Coord {
+                                    Location {
                                         offset: 27,
                                         line: 0,
                                         col: 27,
@@ -239,14 +251,14 @@ Module(
                                         "awaits",
                                         None,
                                     ),
-                                    Coord {
+                                    Location {
                                         offset: 33,
                                         line: 0,
                                         col: 33,
                                     },
                                 ),
                                 Spanned(
-                                    Coord {
+                                    Location {
                                         offset: 35,
                                         line: 0,
                                         col: 35,
@@ -255,7 +267,7 @@ Module(
                                         "execs",
                                         None,
                                     ),
-                                    Coord {
+                                    Location {
                                         offset: 40,
                                         line: 0,
                                         col: 40,
@@ -263,7 +275,7 @@ Module(
                                 ),
                             ],
                         },
-                        Coord {
+                        Location {
                             offset: 41,
                             line: 0,
                             col: 41,
@@ -272,214 +284,141 @@ Module(
                     Block(
                         [
                             Spanned(
-                                Coord {
-                                    offset: 52,
+                                Location {
+                                    offset: 48,
                                     line: 1,
-                                    col: 8,
+                                    col: 4,
                                 },
                                 FnCall(
                                     FnCall(
                                         Spanned(
-                                            Coord {
-                                                offset: 52,
+                                            Location {
+                                                offset: 48,
                                                 line: 1,
-                                                col: 8,
+                                                col: 4,
                                             },
                                             Ident(
                                                 "call",
                                                 None,
                                             ),
-                                            Coord {
-                                                offset: 56,
+                                            Location {
+                                                offset: 52,
                                                 line: 1,
-                                                col: 12,
+                                                col: 8,
                                             },
                                         ),
                                         [
                                             Spanned(
-                                                Coord {
-                                                    offset: 58,
+                                                Location {
+                                                    offset: 54,
                                                     line: 1,
-                                                    col: 14,
+                                                    col: 10,
                                                 },
                                                 BinaryExpression(
                                                     BinaryOperation {
                                                         lhs: Spanned(
-                                                            Coord {
-                                                                offset: 57,
+                                                            Location {
+                                                                offset: 53,
                                                                 line: 1,
-                                                                col: 13,
+                                                                col: 9,
                                                             },
                                                             Integer(
                                                                 1,
                                                             ),
-                                                            Coord {
-                                                                offset: 58,
+                                                            Location {
+                                                                offset: 54,
                                                                 line: 1,
-                                                                col: 14,
+                                                                col: 10,
                                                             },
                                                         ),
                                                         op: Add,
                                                         rhs: Spanned(
-                                                            Coord {
-                                                                offset: 59,
+                                                            Location {
+                                                                offset: 55,
                                                                 line: 1,
-                                                                col: 15,
+                                                                col: 11,
                                                             },
                                                             Integer(
                                                                 1,
                                                             ),
-                                                            Coord {
-                                                                offset: 60,
+                                                            Location {
+                                                                offset: 56,
                                                                 line: 1,
-                                                                col: 16,
+                                                                col: 12,
                                                             },
                                                         ),
                                                     },
                                                 ),
-                                                Coord {
-                                                    offset: 59,
+                                                Location {
+                                                    offset: 55,
                                                     line: 1,
-                                                    col: 15,
+                                                    col: 11,
                                                 },
                                             ),
                                         ],
                                     ),
                                 ),
-                                Coord {
-                                    offset: 61,
+                                Location {
+                                    offset: 57,
                                     line: 1,
-                                    col: 17,
+                                    col: 13,
                                 },
                             ),
                             Spanned(
-                                Coord {
-                                    offset: 70,
+                                Location {
+                                    offset: 62,
                                     line: 2,
-                                    col: 8,
+                                    col: 4,
                                 },
                                 Binding(
                                     Binding(
                                         Spanned(
-                                            Coord {
-                                                offset: 74,
+                                            Location {
+                                                offset: 66,
                                                 line: 2,
-                                                col: 12,
+                                                col: 8,
                                             },
                                             Ident(
                                                 "a",
                                                 None,
                                             ),
-                                            Coord {
-                                                offset: 75,
+                                            Location {
+                                                offset: 67,
                                                 line: 2,
-                                                col: 13,
+                                                col: 9,
                                             },
                                         ),
                                         Spanned(
-                                            Coord {
-                                                offset: 78,
+                                            Location {
+                                                offset: 70,
                                                 line: 2,
-                                                col: 16,
+                                                col: 12,
                                             },
                                             Integer(
                                                 1,
                                             ),
-                                            Coord {
-                                                offset: 79,
+                                            Location {
+                                                offset: 71,
                                                 line: 2,
-                                                col: 17,
+                                                col: 13,
                                             },
                                         ),
                                     ),
                                 ),
-                                Coord {
-                                    offset: 79,
+                                Location {
+                                    offset: 71,
                                     line: 2,
-                                    col: 17,
+                                    col: 13,
                                 },
                             ),
                         ],
                     ),
-                    [
-                        (
-                            Spanned(
-                                Coord {
-                                    offset: 91,
-                                    line: 3,
-                                    col: 11,
-                                },
-                                Ident(
-                                    "throws",
-                                    None,
-                                ),
-                                Coord {
-                                    offset: 97,
-                                    line: 3,
-                                    col: 17,
-                                },
-                            ),
-                            Block(
-                                [
-                                    Spanned(
-                                        Coord {
-                                            offset: 108,
-                                            line: 4,
-                                            col: 8,
-                                        },
-                                        FnCall(
-                                            FnCall(
-                                                Spanned(
-                                                    Coord {
-                                                        offset: 108,
-                                                        line: 4,
-                                                        col: 8,
-                                                    },
-                                                    Ident(
-                                                        "raise",
-                                                        None,
-                                                    ),
-                                                    Coord {
-                                                        offset: 113,
-                                                        line: 4,
-                                                        col: 13,
-                                                    },
-                                                ),
-                                                [
-                                                    Spanned(
-                                                        Coord {
-                                                            offset: 114,
-                                                            line: 4,
-                                                            col: 14,
-                                                        },
-                                                        Integer(
-                                                            1,
-                                                        ),
-                                                        Coord {
-                                                            offset: 115,
-                                                            line: 4,
-                                                            col: 15,
-                                                        },
-                                                    ),
-                                                ],
-                                            ),
-                                        ),
-                                        Coord {
-                                            offset: 116,
-                                            line: 4,
-                                            col: 16,
-                                        },
-                                    ),
-                                ],
-                            ),
-                        ),
-                    ],
                 ),
             ),
-            Coord {
-                offset: 122,
-                line: 5,
-                col: 5,
+            Location {
+                offset: 73,
+                line: 3,
+                col: 1,
             },
         ),
     ],

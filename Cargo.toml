@@ -5,7 +5,9 @@ edition = "2021"
 
 [workspace]
 members = [
-  "crates/src-collections", "crates/src-derive", "crates/src-derive-test",
+  "crates/src-collections",
+  "crates/src-derive",
+  "crates/src-derive-test",
   "crates/src-lsp-browser",
   "crates/src-lsp-server",
 ]
@@ -32,6 +34,8 @@ syn = "2.0.60"
 bitflags = "2.5.0"
 ropey = { version = "1.6.1", features = ["small_chunks"] }
 hashbrown = "0.14.5"
+src-derive = { version = "0.1.0", path = "crates/src-derive", registry = "oksoftware" }
+paste = "1.0.15"
 
 [dev-dependencies]
 insta = "1.38.0"

@@ -1,4 +1,4 @@
-use crate::{lexer::Location, Db};
+pub use crate::{lexer::Location, Db};
 use hashbrown::HashMap;
 use okstd::prelude::*;
 use std::{fmt::Display, ops::Range};
@@ -16,6 +16,17 @@ impl<T> Spanned<T> {
         self.span().end.offset - self.span().start.offset
     }
 }
+
+trait GetSelf<T> {
+    fn into(self) -> T;
+}
+
+impl<T> GetSelf<T> for Spanned<T> {
+    fn into(self) -> T {
+        self.1
+    }
+}
+
 
 impl<T: Display> Display for Spanned<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

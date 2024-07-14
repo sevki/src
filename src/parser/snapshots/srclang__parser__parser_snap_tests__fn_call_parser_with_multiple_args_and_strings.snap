@@ -5,50 +5,62 @@ expression: "format!(\"{:#?}\", t.unwrap())"
 Module(
     [
         Spanned(
-            Coord {
+            Location {
                 offset: 0,
                 line: 0,
                 col: 0,
             },
             FnDef(
                 FnDef(
-                    KeywordAndVisibility(
-                        Spanned(
-                            Coord {
-                                offset: 0,
-                                line: 0,
-                                col: 0,
-                            },
-                            Fn,
-                            Coord {
-                                offset: 2,
-                                line: 0,
-                                col: 2,
-                            },
+                    Spanned(
+                        Location {
+                            offset: 0,
+                            line: 0,
+                            col: 0,
+                        },
+                        KeywordAndVisibility(
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Fn,
+                                Location {
+                                    offset: 2,
+                                    line: 0,
+                                    col: 2,
+                                },
+                            ),
+                            Spanned(
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                                Private,
+                                Location {
+                                    offset: 0,
+                                    line: 0,
+                                    col: 0,
+                                },
+                            ),
                         ),
-                        Spanned(
-                            Coord {
-                                offset: 0,
-                                line: 0,
-                                col: 0,
-                            },
-                            Private,
-                            Coord {
-                                offset: 0,
-                                line: 0,
-                                col: 0,
-                            },
-                        ),
+                        Location {
+                            offset: 2,
+                            line: 0,
+                            col: 2,
+                        },
                     ),
                     Spanned(
-                        Coord {
+                        Location {
                             offset: 3,
                             line: 0,
                             col: 3,
                         },
                         Prototype {
                             name: Spanned(
-                                Coord {
+                                Location {
                                     offset: 3,
                                     line: 0,
                                     col: 3,
@@ -57,7 +69,7 @@ Module(
                                     "some",
                                     None,
                                 ),
-                                Coord {
+                                Location {
                                     offset: 7,
                                     line: 0,
                                     col: 7,
@@ -67,7 +79,7 @@ Module(
                             ret: None,
                             effects: [],
                         },
-                        Coord {
+                        Location {
                             offset: 11,
                             line: 0,
                             col: 11,
@@ -76,7 +88,7 @@ Module(
                     Block(
                         [
                             Spanned(
-                                Coord {
+                                Location {
                                     offset: 13,
                                     line: 0,
                                     col: 13,
@@ -84,7 +96,7 @@ Module(
                                 Binding(
                                     Binding(
                                         Spanned(
-                                            Coord {
+                                            Location {
                                                 offset: 17,
                                                 line: 0,
                                                 col: 17,
@@ -93,14 +105,14 @@ Module(
                                                 "a",
                                                 None,
                                             ),
-                                            Coord {
+                                            Location {
                                                 offset: 18,
                                                 line: 0,
                                                 col: 18,
                                             },
                                         ),
                                         Spanned(
-                                            Coord {
+                                            Location {
                                                 offset: 21,
                                                 line: 0,
                                                 col: 21,
@@ -108,7 +120,7 @@ Module(
                                             FnCall(
                                                 FnCall(
                                                     Spanned(
-                                                        Coord {
+                                                        Location {
                                                             offset: 21,
                                                             line: 0,
                                                             col: 21,
@@ -117,7 +129,7 @@ Module(
                                                             "some_fnExpr",
                                                             None,
                                                         ),
-                                                        Coord {
+                                                        Location {
                                                             offset: 32,
                                                             line: 0,
                                                             col: 32,
@@ -125,7 +137,7 @@ Module(
                                                     ),
                                                     [
                                                         Spanned(
-                                                            Coord {
+                                                            Location {
                                                                 offset: 33,
                                                                 line: 0,
                                                                 col: 33,
@@ -133,14 +145,14 @@ Module(
                                                             Integer(
                                                                 1,
                                                             ),
-                                                            Coord {
+                                                            Location {
                                                                 offset: 34,
                                                                 line: 0,
                                                                 col: 34,
                                                             },
                                                         ),
                                                         Spanned(
-                                                            Coord {
+                                                            Location {
                                                                 offset: 36,
                                                                 line: 0,
                                                                 col: 36,
@@ -148,14 +160,14 @@ Module(
                                                             String(
                                                                 "2",
                                                             ),
-                                                            Coord {
+                                                            Location {
                                                                 offset: 39,
                                                                 line: 0,
                                                                 col: 39,
                                                             },
                                                         ),
                                                         Spanned(
-                                                            Coord {
+                                                            Location {
                                                                 offset: 41,
                                                                 line: 0,
                                                                 col: 41,
@@ -163,7 +175,7 @@ Module(
                                                             Integer(
                                                                 3,
                                                             ),
-                                                            Coord {
+                                                            Location {
                                                                 offset: 42,
                                                                 line: 0,
                                                                 col: 42,
@@ -172,7 +184,7 @@ Module(
                                                     ],
                                                 ),
                                             ),
-                                            Coord {
+                                            Location {
                                                 offset: 43,
                                                 line: 0,
                                                 col: 43,
@@ -180,7 +192,7 @@ Module(
                                         ),
                                     ),
                                 ),
-                                Coord {
+                                Location {
                                     offset: 43,
                                     line: 0,
                                     col: 43,
@@ -188,10 +200,9 @@ Module(
                             ),
                         ],
                     ),
-                    [],
                 ),
             ),
-            Coord {
+            Location {
                 offset: 44,
                 line: 0,
                 col: 44,

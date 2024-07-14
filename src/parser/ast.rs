@@ -1,7 +1,8 @@
-use std::fmt::Display;
+use std::{fmt::Display, ops::Range};
 pub const ANON_FN_NAME: &str = "anonymous";
-
-use crate::visitor;
+use super::span;
+use super::span::*;
+use src_derive::node;
 
 use super::span::*;
 
@@ -13,14 +14,13 @@ impl Display for Ident {
         write!(f, "{}", self.0)
     }
 }
+
 #[derive(PartialEq, Debug, Clone, Default)]
 pub enum Visibility {
     #[default]
     Private,
     Public,
 }
-
-
 
 impl Display for Visibility {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -33,7 +33,6 @@ impl Display for Visibility {
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct StringLit(pub String);
-
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct Binding(pub Spanned<Ident>, pub Box<Spanned<Node>>);
@@ -68,6 +67,8 @@ pub enum Keyword {
     Where,
     Self_,
 }
+
+trait KeywordVisitor {}
 
 impl Display for Keyword {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -284,7 +285,7 @@ impl Display for FieldDef {
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct StructDef(
-    pub KeywordAndVisibility,
+    pub Spanned<KeywordAndVisibility>,
     pub Spanned<Ident>,
     pub Block<Spanned<FieldDef>>,
 );
@@ -294,7 +295,7 @@ pub struct FnIdent(pub Ident);
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct EffectDef(
-    pub KeywordAndVisibility,
+    pub Spanned<KeywordAndVisibility>,
     pub Spanned<Ident>,
     pub Vec<Spanned<Ident>>,
     pub Block<Spanned<Prototype>>,
@@ -302,7 +303,7 @@ pub struct EffectDef(
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct UseDef(
-    pub KeywordAndVisibility,
+    pub Spanned<KeywordAndVisibility>,
     pub Vec<Spanned<Ident>>,
     pub Spanned<Ident>,
 );
@@ -324,7 +325,7 @@ impl Display for KeywordAndVisibility {
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct ImplDef(
-    pub KeywordAndVisibility,
+    pub Spanned<KeywordAndVisibility>,
     pub Spanned<Ident>,
     pub Option<Spanned<Ident>>,
     pub Block<Spanned<Node>>,
@@ -336,12 +337,12 @@ pub struct BranchDef(
     pub Vec<(Spanned<Node>, Block<Spanned<Node>>)>,
 );
 
+// #[visitor]
 #[derive(PartialEq, Debug, Clone)]
 pub struct FnDef(
-    pub KeywordAndVisibility,
+    pub Spanned<KeywordAndVisibility>,
     pub Spanned<Prototype>,
     pub Block<Spanned<Node>>,
-    pub Vec<(Spanned<Ident>, Block<Spanned<Node>>)>,
 );
 
 impl Display for FnDef {
@@ -374,3 +375,26 @@ impl Arbitrary for Operator {
 }
 
 impl Eq for Node {}
+
+#[cfg(test)]
+mod test {
+
+    use crate::analyzer;
+
+    use super::*;
+    use proptest::prelude::*;
+
+    struct TestVisitor;
+
+    #[test]
+    fn test_binding_vistior() {
+        let input = "fn some()[] {let a = some_fnExpr(1, \"2\", 3)}";
+        let mut errors = vec![];
+        let wrapper = crate::lexer::TripleIterator::new(input);
+        let db = analyzer::db::Database::default();
+        let t = crate::parser::src::SourceParser::new().parse(&mut errors, &db, wrapper);
+        assert!(errors.is_empty());
+        assert!(t.is_ok());
+        let t = t.unwrap();
+    }
+}
