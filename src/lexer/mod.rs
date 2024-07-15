@@ -2,7 +2,7 @@
 lexer.rs is a lexer for the src language
 */
 
-use std::{fmt::Display, iter::Iterator, iter::Peekable, str::Chars};
+use std::{fmt::Display, hash::Hash, iter::Iterator, iter::Peekable, str::Chars};
 
 use okstd::prelude::*;
 
@@ -98,7 +98,7 @@ impl<T, P> Spanned<T, P> {
 
 impl Spanned<Token<'_>> {
     pub fn len(&self) -> usize {
-        self.node.to_string().chars().count()
+        self.node.string_repr().chars().count()
     }
 }
 
@@ -131,47 +131,7 @@ impl std::fmt::Display for Position {
 // display trait implementation for Token
 impl std::fmt::Display for Token<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let str = match self {
-            Token::Pipe => "|".to_string(),
-            Token::Ampersand => "&".to_string(),
-            Token::Semicolon => ";".to_string(),
-            Token::Equals => "=".to_string(),
-            Token::LessThan => "<".to_string(),
-            Token::GreaterThan => ">".to_string(),
-            Token::Variable(variable) => variable.to_string(),
-            Token::Word(word) => word.chars().collect(),
-            Token::String(string) => string.to_string(),
-            Token::Comment(comment) => comment.to_string(),
-            Token::Integer(number) => number.to_string(),
-            Token::Float(number) => number.to_string(),
-            Token::Eof => "".to_string(),
-            Token::NewLine => "\n".to_string(),
-            Token::LeftParen => "(".to_string(),
-            Token::RightParen => ")".to_string(),
-            Token::LeftBrace => "{".to_string(),
-            Token::RightBrace => "}".to_string(),
-            Token::LeftBracket => "[".to_string(),
-            Token::RightBracket => "]".to_string(),
-            Token::Comma => ",".to_string(),
-            Token::Colon => ":".to_string(),
-            Token::Underscore => "_".to_string(),
-            Token::Minus => "-".to_string(),
-            Token::Plus => "+".to_string(),
-            Token::Arrow => "->".to_string(),
-            Token::FatArrow => "=>".to_string(),
-            Token::Divide => "/".to_string(),
-            Token::Multiply => "*".to_string(),
-            Token::Percent => "%".to_string(),
-            Token::Dollar => "$".to_string(),
-            Token::Exclamation => "!".to_string(),
-            Token::Question => "?".to_string(),
-            Token::Tilde => "~".to_string(),
-            Token::At => "@".to_string(),
-            Token::Caret => "^".to_string(),
-            Token::Dot => ".".to_string(),
-            Token::Shebang => "#!".to_string(),
-        };
-        write!(f, "{}", str)
+        write!(f, "{:?}", self)
     }
 }
 
@@ -347,6 +307,49 @@ impl<'input> Token<'input> {
             Token::Shebang => "#!".chars(),
         }
     }
+
+    fn string_repr(&'input self) -> String {
+        match self {
+            Token::Pipe => "|".to_string(),
+            Token::Ampersand => "&".to_string(),
+            Token::Semicolon => ";".to_string(),
+            Token::Equals => "=".to_string(),
+            Token::LessThan => "<".to_string(),
+            Token::GreaterThan => ">".to_string(),
+            Token::Variable(variable) => variable.to_string(),
+            Token::Word(word) => word.chars().collect(),
+            Token::String(string) => string.to_string(),
+            Token::Comment(comment) => comment.to_string(),
+            Token::Integer(number) => number.to_string(),
+            Token::Float(number) => number.to_string(),
+            Token::Eof => "".to_string(),
+            Token::NewLine => "\n".to_string(),
+            Token::LeftParen => "(".to_string(),
+            Token::RightParen => ")".to_string(),
+            Token::LeftBrace => "{".to_string(),
+            Token::RightBrace => "}".to_string(),
+            Token::LeftBracket => "[".to_string(),
+            Token::RightBracket => "]".to_string(),
+            Token::Comma => ",".to_string(),
+            Token::Colon => ":".to_string(),
+            Token::Underscore => "_".to_string(),
+            Token::Minus => "-".to_string(),
+            Token::Plus => "+".to_string(),
+            Token::Arrow => "->".to_string(),
+            Token::FatArrow => "=>".to_string(),
+            Token::Divide => "/".to_string(),
+            Token::Multiply => "*".to_string(),
+            Token::Percent => "%".to_string(),
+            Token::Dollar => "$".to_string(),
+            Token::Exclamation => "!".to_string(),
+            Token::Question => "?".to_string(),
+            Token::Tilde => "~".to_string(),
+            Token::At => "@".to_string(),
+            Token::Caret => "^".to_string(),
+            Token::Dot => ".".to_string(),
+            Token::Shebang => "#!".to_string(),
+        }
+    }
 }
 
 impl<'input> Iterator for Token<'input> {
@@ -417,7 +420,7 @@ macro_rules! emit {
     ($self:expr, $state:expr => $token:expr) => {{
         let start = $self.pos;
 
-        for c in $token.to_string().chars() {
+        for c in $token.string_repr().chars() {
             $self.advance(c);
         }
 
@@ -1012,7 +1015,7 @@ mod lexer_snap_tests;
 
 pub struct TripleIterator<'input>(Lexer<'input>);
 
-#[derive(Debug, Clone, Default, Copy, Hash)]
+#[derive(Debug, Clone, Default, Copy)]
 pub struct Location {
     pub offset: usize,
     pub line: usize,
@@ -1021,6 +1024,13 @@ pub struct Location {
 
 impl Eq for Location {}
 
+// we can ignore the line and col fields, offset is cannonical
+impl Hash for Location {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.offset.hash(state);
+    }
+}
+// we can ignore the line and col fields, offset is cannonical
 impl PartialOrd for Location {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         Some(self.offset.cmp(&other.offset))
