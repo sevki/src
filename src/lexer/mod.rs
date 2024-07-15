@@ -98,7 +98,7 @@ impl<T, P> Spanned<T, P> {
 
 impl Spanned<Token<'_>> {
     pub fn len(&self) -> usize {
-        self.node.to_string().chars().count()
+        self.node.string_repr().chars().count()
     }
 }
 
@@ -308,7 +308,7 @@ impl<'input> Token<'input> {
         }
     }
 
-    fn to_string(&'input self) -> String {
+    fn string_repr(&'input self) -> String {
         match self {
             Token::Pipe => "|".to_string(),
             Token::Ampersand => "&".to_string(),
@@ -420,7 +420,7 @@ macro_rules! emit {
     ($self:expr, $state:expr => $token:expr) => {{
         let start = $self.pos;
 
-        for c in $token.to_string().chars() {
+        for c in $token.string_repr().chars() {
             $self.advance(c);
         }
 

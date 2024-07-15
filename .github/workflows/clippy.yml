@@ -21,6 +21,8 @@ on:
 jobs:
   rust-clippy-analyze:
     name: Run rust-clippy analyzing
+    runs-on: ubuntu-latest
+    container: ghcr.io/sevki/devcontainer:main
     permissions:
       contents: read
       security-events: write

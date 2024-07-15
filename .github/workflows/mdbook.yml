@@ -33,11 +33,12 @@ jobs:
     container: ghcr.io/sevki/devcontainer:main
     strategy:
         matrix:
-          targets: [
-            x86_64-unknown-linux-gnu
-          ]
-          packages: [srclang]
-          toolchains: [stable]
+          targets: 
+          - x86_64-unknown-linux-gnu
+          packages: 
+          - srclang
+          toolchains: 
+          - stable
 
     env:
       MDBOOK_VERSION: 0.4.40
