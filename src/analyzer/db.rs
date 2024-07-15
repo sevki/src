@@ -2,13 +2,9 @@ use std::sync::{Arc, Mutex};
 
 use salsa::DebugWithDb;
 
-
-
-
-
 #[derive(Default)]
 #[salsa::db(crate::Jar)]
-pub(crate) struct Database {
+pub struct Database {
     storage: salsa::Storage<Self>,
 
     // The logs are only used for testing and demonstrating reuse:
