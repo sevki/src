@@ -8,8 +8,4 @@ publish = ["oksoftware"]
 okstd = { version = "0.1.9", registry = "oksoftware", features = ["macros"] }
 
 src-derive = { version = "0.1.0", path = "../src-derive", registry = "oksoftware" }
-srclang = { version = "0.1.0", path = "../..", registry = "oksoftware" }
-
-# [[bin]]
-# name = "src-derive-test"
-# path = "expanded.rs"
+src-lang = { version = "0.1.0", path = "../..", registry = "oksoftware" }

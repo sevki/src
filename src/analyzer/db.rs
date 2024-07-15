@@ -4,6 +4,7 @@ use salsa::DebugWithDb;
 
 #[derive(Default)]
 #[salsa::db(crate::Jar)]
+/// The salsa database for the compiler.
 pub struct Database {
     storage: salsa::Storage<Self>,
 

@@ -9,8 +9,7 @@ if [ ! -d "$OUT_DIR" ]; then
   OUT_DIR="../../target"
 fi
 
-
-wasm-bindgen --out-dir assets/wasm --target web --typescript ${OUT_DIR}/wasm32-unknown-unknown/release/src_lsp_browser.wasm; 
+wasm-bindgen --out-dir assets/wasm --target web --typescript ${OUT_DIR}/wasm32-unknown-unknown/release/src_lsp_browser.wasm;
 webpack;
 mv ../../book/playground/*.wasm ../../book
 mv ../../book/playground/*.ttf ../../book

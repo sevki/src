@@ -1,5 +1,5 @@
 use anyhow::anyhow;
-use srclang::parser;
+use src_lang::parser;
 use std::result::Result::Ok;
 use std::sync::Arc;
 use tower_lsp::{jsonrpc, lsp_types::*, LanguageServer};

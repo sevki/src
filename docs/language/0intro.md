@@ -1,6 +1,5 @@
-# Language
+# Language Specification
 
-## Specification
 ```rust,ignore
 {{#include ../../src/parser/src.lalrpop}}
 ```

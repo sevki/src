@@ -3,7 +3,7 @@ authors = ["@sevki"]
 language = "en"
 multilingual = true
 src = "docs"
-
+create-missing = false
 # additional css https://raw.githubusercontent.com/oknotokcomputer/okcss/main/ok.css
 [output.html]
 additional-css = ["ok.css", "skill-tree.css"]
@@ -11,7 +11,9 @@ theme = "docs/theme"
 default-theme = "dark"
 git-repository-url = "https://ok.software/ok/src"
 preferred-dark-theme = "rust"
-additional-js =["viz.js", "full.render.js", "panzoom.min.js", "skill-tree.js"]
+additional-js = ["viz.js", "full.render.js", "panzoom.min.js", "skill-tree.js"]
+no-section-label = false
+create-missing = false
 
 # [preprocessor.svgbob]
 

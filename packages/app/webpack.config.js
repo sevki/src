@@ -67,7 +67,7 @@ const config = {
     //   ],
     // }),
     new HtmlWebpackPlugin({
-      template: "../../book/playground/index.html",
+      template: path.resolve(__dirname, "../../book/playground/index.html"),
       scriptLoading: "module",
       title: "src-lsp Playground",
     }),

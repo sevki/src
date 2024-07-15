@@ -3,7 +3,7 @@ use lsp::{InitializeParams, InitializeResult, Url};
 use lsp_text::RopeExt;
 use salsa::function::DynDb;
 use src_collections::Map;
-use srclang::{
+use src_lang::{
     analyzer::{self, span_text},
     compiler::text::{self, Document, SourceProgram},
     parser::{
@@ -18,13 +18,13 @@ use tower_lsp::{jsonrpc, LanguageServer};
 use crate::update_channel;
 
 pub struct LspServerDatabase {
-    db: Mutex<srclang::analyzer::db::Database>,
+    db: Mutex<src_lang::analyzer::db::Database>,
 }
 
 impl LspServerDatabase {
     pub fn new() -> Self {
         Self {
-            db: Mutex::new(srclang::analyzer::db::Database::default()),
+            db: Mutex::new(src_lang::analyzer::db::Database::default()),
         }
     }
 }
