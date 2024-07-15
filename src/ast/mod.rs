@@ -1,6 +1,6 @@
 use crate::lexer::Location;
-use crate::ops;
 use crate::parser::span::Spanned;
+use crate::{ops};
 use src_derive::node;
 use std::fmt::Display;
 use std::ops::Range;
@@ -26,6 +26,31 @@ pub enum Literal {
     Float(f64),
     Integer(i64),
     String(String),
+}
+
+#[derive(Debug)]
+pub enum Kw {
+    None,
+    Some,
+    Let,
+    Public,
+    Private,
+    Fn,
+    If,
+    Else,
+    Match,
+    Arrow,
+    Struct,
+    SelfValue,
+    When,
+    Effect,
+    Impl,
+    Use,
+}
+
+#[node]
+pub struct Keyword {
+    kw: Kw,
 }
 
 #[derive(Debug)]

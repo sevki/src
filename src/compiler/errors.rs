@@ -68,8 +68,8 @@ fn handle_errors(
                     "error: unexpected token {:?}, expected one of {:?}\n",
                     token.1, expected
                 ));
-                pretty.push_str(&line);
-                pretty.push_str("\n");
+                pretty.push_str(line);
+                pretty.push('\n');
                 pretty.push_str(&" ".repeat(start_col));
                 pretty.push_str(&"^".repeat(end_col - start_col));
                 last_end = end;

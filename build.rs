@@ -1,12 +1,12 @@
 use core::panic;
 use std::fmt::Write as _;
 use std::fs::File;
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader};
 use std::path::PathBuf;
 use tiny_keccak::{Hasher, Sha3};
 
 const SOURCE: &str = "src/parser/src.lalrpop";
-const TARGET: &str = "parser/src.rs";
+const TARGET: &str = "src/parser/src.rs";
 
 fn main() -> anyhow::Result<()> {
     println!("cargo:rerun-if-changed={SOURCE}");
@@ -79,7 +79,8 @@ fn try_lalrpop(source: &str, target: &str) -> anyhow::Result<()> {
         println!("cargo:rerun-if-changed={}", path);
         lalrpop::Configuration::new()
             .generate_in_source_tree()
-            .process_file(path).expect("msg");
+            .process_file(path)
+            .expect("msg");
         Ok(())
     }
 

@@ -1,7 +1,8 @@
 use crate::lexer::Location;
 
-pub fn pretty_errors<'input>(
-    src: &'input str,
+#[allow(unused)]
+pub fn pretty_errors(
+    src: &str,
     errors: Vec<lalrpop_util::ErrorRecovery<Location, crate::lexer::Token<'_>, &str>>,
 ) -> String {
     let mut pretty = String::new();
@@ -21,8 +22,8 @@ pub fn pretty_errors<'input>(
                     "error: unexpected end of file, expected one of {:?}\n",
                     expected
                 ));
-                pretty.push_str(&line);
-                pretty.push_str("\n");
+                pretty.push_str(line);
+                pretty.push('\n');
                 pretty.push_str(&" ".repeat(start_col));
                 pretty.push_str(&"^".repeat(end_col - start_col));
             }
@@ -44,8 +45,8 @@ pub fn pretty_errors<'input>(
                     "error: unexpected token {:?}, expected one of {:?}\n",
                     token.1, expected
                 ));
-                pretty.push_str(&line);
-                pretty.push_str("\n");
+                pretty.push_str(line);
+                pretty.push('\n');
                 pretty.push_str(&" ".repeat(start_col));
                 pretty.push_str(&"^".repeat(end_col - start_col));
             }

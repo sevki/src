@@ -1,8 +1,7 @@
 pub mod db;
 
 use crate::{
-    compiler::text::{self, Position, SourceMap, SourceProgram, Span},
-    lexer::Location,
+    compiler::text::{self, SourceProgram},
     parser::{
         ast::{self, Node},
         span::{self, ByteOrLineColOrCoord, Spanned},
@@ -47,9 +46,9 @@ impl SyntaxTree {
 
 #[salsa::tracked]
 pub fn get_symbol(
-    db: &dyn Db,
-    src: text::SourceProgram,
-    pos: span::ByteOrLineColOrCoordInterned,
+    _db: &dyn Db,
+    _src: text::SourceProgram,
+    _pos: span::ByteOrLineColOrCoordInterned,
 ) -> Option<Spanned<ast::Node>> {
     None
 }
