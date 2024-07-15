@@ -3,7 +3,7 @@
 use super::ast::*;
 use lalrpop_util::ErrorRecovery;
 use crate::lexer::{Token,  Location};
-use crate::lexer::Word;
+
 use crate::Db;
 use super::span::Spanned;
 use crate::span;

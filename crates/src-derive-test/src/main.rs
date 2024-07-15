@@ -61,33 +61,33 @@ pub enum Operator {
 struct PrettyPrinter;
 
 impl FieldVisitor for PrettyPrinter {
-    fn visit_vis(&self, vis: &Visibility, range: &Range<Location>) -> ops::traversal::Result {
+    fn visit_vis(&self, vis: &Visibility, range: &Range<Location>) -> ops::traversal::Control {
         print!("{} ", vis);
-        ops::traversal::Result::Continue
+        ops::traversal::Control::Continue
     }
 
-    fn visit_name(&self, name: &String, range: &Range<Location>) -> ops::traversal::Result {
+    fn visit_name(&self, name: &String, range: &Range<Location>) -> ops::traversal::Control {
         print!("{} :", name);
-        ops::traversal::Result::Continue
+        ops::traversal::Control::Continue
     }
 
-    fn visit_ty(&self, ty: &Ident, range: &Range<Location>) -> ops::traversal::Result {
+    fn visit_ty(&self, ty: &Ident, range: &Range<Location>) -> ops::traversal::Control {
         ty.accept(self);
-        ops::traversal::Result::Continue
+        ops::traversal::Control::Continue
     }
 }
 
 impl IdentVisitor for PrettyPrinter {
-    fn visit_name(&self, name: &String, range: &Range<Location>) -> ops::traversal::Result {
+    fn visit_name(&self, name: &String, range: &Range<Location>) -> ops::traversal::Control {
         print!("{}", name);
-        ops::traversal::Result::Continue
+        ops::traversal::Control::Continue
     }
 
-    fn visit_generics(&self, generic: &Ident, range: &Range<Location>) -> ops::traversal::Result {
+    fn visit_generics(&self, generic: &Ident, range: &Range<Location>) -> ops::traversal::Control {
         print!("<");
         generic.accept(self);
         print!(">");
-        ops::traversal::Result::Continue
+        ops::traversal::Control::Continue
     }
 }
 

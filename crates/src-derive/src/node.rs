@@ -1,9 +1,6 @@
 use proc_macro::TokenStream;
 use quote::{format_ident, quote, ToTokens};
-use syn::{
-    parse_macro_input, Data, DeriveInput, Fields, GenericArgument, Ident, PathArguments, Type,
-    TypePath,
-};
+use syn::{parse_macro_input, Data, DeriveInput, GenericArgument, PathArguments, Type, TypePath};
 
 pub fn define_nodes(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let input = parse_macro_input!(item as DeriveInput);
@@ -38,7 +35,7 @@ pub fn define_nodes(_attr: TokenStream, item: TokenStream) -> TokenStream {
         }
     });
 
-    let expanded_impl = fields.iter().map(|field| {
+    let _expanded_impl = fields.iter().map(|field| {
         let field_name = &field.ident;
         let field_span_getter = format_ident!("{}_span", field_name.as_ref().unwrap());
         let field_node_getter = format_ident!("{}_node", field_name.as_ref().unwrap());
@@ -68,22 +65,20 @@ pub fn define_nodes(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let visitor_name = format_ident!("{}Visitor", struct_name);
     let visitor_trait_stub = fields.iter().map(|field| {
         let field_name = &field.ident;
-        let field_visit = format_ident!("visit_{}", field_name.as_ref().unwrap());
-        let field_type = &field.ty;
-        match field_type {
-            Type::Path(path) => {
-                let unwrapped_type = unwrap_path(path);
-                quote! {
-                    fn #field_visit(&self, node: &#unwrapped_type, span: &Range<Location>) -> ops::traversal::Result;
-                }
+        if let Some(field_name) = field_name {
+            if field_name.to_string().starts_with('_') {
+                return quote! {};
             }
-            _ => {
-                panic!(
-                    "Only named fields are supported which {} is not",
-                    field_type.into_token_stream()
-                );
+            let field_visit = format_ident!("visit_{}", field_name);
+                    let field_type = &field.ty;
+            if let Type::Path(path) = field_type {
+                let unwrapped_type = unwrap_path(path);
+                return quote! {
+                    fn #field_visit(&self, node: &#unwrapped_type, span: &Range<Location>) -> ops::traversal::Control;
+                };
             }
         }
+        panic!("All fields must be named")
     });
 
     let accept_impl = fields.iter().map(|field| {
@@ -99,13 +94,20 @@ pub fn define_nodes(_attr: TokenStream, item: TokenStream) -> TokenStream {
                                 if let cont = visitor.#visit_fn(
                                     &self.#field_name.1,
                                     &(self.#field_name.0..self.#field_name.2)
-                                ) {
-                                    return;
+                                )  {
+                                    if cont == ops::traversal::Control::Break {
+                                        return;
+                                    }
                                 }
                             }
                         }
                         PathArguments::AngleBracketed(args) => match args.args.first() {
                             Some(GenericArgument::Type(_)) => match ident.to_string().as_str() {
+                                "PhantomData" => {
+                                    quote! {
+                                        // Do nothing
+                                    }
+                                }
                                 "Option" => {
                                     quote! {
                                         if let Some(inner) = &self.#field_name {
@@ -197,11 +199,17 @@ pub fn define_nodes(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let field_types_clone = field_types.clone();
     let struct_name_lower = format_ident!("{}", struct_name.to_string().to_lowercase());
     let field_ids = fields.iter().enumerate().map(|field| {
+        if fields.len() == 1 {
+            return quote! {
+                #struct_name_lower
+            };
+        }
         let field_name = syn::Index::from(field.0);
         quote! {
             #struct_name_lower.#field_name
         }
     });
+
     let vis = &input.vis;
     let expanded = quote! {
         #[derive(Debug)]
@@ -216,8 +224,8 @@ pub fn define_nodes(_attr: TokenStream, item: TokenStream) -> TokenStream {
         > for #struct_name {
             fn from(
                 #struct_name_lower: (
-                            #(#field_types_clone),*
-                        )
+                    #(#field_types_clone),*
+                )
             ) -> Self {
                 Self::new(
                     #(#field_ids),*
@@ -244,16 +252,13 @@ pub fn define_nodes(_attr: TokenStream, item: TokenStream) -> TokenStream {
 }
 fn wrap_range_location(path: &TypePath) -> impl ToTokens {
     match path.path.segments.last() {
-        Some(syn::PathSegment { ident, arguments }) => {
-            if let syn::PathArguments::AngleBracketed(args) = arguments {
-                if let Some(GenericArgument::Type(inner_ty)) = args.args.first() {
-                    quote! {
-                        #ident<Range<Location>>
-                    }
-                } else {
-                    quote! {
-                        Range<Location>
-                    }
+        Some(syn::PathSegment {
+            ident,
+            arguments: syn::PathArguments::AngleBracketed(args),
+        }) => {
+            if let Some(GenericArgument::Type(_inner_ty)) = args.args.first() {
+                quote! {
+                    #ident<Range<Location>>
                 }
             } else {
                 quote! {
@@ -318,28 +323,6 @@ fn unwrap_path(path: &TypePath) -> impl ToTokens {
         _ => {
             quote! {
                 #path
-            }
-        }
-    }
-}
-
-fn wrap_type_in_spanned(ty: &Type, field_name: &Option<Ident>) -> impl ToTokens {
-    match (ty, field_name) {
-        (Type::Path(path), Some(field_name)) => {
-            let ty = wrap_path_in_spanned(path);
-            quote! {
-                #field_name: #ty,
-            }
-        }
-        (Type::Path(path), None) => {
-            let ty = wrap_path_in_spanned(path);
-            quote! {
-                #ty,
-            }
-        }
-        _ => {
-            quote! {
-                compile_error!("Only named fields are supported");
             }
         }
     }

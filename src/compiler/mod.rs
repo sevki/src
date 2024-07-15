@@ -29,7 +29,7 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
     }
 
     let modul = t.unwrap();
-    let mut symbol_table = BTreeMap::new();
+    let symbol_table = BTreeMap::new();
     for toplevel in modul.0 {
         match toplevel.1 {
             ast::Node::Visibility(_) => todo!(),
@@ -46,7 +46,7 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
             }
             ast::Node::EffectDef(_) => todo!(),
             ast::Node::StructDef(_) => todo!(),
-            ast::Node::UseDef(usedef) => {}
+            ast::Node::UseDef(_usedef) => {}
             ast::Node::Keyword(_) => todo!(),
             ast::Node::ImplDef(_) => todo!(),
             ast::Node::Branch(_) => todo!(),
@@ -54,9 +54,9 @@ pub fn compile(db: &dyn Db, src: SourceProgram) -> ir::Program {
             ast::Node::FieldAccess(_) => todo!(),
         }
     }
-    let program = ir::Program::new(db, vec![], symbol_table);
+    
 
-    program
+    ir::Program::new(db, vec![], symbol_table)
 }
 
 #[salsa::tracked]

@@ -100,6 +100,9 @@ impl Spanned<Token<'_>> {
     pub fn len(&self) -> usize {
         self.node.string_repr().chars().count()
     }
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
 }
 
 // Position struct
@@ -261,6 +264,7 @@ pub enum Token<'input> {
 impl<'input> Token<'input> {
     // deprecated
     #[deprecated(note = "to_chars is deprecated, use to_string instead")]
+    #[allow(unused)]
     fn to_chars(&'input self) -> Chars<'input> {
         match self {
             Token::Pipe => "|".chars(),
@@ -356,7 +360,7 @@ impl<'input> Iterator for Token<'input> {
     type Item = char;
 
     fn next(&mut self) -> Option<Self::Item> {
-        self.to_chars().next()
+        self.string_repr().chars().next()
     }
 }
 
@@ -446,8 +450,8 @@ impl<'input> Lexer<'input> {
     fn push(&mut self) -> bool {
         let c = self.peekable.next().unwrap();
         self.buffer.push(c);
-        let finished = (self.pos as i32) + self.buffer.len() as i32 >= self.input.len() as i32;
-        finished
+
+        (self.pos as i32) + self.buffer.len() as i32 >= self.input.len() as i32
     }
 
     fn ignore(&mut self) -> bool {
@@ -467,8 +471,8 @@ impl<'input> Lexer<'input> {
         } else {
             self.col += 1;
         }
-        let finished = self.pos >= self.input.len();
-        finished
+
+        self.pos >= self.input.len()
     }
 
     fn peek(&mut self) -> Option<char> {
@@ -627,8 +631,8 @@ impl<'input> Lexer<'input> {
                         .map_err(|_| LexicalError::InvalidNumberFormat)?;
 
                     Ok(Token::Float(float))
-                } else if number.starts_with("0x") {
-                    let integer = i64::from_str_radix(&number[2..], 16)
+                } else if let Some(stripped) = number.strip_prefix("0x") {
+                    let integer = i64::from_str_radix(stripped, 16)
                         .map_err(|_| LexicalError::InvalidNumberFormat)?;
                     Ok(Token::Integer(integer))
                 } else {
@@ -744,17 +748,7 @@ impl<'input> Lexer<'input> {
                         }
                     }
                 }
-                '/' => {
-                    let state = if self.push() { State::Eof } else { State::Any };
-                    match self.peek() {
-                        Some(' ') => {
-                            return emit!(self, state => ?);
-                        }
-                        _ => {
-                            return emit!(self, state => ?);
-                        }
-                    }
-                } // / and /directory/file
+                // / and /directory/file
                 '!' => {
                     let state = if self.push() { State::Eof } else { State::Any };
                     if let Some('#') = self.peek() {
@@ -811,7 +805,7 @@ impl<'input> Lexer<'input> {
                 }
             }
         }
-        return emit!(self, State::Any => ?);
+        emit!(self, State::Any => ?)
     }
 
     // consume number
@@ -855,7 +849,7 @@ impl<'input> Lexer<'input> {
                         }
                     }
                     // handle scientific notation
-                    else if self.buffer.contains(".") && c == 'e' {
+                    else if self.buffer.contains('.') && c == 'e' {
                         if self.push() {
                             debug!("buffer: {}", self.buffer);
                             return emit!(self, State::Number => ?);
@@ -870,17 +864,17 @@ impl<'input> Lexer<'input> {
                 }
             }
         }
-        return emit!(self, State::Eof => ?);
+        emit!(self, State::Eof => ?)
     }
 
     fn consume_newline(&mut self) -> Result<Spanned<Token<'input>>> {
         match self.peek() {
             Some('\n') => {
                 let state = if self.push() { State::Eof } else { State::Any };
-                return emit!(self, state => ?);
+                emit!(self, state => ?)
             }
             _ => {
-                return emit!(self, State::Any => Token::NewLine);
+                emit!(self, State::Any => Token::NewLine)
             }
         }
     }
@@ -911,7 +905,7 @@ impl<'input> Lexer<'input> {
                 }
             }
         }
-        return Err(LexicalError::UnexpectedEndOfInput);
+        Err(LexicalError::UnexpectedEndOfInput)
     }
 
     fn consume_variable(&mut self) -> Result<Spanned<Token<'input>>> {
@@ -929,7 +923,7 @@ impl<'input> Lexer<'input> {
                 }
             }
         }
-        return emit!(self, State::Op => ?);
+        emit!(self, State::Op => ?)
     }
 }
 
@@ -971,17 +965,12 @@ impl<'input> Iterator for Lexer<'input> {
         self.buffer.clear();
         match res {
             Ok(token) => {
-                match token.node {
-                    Token::Eof => {
-                        return None;
-                    }
-                    _ => {}
+                if token.node == Token::Eof {
+                    return None;
                 }
-                return Some(token);
+                Some(token)
             }
-            _ => {
-                return None;
-            }
+            _ => None,
         }
         // Removed the panic! as it's now unreachable.
     }
@@ -992,11 +981,7 @@ struct TokenStreamDisplay<'input>(Vec<Spanned<Token<'input>>>);
 impl Display for TokenStreamDisplay<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for token in &self.0 {
-            write!(
-                f,
-                "- {}, {}:{}\n",
-                token.node, token.pos.line, token.pos.col
-            )?;
+            writeln!(f, "- {}, {}:{}", token.node, token.pos.line, token.pos.col)?;
         }
         Ok(())
     }

@@ -3,7 +3,7 @@ use hashbrown::HashMap;
 use okstd::prelude::*;
 use std::{fmt::Display, ops::Range};
 
-use super::ast::{self, BinaryOperation, Node};
+use super::ast::Node;
 
 #[derive(PartialEq, Debug, Clone, Eq, PartialOrd)]
 pub struct Spanned<T>(pub Location, pub T, pub Location);
@@ -26,7 +26,6 @@ impl<T> GetSelf<T> for Spanned<T> {
         self.1
     }
 }
-
 
 impl<T: Display> Display for Spanned<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -110,6 +109,7 @@ impl<T: Sized + Send + Sync> Spanning for Spanned<T> {
 
 impl Spanning for &Range<Location> {
     fn span(&self) -> Range<Location> {
+        #![allow(suspicious_double_ref_op)]
         self.clone().clone()
     }
 }
