@@ -48,6 +48,7 @@ jobs:
           rustup component add cargo
           rustup component add clippy
           rustup component add rust-src
+          rustup target add wasm32-unknown-unknown
           rustup target add ${{ matrix.targets }}
           rustup update
       - name: Install mdBook
@@ -60,6 +61,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: build_docs
         run: |
+          cargo install wasm-bindgen-cli
           cargo doc
           cargo build        
       - name: Build with mdBook

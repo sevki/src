@@ -1,9 +1,7 @@
 book
 target
 node_modules
-packages/app/assets/wasm/src_lsp_browser.d.ts
-packages/app/assets/wasm/src_lsp_browser.js
-packages/app/assets/wasm/src_lsp_browser_bg.wasm
-packages/app/assets/wasm/src_lsp_browser_bg.wasm.d.ts
+packages/app/assets
+dist
 
 docs/crates/src_*
