@@ -17,7 +17,6 @@
 /* cyrillic-ext */
 @font-face {
   font-family: "IBM Plex Mono";
-  font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nYivN04w.woff2)
@@ -28,7 +27,6 @@
 /* cyrillic */
 @font-face {
   font-family: "IBM Plex Mono";
-  font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nRivN04w.woff2)
@@ -37,7 +35,6 @@
 }
 /* greek */
 @font-face {
-  font-family: "IBM Plex Mono";
   font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 400;
@@ -49,7 +46,6 @@
 /* latin-ext */
 @font-face {
   font-family: "IBM Plex Mono";
-  font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nbivN04w.woff2)
@@ -60,7 +56,6 @@
 /* latin */
 @font-face {
   font-family: "IBM Plex Mono";
-  font-family: "IBM Plex Mono";
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2)
@@ -69,6 +64,7 @@
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
 
 @font-face {
 	font-family: "codicon";
@@ -81,6 +77,8 @@
                  U+EB60-EB7F, U+EB80-EB9F, U+EBA0-EBBF, U+EBC0-EBDF,
                  U+EBE0-EBFF, U+EC00-EC1F, U+EC20-EC33, U+F101;
 }
+
+
 
 *,
 ::after,
@@ -111,9 +109,6 @@ section {
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, Noto Sans, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, Noto Sans, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -374,7 +369,6 @@ kbd,
 pre,
 samp {
   font-family: "IBM Plex Mono";
-  font-family: "IBM Plex Mono";
 }
 html {
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFklEQVRYR9WXURLDIAhE6/0PbSdOtUpcd1Gnpv1KGpTHBpCE1/cXq+vrMph7dGvXZTtpfW10DCA5jrH1H0Jhs5E0hnZdCR+vb5S8Nn8mQCeS9BdSalYJqMBjAGzq59xAESN7VFVUgV8AZB/dZBR7QTFDCqGquvUBVVoEtgIwpQRzmANSFHgWQKExHdIrPeuMvQNDarXe6nC/AutgV3JW+6bgqQLeV8FekRtgV+ToDKEKnACYKsfZjjkam7a0ZpYTytwmgainpC3HvwBocgKOxqRjehoR9DFKNFYtOwCGYCszobeCbl26N6yyQ6g8X/Wex/rBPsNEV6qAMaJPMynIHQCoSqS9JSMmwef51LflTgCRszU7DvAGiV6mHWfsaVUAAAAASUVORK5CYII=),
@@ -391,7 +385,6 @@ label {
 }
 a,
 button {
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
       14 0,
     pointer;
@@ -433,7 +426,6 @@ input[type="radio"] {
   border-width: 4px;
 }
 .nes-pointer {
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
       14 0,
     pointer;
@@ -489,7 +481,6 @@ input[type="radio"] {
   background-color: #212529;
   left: 0;
   box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0 0 #212529, -0.5em 0 #212529;
-  box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0 0 #212529, -0.5em 0 #212529;
 }
 .nes-badge.is-splited span.is-dark:last-child {
   position: absolute;
@@ -499,7 +490,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #212529;
   right: 0;
-  box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0.5em 0 #212529, 0 0 #212529;
   box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0.5em 0 #212529, 0 0 #212529;
 }
 .nes-badge.is-icon {
@@ -529,7 +519,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #212529;
   box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0.5em 0 #212529,
-  box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0.5em 0 #212529,
     -0.5em 0 #212529;
 }
 .nes-badge span.is-dark:first-child {
@@ -539,7 +528,6 @@ input[type="radio"] {
   color: #fff;
   text-align: center;
   background-color: #212529;
-  box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0.5em 0 #212529,
   box-shadow: 0 0.5em #212529, 0 -0.5em #212529, 0.5em 0 #212529,
     -0.5em 0 #212529;
 }
@@ -552,7 +540,6 @@ input[type="radio"] {
   background-color: #209cee;
   left: 0;
   box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0 0 #209cee, -0.5em 0 #209cee;
-  box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0 0 #209cee, -0.5em 0 #209cee;
 }
 .nes-badge.is-splited span.is-primary:last-child {
   position: absolute;
@@ -562,7 +549,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #209cee;
   right: 0;
-  box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0.5em 0 #209cee, 0 0 #209cee;
   box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0.5em 0 #209cee, 0 0 #209cee;
 }
 .nes-badge.is-icon {
@@ -592,7 +578,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #209cee;
   box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0.5em 0 #209cee,
-  box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0.5em 0 #209cee,
     -0.5em 0 #209cee;
 }
 .nes-badge span.is-primary:first-child {
@@ -602,7 +587,6 @@ input[type="radio"] {
   color: #fff;
   text-align: center;
   background-color: #209cee;
-  box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0.5em 0 #209cee,
   box-shadow: 0 0.5em #209cee, 0 -0.5em #209cee, 0.5em 0 #209cee,
     -0.5em 0 #209cee;
 }
@@ -615,7 +599,6 @@ input[type="radio"] {
   background-color: #92cc41;
   left: 0;
   box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0 0 #92cc41, -0.5em 0 #92cc41;
-  box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0 0 #92cc41, -0.5em 0 #92cc41;
 }
 .nes-badge.is-splited span.is-success:last-child {
   position: absolute;
@@ -625,7 +608,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #92cc41;
   right: 0;
-  box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0.5em 0 #92cc41, 0 0 #92cc41;
   box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0.5em 0 #92cc41, 0 0 #92cc41;
 }
 .nes-badge.is-icon {
@@ -655,7 +637,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #92cc41;
   box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0.5em 0 #92cc41,
-  box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0.5em 0 #92cc41,
     -0.5em 0 #92cc41;
 }
 .nes-badge span.is-success:first-child {
@@ -665,7 +646,6 @@ input[type="radio"] {
   color: #fff;
   text-align: center;
   background-color: #92cc41;
-  box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0.5em 0 #92cc41,
   box-shadow: 0 0.5em #92cc41, 0 -0.5em #92cc41, 0.5em 0 #92cc41,
     -0.5em 0 #92cc41;
 }
@@ -678,7 +658,6 @@ input[type="radio"] {
   background-color: #f7d51d;
   left: 0;
   box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0 0 #f7d51d, -0.5em 0 #f7d51d;
-  box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0 0 #f7d51d, -0.5em 0 #f7d51d;
 }
 .nes-badge.is-splited span.is-warning:last-child {
   position: absolute;
@@ -688,7 +667,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #f7d51d;
   right: 0;
-  box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0.5em 0 #f7d51d, 0 0 #f7d51d;
   box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0.5em 0 #f7d51d, 0 0 #f7d51d;
 }
 .nes-badge.is-icon {
@@ -718,7 +696,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #f7d51d;
   box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0.5em 0 #f7d51d,
-  box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0.5em 0 #f7d51d,
     -0.5em 0 #f7d51d;
 }
 .nes-badge span.is-warning:first-child {
@@ -728,7 +705,6 @@ input[type="radio"] {
   color: #212529;
   text-align: center;
   background-color: #f7d51d;
-  box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0.5em 0 #f7d51d,
   box-shadow: 0 0.5em #f7d51d, 0 -0.5em #f7d51d, 0.5em 0 #f7d51d,
     -0.5em 0 #f7d51d;
 }
@@ -741,7 +717,6 @@ input[type="radio"] {
   background-color: #e76e55;
   left: 0;
   box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0 0 #e76e55, -0.5em 0 #e76e55;
-  box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0 0 #e76e55, -0.5em 0 #e76e55;
 }
 .nes-badge.is-splited span.is-error:last-child {
   position: absolute;
@@ -751,7 +726,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #e76e55;
   right: 0;
-  box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0.5em 0 #e76e55, 0 0 #e76e55;
   box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0.5em 0 #e76e55, 0 0 #e76e55;
 }
 .nes-badge.is-icon {
@@ -781,7 +755,6 @@ input[type="radio"] {
   text-align: center;
   background-color: #e76e55;
   box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0.5em 0 #e76e55,
-  box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0.5em 0 #e76e55,
     -0.5em 0 #e76e55;
 }
 .nes-badge span.is-error:first-child {
@@ -791,7 +764,6 @@ input[type="radio"] {
   color: #fff;
   text-align: center;
   background-color: #e76e55;
-  box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0.5em 0 #e76e55,
   box-shadow: 0 0.5em #e76e55, 0 -0.5em #e76e55, 0.5em 0 #e76e55,
     -0.5em 0 #e76e55;
 }
@@ -862,14 +834,12 @@ input[type="radio"] {
 }
 .nes-balloon.is-dark.from-left::after {
   box-shadow: -4px 0, 4px 0, -4px 4px #212529, 0 4px, -8px 4px, -4px 8px,
-  box-shadow: -4px 0, 4px 0, -4px 4px #212529, 0 4px, -8px 4px, -4px 8px,
     -8px 8px;
 }
 .nes-balloon.is-dark.from-right::before {
   box-shadow: 5px 10px 0 6px #212529;
 }
 .nes-balloon.is-dark.from-right::after {
-  box-shadow: -4px 0, 4px 0, 4px 4px #212529, 0 4px, 8px 4px, 4px 8px, 8px 8px;
   box-shadow: -4px 0, 4px 0, 4px 4px #212529, 0 4px, 8px 4px, 4px 8px, 8px 8px;
 }
 .nes-balloon.from-left::after,
@@ -892,7 +862,6 @@ input[type="radio"] {
   color: #212529;
   background-color: #fff;
   box-shadow: -4px 0, 4px 0, -4px 4px #fff, 0 4px, -8px 4px, -4px 8px, -8px 8px;
-  box-shadow: -4px 0, 4px 0, -4px 4px #fff, 0 4px, -8px 4px, -4px 8px, -8px 8px;
 }
 .nes-balloon.from-right::after,
 .nes-balloon.from-right::before {
@@ -913,7 +882,6 @@ input[type="radio"] {
   margin-left: 8px;
   background-color: #fff;
   box-shadow: -4px 0, 4px 0, 4px 4px #fff, 0 4px, 8px 4px, 4px 8px, 8px 8px;
-  box-shadow: -4px 0, 4px 0, 4px 4px #fff, 0 4px, 8px 4px, 4px 8px, 8px 8px;
 }
 .nes-btn {
   border-image-slice: 2;
@@ -927,7 +895,6 @@ input[type="radio"] {
   margin: 4px;
   text-align: center;
   vertical-align: middle;
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
       14 0,
     pointer;
@@ -1285,20 +1252,9 @@ input[type="radio"] {
     6px 6px, 8px 6px, 10px 6px, 12px 6px, 14px 6px, 4px 8px, 6px 8px, 8px 8px,
     10px 8px, 12px 8px, 14px 8px, 6px 10px, 8px 10px, 10px 10px, 12px 10px,
     8px 12px, 10px 12px;
-  box-shadow: 8px 2px, 10px 2px, 6px 4px, 8px 4px, 10px 4px, 12px 4px, 4px 6px,
-    6px 6px, 8px 6px, 10px 6px, 12px 6px, 14px 6px, 4px 8px, 6px 8px, 8px 8px,
-    10px 8px, 12px 8px, 14px 8px, 6px 10px, 8px 10px, 10px 10px, 12px 10px,
-    8px 12px, 10px 12px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-list.is-disc li::before {
-    box-shadow: 8px 2px 0 0.02em, 10px 2px 0 0.02em, 6px 4px 0 0.02em,
-      8px 4px 0 0.02em, 10px 4px 0 0.02em, 12px 4px 0 0.02em, 4px 6px 0 0.02em,
-      6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em, 12px 6px 0 0.02em,
-      14px 6px 0 0.02em, 4px 8px 0 0.02em, 6px 8px 0 0.02em, 8px 8px 0 0.02em,
-      10px 8px 0 0.02em, 12px 8px 0 0.02em, 14px 8px 0 0.02em, 6px 10px 0 0.02em,
-      8px 10px 0 0.02em, 10px 10px 0 0.02em, 12px 10px 0 0.02em,
-      8px 12px 0 0.02em, 10px 12px 0 0.02em;
     box-shadow: 8px 2px 0 0.02em, 10px 2px 0 0.02em, 6px 4px 0 0.02em,
       8px 4px 0 0.02em, 10px 4px 0 0.02em, 12px 4px 0 0.02em, 4px 6px 0 0.02em,
       6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em, 12px 6px 0 0.02em,
@@ -1319,18 +1275,9 @@ input[type="radio"] {
   box-shadow: 8px 2px, 10px 2px, 6px 4px, 8px 4px, 10px 4px, 12px 4px, 4px 6px,
     6px 6px, 12px 6px, 14px 6px, 4px 8px, 6px 8px, 12px 8px, 14px 8px, 6px 10px,
     8px 10px, 10px 10px, 12px 10px, 8px 12px, 10px 12px;
-  box-shadow: 8px 2px, 10px 2px, 6px 4px, 8px 4px, 10px 4px, 12px 4px, 4px 6px,
-    6px 6px, 12px 6px, 14px 6px, 4px 8px, 6px 8px, 12px 8px, 14px 8px, 6px 10px,
-    8px 10px, 10px 10px, 12px 10px, 8px 12px, 10px 12px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-list.is-circle li::before {
-    box-shadow: 8px 2px 0 0.02em, 10px 2px 0 0.02em, 6px 4px 0 0.02em,
-      8px 4px 0 0.02em, 10px 4px 0 0.02em, 12px 4px 0 0.02em, 4px 6px 0 0.02em,
-      6px 6px 0 0.02em, 12px 6px 0 0.02em, 14px 6px 0 0.02em, 4px 8px 0 0.02em,
-      6px 8px 0 0.02em, 12px 8px 0 0.02em, 14px 8px 0 0.02em, 6px 10px 0 0.02em,
-      8px 10px 0 0.02em, 10px 10px 0 0.02em, 12px 10px 0 0.02em,
-      8px 12px 0 0.02em, 10px 12px 0 0.02em;
     box-shadow: 8px 2px 0 0.02em, 10px 2px 0 0.02em, 6px 4px 0 0.02em,
       8px 4px 0 0.02em, 10px 4px 0 0.02em, 12px 4px 0 0.02em, 4px 6px 0 0.02em,
       6px 6px 0 0.02em, 12px 6px 0 0.02em, 14px 6px 0 0.02em, 4px 8px 0 0.02em,
@@ -1465,12 +1412,10 @@ input[type="radio"] {
       #fff
     );
   background-position: 0 0, 10px 10px;
-  background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
 }
 .nes-progress.is-pattern::-moz-progress-bar {
   background-color: #212529;
-  background-image: -moz-linear-gradient(
   background-image: -moz-linear-gradient(
       45deg,
       #fff 25%,
@@ -1481,7 +1426,6 @@ input[type="radio"] {
     ),
     -moz-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff
           75%, #fff);
-  background-position: 0 0, 10px 10px;
   background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
 }
@@ -1503,7 +1447,6 @@ input[type="radio"] {
       #fff 75%,
       #fff
     );
-  background-position: 0 0, 10px 10px;
   background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
   border: none;
@@ -1751,7 +1694,6 @@ input[type="radio"] {
 .nes-radio + span {
   position: relative;
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
       14 0,
     pointer;
 }
@@ -1767,21 +1709,9 @@ input[type="radio"] {
     4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
     10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
     2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
-  box-shadow: 2px 2px, 4px 2px, 2px 4px, 4px 4px, 6px 4px, 8px 4px, 2px 6px,
-    4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
-    10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
-    2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-radio:checked + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
-      4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
-      4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
-      2px 8px 0 0.02em, 4px 8px 0 0.02em, 6px 8px 0 0.02em, 8px 8px 0 0.02em,
-      10px 8px 0 0.02em, 12px 8px 0 0.02em, 2px 10px 0 0.02em, 4px 10px 0 0.02em,
-      6px 10px 0 0.02em, 8px 10px 0 0.02em, 10px 10px 0 0.02em,
-      2px 12px 0 0.02em, 4px 12px 0 0.02em, 6px 12px 0 0.02em, 8px 12px 0 0.02em,
-      2px 14px 0 0.02em, 4px 14px 0 0.02em;
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
       4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
       4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
@@ -1804,21 +1734,9 @@ input[type="radio"] {
     4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
     10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
     2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
-  box-shadow: 2px 2px, 4px 2px, 2px 4px, 4px 4px, 6px 4px, 8px 4px, 2px 6px,
-    4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
-    10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
-    2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-radio:checked:focus + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
-      4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
-      4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
-      2px 8px 0 0.02em, 4px 8px 0 0.02em, 6px 8px 0 0.02em, 8px 8px 0 0.02em,
-      10px 8px 0 0.02em, 12px 8px 0 0.02em, 2px 10px 0 0.02em, 4px 10px 0 0.02em,
-      6px 10px 0 0.02em, 8px 10px 0 0.02em, 10px 10px 0 0.02em,
-      2px 12px 0 0.02em, 4px 12px 0 0.02em, 6px 12px 0 0.02em, 8px 12px 0 0.02em,
-      2px 14px 0 0.02em, 4px 14px 0 0.02em;
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
       4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
       4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
@@ -1843,22 +1761,10 @@ input[type="radio"] {
     4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
     10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
     2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
-  box-shadow: 2px 2px, 4px 2px, 2px 4px, 4px 4px, 6px 4px, 8px 4px, 2px 6px,
-    4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
-    10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
-    2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
   color: #fff;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-radio.is-dark:checked + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
-      4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
-      4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
-      2px 8px 0 0.02em, 4px 8px 0 0.02em, 6px 8px 0 0.02em, 8px 8px 0 0.02em,
-      10px 8px 0 0.02em, 12px 8px 0 0.02em, 2px 10px 0 0.02em, 4px 10px 0 0.02em,
-      6px 10px 0 0.02em, 8px 10px 0 0.02em, 10px 10px 0 0.02em,
-      2px 12px 0 0.02em, 4px 12px 0 0.02em, 6px 12px 0 0.02em, 8px 12px 0 0.02em,
-      2px 14px 0 0.02em, 4px 14px 0 0.02em;
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
       4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
       4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
@@ -1877,22 +1783,10 @@ input[type="radio"] {
     4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
     10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
     2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
-  box-shadow: 2px 2px, 4px 2px, 2px 4px, 4px 4px, 6px 4px, 8px 4px, 2px 6px,
-    4px 6px, 6px 6px, 8px 6px, 10px 6px, 2px 8px, 4px 8px, 6px 8px, 8px 8px,
-    10px 8px, 12px 8px, 2px 10px, 4px 10px, 6px 10px, 8px 10px, 10px 10px,
-    2px 12px, 4px 12px, 6px 12px, 8px 12px, 2px 14px, 4px 14px;
   color: #fff;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-radio.is-dark:checked:focus + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
-      4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
-      4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
-      2px 8px 0 0.02em, 4px 8px 0 0.02em, 6px 8px 0 0.02em, 8px 8px 0 0.02em,
-      10px 8px 0 0.02em, 12px 8px 0 0.02em, 2px 10px 0 0.02em, 4px 10px 0 0.02em,
-      6px 10px 0 0.02em, 8px 10px 0 0.02em, 10px 10px 0 0.02em,
-      2px 12px 0 0.02em, 4px 12px 0 0.02em, 6px 12px 0 0.02em, 8px 12px 0 0.02em,
-      2px 14px 0 0.02em, 4px 14px 0 0.02em;
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 2px 4px 0 0.02em,
       4px 4px 0 0.02em, 6px 4px 0 0.02em, 8px 4px 0 0.02em, 2px 6px 0 0.02em,
       4px 6px 0 0.02em, 6px 6px 0 0.02em, 8px 6px 0 0.02em, 10px 6px 0 0.02em,
@@ -1921,7 +1815,6 @@ input[type="radio"] {
 .nes-checkbox + span {
   position: relative;
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
       14 0,
     pointer;
 }
@@ -1940,21 +1833,9 @@ input[type="radio"] {
     16px 2px, 2px 4px, 16px 4px, 2px 6px, 16px 6px, 2px 8px, 16px 8px, 2px 10px,
     16px 10px, 2px 12px, 16px 12px, 2px 14px, 16px 14px, 2px 16px, 4px 16px,
     6px 16px, 8px 16px, 10px 16px, 12px 16px, 14px 16px, 16px 16px;
-  box-shadow: 2px 2px, 4px 2px, 6px 2px, 8px 2px, 10px 2px, 12px 2px, 14px 2px,
-    16px 2px, 2px 4px, 16px 4px, 2px 6px, 16px 6px, 2px 8px, 16px 8px, 2px 10px,
-    16px 10px, 2px 12px, 16px 12px, 2px 14px, 16px 14px, 2px 16px, 4px 16px,
-    6px 16px, 8px 16px, 10px 16px, 12px 16px, 14px 16px, 16px 16px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-checkbox + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
-      8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
-      16px 2px 0 0.02em, 2px 4px 0 0.02em, 16px 4px 0 0.02em, 2px 6px 0 0.02em,
-      16px 6px 0 0.02em, 2px 8px 0 0.02em, 16px 8px 0 0.02em, 2px 10px 0 0.02em,
-      16px 10px 0 0.02em, 2px 12px 0 0.02em, 16px 12px 0 0.02em,
-      2px 14px 0 0.02em, 16px 14px 0 0.02em, 2px 16px 0 0.02em,
-      4px 16px 0 0.02em, 6px 16px 0 0.02em, 8px 16px 0 0.02em,
-      10px 16px 0 0.02em, 12px 16px 0 0.02em, 14px 16px 0 0.02em,
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
       8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
       16px 2px 0 0.02em, 2px 4px 0 0.02em, 16px 4px 0 0.02em, 2px 6px 0 0.02em,
@@ -1974,21 +1855,9 @@ input[type="radio"] {
     16px 2px, 2px 4px, 16px 4px, 2px 6px, 16px 6px, 2px 8px, 16px 8px, 2px 10px,
     16px 10px, 2px 12px, 16px 12px, 2px 14px, 16px 14px, 2px 16px, 4px 16px,
     6px 16px, 8px 16px, 10px 16px, 12px 16px, 14px 16px, 16px 16px;
-  box-shadow: 2px 2px, 4px 2px, 6px 2px, 8px 2px, 10px 2px, 12px 2px, 14px 2px,
-    16px 2px, 2px 4px, 16px 4px, 2px 6px, 16px 6px, 2px 8px, 16px 8px, 2px 10px,
-    16px 10px, 2px 12px, 16px 12px, 2px 14px, 16px 14px, 2px 16px, 4px 16px,
-    6px 16px, 8px 16px, 10px 16px, 12px 16px, 14px 16px, 16px 16px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-checkbox:focus + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
-      8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
-      16px 2px 0 0.02em, 2px 4px 0 0.02em, 16px 4px 0 0.02em, 2px 6px 0 0.02em,
-      16px 6px 0 0.02em, 2px 8px 0 0.02em, 16px 8px 0 0.02em, 2px 10px 0 0.02em,
-      16px 10px 0 0.02em, 2px 12px 0 0.02em, 16px 12px 0 0.02em,
-      2px 14px 0 0.02em, 16px 14px 0 0.02em, 2px 16px 0 0.02em,
-      4px 16px 0 0.02em, 6px 16px 0 0.02em, 8px 16px 0 0.02em,
-      10px 16px 0 0.02em, 12px 16px 0 0.02em, 14px 16px 0 0.02em,
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
       8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
       16px 2px 0 0.02em, 2px 4px 0 0.02em, 16px 4px 0 0.02em, 2px 6px 0 0.02em,
@@ -2010,27 +1879,9 @@ input[type="radio"] {
     10px 10px, 12px 10px, 16px 10px, 2px 12px, 6px 12px, 8px 12px, 10px 12px,
     16px 12px, 2px 14px, 8px 14px, 16px 14px, 2px 16px, 4px 16px, 6px 16px,
     8px 16px, 10px 16px, 12px 16px, 14px 16px, 16px 16px;
-  box-shadow: 2px 2px, 4px 2px, 6px 2px, 8px 2px, 10px 2px, 12px 2px, 14px 2px,
-    18px 2px, 20px 2px, 2px 4px, 16px 4px, 18px 4px, 20px 4px, 2px 6px, 14px 6px,
-    16px 6px, 2px 8px, 4px 8px, 12px 8px, 14px 8px, 2px 10px, 4px 10px, 6px 10px,
-    10px 10px, 12px 10px, 16px 10px, 2px 12px, 6px 12px, 8px 12px, 10px 12px,
-    16px 12px, 2px 14px, 8px 14px, 16px 14px, 2px 16px, 4px 16px, 6px 16px,
-    8px 16px, 10px 16px, 12px 16px, 14px 16px, 16px 16px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-checkbox:checked + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
-      8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
-      18px 2px 0 0.02em, 20px 2px 0 0.02em, 2px 4px 0 0.02em, 16px 4px 0 0.02em,
-      18px 4px 0 0.02em, 20px 4px 0 0.02em, 2px 6px 0 0.02em, 14px 6px 0 0.02em,
-      16px 6px 0 0.02em, 2px 8px 0 0.02em, 4px 8px 0 0.02em, 12px 8px 0 0.02em,
-      14px 8px 0 0.02em, 2px 10px 0 0.02em, 4px 10px 0 0.02em, 6px 10px 0 0.02em,
-      10px 10px 0 0.02em, 12px 10px 0 0.02em, 16px 10px 0 0.02em,
-      2px 12px 0 0.02em, 6px 12px 0 0.02em, 8px 12px 0 0.02em,
-      10px 12px 0 0.02em, 16px 12px 0 0.02em, 2px 14px 0 0.02em,
-      8px 14px 0 0.02em, 16px 14px 0 0.02em, 2px 16px 0 0.02em,
-      4px 16px 0 0.02em, 6px 16px 0 0.02em, 8px 16px 0 0.02em,
-      10px 16px 0 0.02em, 12px 16px 0 0.02em, 14px 16px 0 0.02em,
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
       8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
       18px 2px 0 0.02em, 20px 2px 0 0.02em, 2px 4px 0 0.02em, 16px 4px 0 0.02em,
@@ -2059,33 +1910,9 @@ input[type="radio"] {
     8px 12px #212529, 10px 12px #212529, 16px 12px, 2px 14px, 8px 14px #212529,
     16px 14px, 2px 16px, 4px 16px, 6px 16px, 8px 16px, 10px 16px, 12px 16px,
     14px 16px, 16px 16px;
-  box-shadow: 2px 2px, 4px 2px, 6px 2px, 8px 2px, 10px 2px, 12px 2px, 14px 2px,
-    18px 2px #212529, 20px 2px #212529, 2px 4px, 16px 4px #212529,
-    18px 4px #212529, 20px 4px #212529, 2px 6px #212529, 14px 6px #212529,
-    16px 6px #212529, 2px 8px #212529, 4px 8px #212529, 12px 8px #212529,
-    14px 8px #212529, 2px 10px, 4px 10px #212529, 6px 10px #212529,
-    10px 10px #212529, 12px 10px #212529, 16px 10px, 2px 12px, 6px 12px #212529,
-    8px 12px #212529, 10px 12px #212529, 16px 12px, 2px 14px, 8px 14px #212529,
-    16px 14px, 2px 16px, 4px 16px, 6px 16px, 8px 16px, 10px 16px, 12px 16px,
-    14px 16px, 16px 16px;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-checkbox:checked:focus + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
-      8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
-      18px 2px 0 0.02em #212529, 20px 2px 0 0.02em #212529, 2px 4px 0 0.02em,
-      16px 4px 0 0.02em #212529, 18px 4px 0 0.02em #212529,
-      20px 4px 0 0.02em #212529, 2px 6px 0 0.02em #212529,
-      14px 6px 0 0.02em #212529, 16px 6px 0 0.02em #212529,
-      2px 8px 0 0.02em #212529, 4px 8px 0 0.02em #212529,
-      12px 8px 0 0.02em #212529, 14px 8px 0 0.02em #212529, 2px 10px 0 0.02em,
-      4px 10px 0 0.02em #212529, 6px 10px 0 0.02em #212529,
-      10px 10px 0 0.02em #212529, 12px 10px 0 0.02em #212529, 16px 10px 0 0.02em,
-      2px 12px 0 0.02em, 6px 12px 0 0.02em #212529, 8px 12px 0 0.02em #212529,
-      10px 12px 0 0.02em #212529, 16px 12px 0 0.02em, 2px 14px 0 0.02em,
-      8px 14px 0 0.02em #212529, 16px 14px 0 0.02em, 2px 16px 0 0.02em,
-      4px 16px 0 0.02em, 6px 16px 0 0.02em, 8px 16px 0 0.02em,
-      10px 16px 0 0.02em, 12px 16px 0 0.02em, 14px 16px 0 0.02em,
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
       8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
       18px 2px 0 0.02em #212529, 20px 2px 0 0.02em #212529, 2px 4px 0 0.02em,
@@ -2122,31 +1949,10 @@ input[type="radio"] {
     6px 12px #fff, 8px 12px #fff, 10px 12px #fff, 16px 12px, 2px 14px,
     8px 14px #fff, 16px 14px, 2px 16px, 4px 16px, 6px 16px, 8px 16px, 10px 16px,
     12px 16px, 14px 16px, 16px 16px;
-  box-shadow: 2px 2px, 4px 2px, 6px 2px, 8px 2px, 10px 2px, 12px 2px, 14px 2px,
-    18px 2px #fff, 20px 2px #fff, 2px 4px, 16px 4px #fff, 18px 4px #fff,
-    20px 4px #fff, 2px 6px #fff, 14px 6px #fff, 16px 6px #fff, 2px 8px #fff,
-    4px 8px #fff, 12px 8px #fff, 14px 8px #fff, 2px 10px, 4px 10px #fff,
-    6px 10px #fff, 10px 10px #fff, 12px 10px #fff, 16px 10px, 2px 12px,
-    6px 12px #fff, 8px 12px #fff, 10px 12px #fff, 16px 12px, 2px 14px,
-    8px 14px #fff, 16px 14px, 2px 16px, 4px 16px, 6px 16px, 8px 16px, 10px 16px,
-    12px 16px, 14px 16px, 16px 16px;
   color: #fff;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-checkbox.is-dark:checked + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
-      8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
-      18px 2px 0 0.02em #fff, 20px 2px 0 0.02em #fff, 2px 4px 0 0.02em,
-      16px 4px 0 0.02em #fff, 18px 4px 0 0.02em #fff, 20px 4px 0 0.02em #fff,
-      2px 6px 0 0.02em #fff, 14px 6px 0 0.02em #fff, 16px 6px 0 0.02em #fff,
-      2px 8px 0 0.02em #fff, 4px 8px 0 0.02em #fff, 12px 8px 0 0.02em #fff,
-      14px 8px 0 0.02em #fff, 2px 10px 0 0.02em, 4px 10px 0 0.02em #fff,
-      6px 10px 0 0.02em #fff, 10px 10px 0 0.02em #fff, 12px 10px 0 0.02em #fff,
-      16px 10px 0 0.02em, 2px 12px 0 0.02em, 6px 12px 0 0.02em #fff,
-      8px 12px 0 0.02em #fff, 10px 12px 0 0.02em #fff, 16px 12px 0 0.02em,
-      2px 14px 0 0.02em, 8px 14px 0 0.02em #fff, 16px 14px 0 0.02em,
-      2px 16px 0 0.02em, 4px 16px 0 0.02em, 6px 16px 0 0.02em, 8px 16px 0 0.02em,
-      10px 16px 0 0.02em, 12px 16px 0 0.02em, 14px 16px 0 0.02em,
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
       8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
       18px 2px 0 0.02em #fff, 20px 2px 0 0.02em #fff, 2px 4px 0 0.02em,
@@ -2175,31 +1981,10 @@ input[type="radio"] {
     6px 12px #fff, 8px 12px #fff, 10px 12px #fff, 16px 12px, 2px 14px,
     8px 14px #fff, 16px 14px, 2px 16px, 4px 16px, 6px 16px, 8px 16px, 10px 16px,
     12px 16px, 14px 16px, 16px 16px;
-  box-shadow: 2px 2px, 4px 2px, 6px 2px, 8px 2px, 10px 2px, 12px 2px, 14px 2px,
-    18px 2px #fff, 20px 2px #fff, 2px 4px, 16px 4px #fff, 18px 4px #fff,
-    20px 4px #fff, 2px 6px #fff, 14px 6px #fff, 16px 6px #fff, 2px 8px #fff,
-    4px 8px #fff, 12px 8px #fff, 14px 8px #fff, 2px 10px, 4px 10px #fff,
-    6px 10px #fff, 10px 10px #fff, 12px 10px #fff, 16px 10px, 2px 12px,
-    6px 12px #fff, 8px 12px #fff, 10px 12px #fff, 16px 12px, 2px 14px,
-    8px 14px #fff, 16px 14px, 2px 16px, 4px 16px, 6px 16px, 8px 16px, 10px 16px,
-    12px 16px, 14px 16px, 16px 16px;
   color: #fff;
 }
 @supports (-moz-appearance: meterbar) {
   .nes-checkbox.is-dark:checked:focus + span::before {
-    box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
-      8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
-      18px 2px 0 0.02em #fff, 20px 2px 0 0.02em #fff, 2px 4px 0 0.02em,
-      16px 4px 0 0.02em #fff, 18px 4px 0 0.02em #fff, 20px 4px 0 0.02em #fff,
-      2px 6px 0 0.02em #fff, 14px 6px 0 0.02em #fff, 16px 6px 0 0.02em #fff,
-      2px 8px 0 0.02em #fff, 4px 8px 0 0.02em #fff, 12px 8px 0 0.02em #fff,
-      14px 8px 0 0.02em #fff, 2px 10px 0 0.02em, 4px 10px 0 0.02em #fff,
-      6px 10px 0 0.02em #fff, 10px 10px 0 0.02em #fff, 12px 10px 0 0.02em #fff,
-      16px 10px 0 0.02em, 2px 12px 0 0.02em, 6px 12px 0 0.02em #fff,
-      8px 12px 0 0.02em #fff, 10px 12px 0 0.02em #fff, 16px 12px 0 0.02em,
-      2px 14px 0 0.02em, 8px 14px 0 0.02em #fff, 16px 14px 0 0.02em,
-      2px 16px 0 0.02em, 4px 16px 0 0.02em, 6px 16px 0 0.02em, 8px 16px 0 0.02em,
-      10px 16px 0 0.02em, 12px 16px 0 0.02em, 14px 16px 0 0.02em,
     box-shadow: 2px 2px 0 0.02em, 4px 2px 0 0.02em, 6px 2px 0 0.02em,
       8px 2px 0 0.02em, 10px 2px 0 0.02em, 12px 2px 0 0.02em, 14px 2px 0 0.02em,
       18px 2px 0 0.02em #fff, 20px 2px 0 0.02em #fff, 2px 4px 0 0.02em,
@@ -2229,7 +2014,6 @@ input[type="radio"] {
   border-image-outset: 2;
   width: 100%;
   padding: 0.5rem 2.5rem 0.5rem 1rem;
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
       14 0,
     pointer;
@@ -2264,10 +2048,6 @@ input[type="radio"] {
     3px 6px, 6px 6px, 9px 6px, 12px 6px, 15px 6px, 18px 6px, 21px 6px, 6px 9px,
     9px 9px, 12px 9px, 15px 9px, 18px 9px, 6px 12px, 9px 12px, 12px 12px,
     15px 12px, 18px 12px, 9px 15px, 12px 15px, 15px 15px, 12px 18px;
-  box-shadow: 3px 3px, 6px 3px, 9px 3px, 12px 3px, 15px 3px, 18px 3px, 21px 3px,
-    3px 6px, 6px 6px, 9px 6px, 12px 6px, 15px 6px, 18px 6px, 21px 6px, 6px 9px,
-    9px 9px, 12px 9px, 15px 9px, 18px 9px, 6px 12px, 9px 12px, 12px 12px,
-    15px 12px, 18px 12px, 9px 15px, 12px 15px, 15px 15px, 12px 18px;
   position: absolute;
   top: calc(50% - 11px);
   right: 36px;
@@ -2276,14 +2056,6 @@ input[type="radio"] {
 }
 @supports (-moz-appearance: meterbar) {
   .nes-select::after {
-    box-shadow: 3px 3px 0 0.02em, 6px 3px 0 0.02em, 9px 3px 0 0.02em,
-      12px 3px 0 0.02em, 15px 3px 0 0.02em, 18px 3px 0 0.02em, 21px 3px 0 0.02em,
-      3px 6px 0 0.02em, 6px 6px 0 0.02em, 9px 6px 0 0.02em, 12px 6px 0 0.02em,
-      15px 6px 0 0.02em, 18px 6px 0 0.02em, 21px 6px 0 0.02em, 6px 9px 0 0.02em,
-      9px 9px 0 0.02em, 12px 9px 0 0.02em, 15px 9px 0 0.02em, 18px 9px 0 0.02em,
-      6px 12px 0 0.02em, 9px 12px 0 0.02em, 12px 12px 0 0.02em,
-      15px 12px 0 0.02em, 18px 12px 0 0.02em, 9px 15px 0 0.02em,
-      12px 15px 0 0.02em, 15px 15px 0 0.02em, 12px 18px 0 0.02em;
     box-shadow: 3px 3px 0 0.02em, 6px 3px 0 0.02em, 9px 3px 0 0.02em,
       12px 3px 0 0.02em, 15px 3px 0 0.02em, 18px 3px 0 0.02em, 21px 3px 0 0.02em,
       3px 6px 0 0.02em, 6px 6px 0 0.02em, 9px 6px 0 0.02em, 12px 6px 0 0.02em,
@@ -2407,170 +2179,12 @@ input[type="radio"] {
   font-weight: 700;
   font-style: italic;
 }
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
-.ibm-plex-mono-thin {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.ibm-plex-mono-extralight {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 200;
-  font-style: normal;
-}
-
-.ibm-plex-mono-light {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.ibm-plex-mono-regular {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.ibm-plex-mono-medium {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.ibm-plex-mono-semibold {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.ibm-plex-mono-bold {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.ibm-plex-mono-thin-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 100;
-  font-style: italic;
-}
-
-.ibm-plex-mono-extralight-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 200;
-  font-style: italic;
-}
-
-.ibm-plex-mono-light-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.ibm-plex-mono-regular-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.ibm-plex-mono-medium-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.ibm-plex-mono-semibold-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.ibm-plex-mono-bold-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 700;
-  font-style: italic;
-}
 body {
-  font-family: "IBM Plex Mono", cursive;
   font-family: "IBM Plex Mono", cursive;
   background-color: rgb(167, 154, 113);
   /* color: rgb(0, 0, 0); */
   margin: 1rem;
 }
-
-@font-face {
-  font-family: "Atkinson Hyperlegible";
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-Regular-102.eot"); /* IE9 Compat Modes */
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-Regular-102.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */
-      url("https://assets.ok.software/atkinson/WOFF2/Atkinson-Hyperlegible-Regular-102a.woff2")
-      format("woff2"),
-    /* Super Modern Browsers */
-      url("https://assets.ok.software/atkinson/WOFF/Atkinson-Hyperlegible-Regular-102.woff")
-      format("woff"),
-    /* Pretty Modern Browsers */
-      url("https://assets.ok.software/atkinson/TTF/Atkinson-Hyperlegible-Regular-102.ttf")
-      format("truetype"),
-    /* Safari, Android, iOS */
-      url("https://assets.ok.software/atkinson/SVG/Atkinson-Hyperlegible-Regular-102.svg#AtkinsonHyperlegible")
-      format("svg"); /* Legacy iOS */
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Atkinson Hyperlegible";
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-Italic-102.eot");
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-Italic-102.eot?#iefix")
-      format("embedded-opentype"),
-    url("https://assets.ok.software/atkinson/WOFF2/Atkinson-Hyperlegible-Italic-102a.woff2")
-      format("woff2"),
-    url("https://assets.ok.software/atkinson/WOFF/Atkinson-Hyperlegible-Italic-102.woff")
-      format("woff"),
-    url("https://assets.ok.software/atkinson/TTF/Atkinson-Hyperlegible-Italic-102.ttf")
-      format("truetype"),
-    url("https://assets.ok.software/atkinson/SVG/Atkinson-Hyperlegible-Italic-102.svg#AtkinsonHyperlegible")
-      format("svg");
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Atkinson Hyperlegible";
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-Bold-102.eot");
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-Bold-102.eot?#iefix")
-      format("embedded-opentype"),
-    url("https://assets.ok.software/atkinson/WOFF2/Atkinson-Hyperlegible-Bold-102a.woff2")
-      format("woff2"),
-    url("https://assets.ok.software/atkinson/WOFF/Atkinson-Hyperlegible-Bold-102.woff")
-      format("woff"),
-    url("https://assets.ok.software/atkinson/TTF/Atkinson-Hyperlegible-Bold-102.ttf")
-      format("truetype"),
-    url("https://assets.ok.software/atkinson/SVG/Atkinson-Hyperlegible-Bold-102.svg#AtkinsonHyperlegible")
-      format("svg");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Atkinson Hyperlegible";
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-BoldItalic-102.eot");
-  src: url("https://assets.ok.software/atkinson/EOT/Atkinson-Hyperlegible-BoldItalic-102.eot?#iefix")
-      format("embedded-opentype"),
-    url("https://assets.ok.software/atkinson/WOFF2/Atkinson-Hyperlegible-BoldItalic-102a.woff2")
-      format("woff2"),
-    url("https://assets.ok.software/atkinson/WOFF/Atkinson-Hyperlegible-BoldItalic-102.woff")
-      format("woff"),
-    url("https://assets.ok.software/atkinson/TTF/Atkinson-Hyperlegible-BoldItalic-102.ttf")
-      format("truetype"),
-    url("https://assets.ok.software/atkinson/SVG/Atkinson-Hyperlegible-BoldItalic-102.svg#AtkinsonHyperlegible")
-      format("svg");
-  font-weight: bold;
-  font-style: italic;
-}
-
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
@@ -2652,11 +2266,8 @@ h5,
 h6 {
   font-family: "Atkinson Hyperlegible", sans-serif;
   /* color: rgb(0, 0, 0); */
-  font-family: "Atkinson Hyperlegible", sans-serif;
-  /* color: rgb(0, 0, 0); */
 }
 .btn {
-  /* font-family: "IBM Plex Mono", cursive; */
   /* font-family: "IBM Plex Mono", cursive; */
   border: 2px solid rgb(0, 0, 0);
   background-color: rgb(255, 102, 0);
@@ -2727,24 +2338,29 @@ nav ul li {
 nav ul li a {
   color: rgb(255, 255, 255);
   text-decoration: none;
-  /* font-size: 0.8em !important; */
-  font-family:"codicon", "IBM Plex Mono", cursive !important;
+  font-size: 0.8em !important;
 }
 pre {
   padding: 16px;
   overflow-x: auto;
 }
+
+/* create a var for Monospaced '"codicon" "IBM Plex Mono", cursive !important;'  */
+:root {
+  --monospaced: "IBM Plex Mono", "codicon", cursive !important;
+}
+
 label {
-  font-family: "codicon", "IBM Plex Mono", cursive !important;
+  font-family: var(--monospaced);
   /* font-size: x-small !important; */
 }
 nav,
 pre code {
-  font-family:"codicon", "IBM Plex Mono",  cursive !important;
-  font-size: x-small;
+  font-family: var(--monospaced);
+  background-color: var(--sidebar-bg);
+  /* font-size: x-small !important; */
 }
 
-.nes-btn {
 .nes-btn {
   /* font-size: 1.1em; */
 }
@@ -2763,8 +2379,9 @@ pre code {
   font-weight: 400;
   font-style: italic;
 }
+
 body {
-  font-family: "Inclusive Sans", "codicon", sans-serif !important;
+  font-family: "Inclusive Sans", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -2775,7 +2392,7 @@ body {
 
 h3 code,
 h4 code {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--monospaced);
 }
 h4 a,
 h3 a {
@@ -2790,5 +2407,9 @@ h4 {
 }
 
 li a strong {
-  /* font-size: xx-small !important; */
+  font-size: xx-small !important;
+}
+
+.hljs {
+  /* background-color: darken(var(--sidebar-bg) 10%); */
 }
