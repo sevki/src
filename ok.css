@@ -1,76 +1,6 @@
-/*
- * okcss
- * oknotok.computer 2024
- */
-
-/*!***************************************************************************\
-  NES.css Framework
-  Version: development
-
-\*****************************************************************************/ /*!
- * Bootstrap Reboot v4.1.3 (https://getbootstrap.com/)
- * Copyright 2011-2018 The Bootstrap Authors
- * Copyright 2011-2018 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
- */
-/* cyrillic-ext */
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nYivN04w.woff2)
-    format("woff2");
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
-    U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nRivN04w.woff2)
-    format("woff2");
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek */
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nWivN04w.woff2)
-    format("woff2");
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1,
-    U+03A3-03FF;
-}
-/* latin-ext */
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nbivN04w.woff2)
-    format("woff2");
-  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF,
-    U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2)
-    format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
-    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-
 @font-face {
 	font-family: "codicon";
-	font-display: inline;
-	font-size: 5em !important;
-	color: orange;
+	font-size-adjust: 10;
 	src: url("https://microsoft.github.io/vscode-codicons/dist/codicon.ttf?30960ab01c247f8c3a401322f35802e9") format("truetype");
 	unicode-range: U+EA60-EA7F, U+EA80-EA9F, U+EAA0-EABF, U+EAC0-EADF,
                  U+EAE0-EAFF, U+EB00-EB1F, U+EB20-EB3F, U+EB40-EB5F,
@@ -2094,7 +2024,6 @@ input[type="radio"] {
   border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="rgb(255,255,255)" /></svg>');
   outline-color: #e7e7e7;
 }
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 .ibm-plex-mono-thin {
   font-family: "IBM Plex Mono", monospace;
@@ -2338,7 +2267,7 @@ nav ul li {
 nav ul li a {
   color: rgb(255, 255, 255);
   text-decoration: none;
-  font-size: 0.8em !important;
+  /* font-size: 1em !important; */
 }
 pre {
   padding: 16px;
@@ -2362,7 +2291,7 @@ pre code {
 }
 
 .nes-btn {
-  /* font-size: 1.1em; */
+  font-size: 1em;
 }
 #content.content {
   height: calc(100vh - 104px);
@@ -2387,7 +2316,7 @@ body {
 }
 
 .sidebar {
-  font-size: x-small !important;
+  font-size: large !important;
 }
 
 h3 code,
@@ -2407,7 +2336,7 @@ h4 {
 }
 
 li a strong {
-  font-size: xx-small !important;
+  font-size: small !important;
 }
 
 .hljs {

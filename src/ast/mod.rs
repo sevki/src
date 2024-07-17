@@ -1,7 +1,7 @@
 use crate::lexer::Location;
 use crate::ops;
 use crate::parser::span::Spanned;
-use src_derive::node;
+use srclang_derive::node;
 use std::fmt::Display;
 use std::ops::Range;
 

@@ -1,5 +1,5 @@
 <div style="display:none;">
-# IDE
+# &#xec2b; IDE
 </div>
 
 <div id="container">

@@ -1,7 +1,7 @@
 [package]
 publish = false
 edition = "2021"
-name = "src-lsp-server"
+name = "srclang_lsp_server"
 version = "0.0.0"
 
 [features]
@@ -23,7 +23,7 @@ lsp = { version = "0.93", package = "lsp-types" }
 lsp-text = "0.9"
 ropey = "1.6.1"
 serde_json = "1.0"
-src-lang = { version = "0.1.0", path = "../..", registry = "oksoftware" }
+srclang = { version = "0.1.0", path = "../..", registry = "oksoftware" }
 salsa = { version = "0.1.0", registry = "oksoftware", package = "salsa-2022" }
 salsa-macros = { version = "0.1.0", registry = "oksoftware", package = "salsa-2022-macros" }
 thiserror = "1.0"
@@ -33,7 +33,7 @@ wasm-bindgen-futures = { version = "0.4.30", features = [
     "futures-core-03-stream",
 ] }
 wasm-streams = "0.2.3"
-src-collections = { version = "0.1.0", path = "../src-collections", registry = "oksoftware" }
+srclang_collections = { version = "0.1.0", path = "../srclang_collections", registry = "oksoftware" }
 lazy_static = "1.4.0"
 
 [dependencies.web-sys]

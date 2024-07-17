@@ -179,9 +179,7 @@ fn try_make_books() -> std::result::Result<(), std::io::Error> {
             .collect::<Vec<&str>>()
             .join("/");
 
-        if !base_name.as_str().starts_with("src_lang")
-            && !base_name.as_str().starts_with("src_derive")
-        {
+        if !base_name.as_str().starts_with("srclang") {
             return None;
         }
         let outpath = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -256,7 +254,7 @@ fn try_make_books() -> std::result::Result<(), std::io::Error> {
                 continue;
             }
             if full_path.ends_with("playground/index.md") {
-                title = "src Playground".to_string();
+                title = "&#xec2b; srclang ide".to_string();
             }
 
             for c in name.iter().enumerate() {
@@ -296,7 +294,7 @@ fn try_make_books() -> std::result::Result<(), std::io::Error> {
                 "Macro" => "&#xeb66;",
                 "Constant" => "&#xeb5d;",
                 "Module" => "&#xea8b;",
-                "Crate" => "&#xea8b;",
+                "Crate" => "&#xeb29;",
                 "Crates" => "🦀",
                 _ => "",
             };

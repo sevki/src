@@ -1,16 +1,16 @@
 [package]
-name = "src-lang"
+name = "srclang"
 version = "0.1.0"
 edition = "2021"
 
 [workspace]
 members = [
     "crates/rustdoc-to-markdown",
-    "crates/src-collections",
-    "crates/src-derive",
-    "crates/src-derive-test",
-    "crates/src-lsp-browser",
-    "crates/src-lsp-server",
+    "crates/srclang_collections",
+    "crates/srclang_derive",
+    "crates/srclang_derive_test",
+    "crates/srclang_lsp_browser",
+    "crates/srclang_lsp_server",
 ]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -39,7 +39,7 @@ syn = "2.0.60"
 bitflags = "2.5.0"
 ropey = { version = "1.6.1", features = ["small_chunks"] }
 hashbrown = "0.14.5"
-src-derive = { version = "0.1.0", path = "crates/src-derive", registry = "oksoftware" }
+srclang_derive = { version = "0.1.0", path = "crates/srclang_derive", registry = "oksoftware" }
 paste = "1.0.15"
 
 [dev-dependencies]

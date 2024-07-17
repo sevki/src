@@ -2,8 +2,8 @@ use lsp::{InitializeParams, InitializeResult, Url};
 
 use lsp_text::RopeExt;
 use salsa::function::DynDb;
-use src_collections::Map;
-use src_lang::{
+use srclang_collections::Map;
+use srclang::{
     analyzer::{self, span_text},
     compiler::text::{self, Document, SourceProgram},
     parser::{

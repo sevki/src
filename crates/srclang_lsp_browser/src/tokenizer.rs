@@ -1,5 +1,5 @@
 use js_sys::JsString;
-use src_lang::lexer::{self};
+use srclang::lexer::{self};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]

@@ -1,4 +1,4 @@
-use src_derive::node;
+use srclang_derive::node;
 use srclang::lexer::Location;
 use srclang::ops;
 use srclang::parser::span::Spanned;

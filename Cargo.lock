@@ -1914,37 +1914,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "src-collections"
-version = "0.1.0"
-dependencies = [
- "indexmap 1.9.3",
- "rustc-hash",
- "typed-index-collections",
-]
-
-[[package]]
-name = "src-derive"
-version = "0.1.0"
-dependencies = [
- "insta",
- "okstd",
- "pretty_assertions",
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "src-derive-test"
-version = "0.1.0"
-dependencies = [
- "okstd",
- "src-derive",
- "src-lang",
-]
-
-[[package]]
-name = "src-lang"
+name = "srclang"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -1965,20 +1935,41 @@ dependencies = [
  "rustdoc-to-markdown",
  "salsa-2022",
  "salsa-2022-macros",
- "src-derive",
+ "srclang_derive",
  "syn 2.0.71",
  "tiny-keccak",
 ]
 
 [[package]]
-name = "src-lsp-browser"
+name = "srclang_collections"
+version = "0.1.0"
+dependencies = [
+ "indexmap 1.9.3",
+ "rustc-hash",
+ "typed-index-collections",
+]
+
+[[package]]
+name = "srclang_derive"
+version = "0.1.0"
+dependencies = [
+ "insta",
+ "okstd",
+ "pretty_assertions",
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "srclang_lsp_browser"
 version = "0.0.0"
 dependencies = [
  "console_error_panic_hook",
  "futures",
  "js-sys",
- "src-lang",
- "src-lsp-server",
+ "srclang",
+ "srclang_lsp_server",
  "tower-lsp",
  "wasm-bindgen",
  "wasm-bindgen-futures",
@@ -1987,7 +1978,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "src-lsp-server"
+name = "srclang_lsp_server"
 version = "0.0.0"
 dependencies = [
  "anyhow",
@@ -2005,14 +1996,23 @@ dependencies = [
  "salsa-2022",
  "salsa-2022-macros",
  "serde_json",
- "src-collections",
- "src-lang",
+ "srclang",
+ "srclang_collections",
  "thiserror",
  "tower-lsp",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "wasm-streams",
  "web-sys",
+]
+
+[[package]]
+name = "srlangc_derive_test"
+version = "0.1.0"
+dependencies = [
+ "okstd",
+ "srclang",
+ "srclang_derive",
 ]
 
 [[package]]

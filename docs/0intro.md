@@ -3,8 +3,8 @@
 
 # src Language
 
-> [!NOTE]
-> {{#include ../versions.txt}}
+> [!WARNING]
+> This very much exists so I don't have to setup the open-source infrastructure after open-sourcing the project. There are lots of moving parts to the documentation, like the [rustdocs](./crates/index.md) is generated and included in the book. Also There is a IDE of sorts in [playground](./playground/index.md) and a [language server](./lsp/index.md) that is used to provide the IDE.
 
 `src` is a domain specific language for manipulating source code and building, progressively distiributed apps or [PDA](https://fistfulofbytes.com/progressive-distributed-apps/).
 

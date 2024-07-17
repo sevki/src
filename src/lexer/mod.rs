@@ -6,48 +6,6 @@ use std::{fmt::Display, hash::Hash, iter::Iterator, iter::Peekable, str::Chars};
 
 use okstd::prelude::*;
 
-// Identifier
-#[derive(Debug, PartialEq, Clone, Copy)]
-pub enum Variable<'input> {
-    // $$ is the process ID of the shell
-    ProcessID,
-    // $! is the process ID of the last background command
-    LastBackgroundProcessID,
-    // $? is the exit status of the last command executed
-    LastCommandExitStatus,
-    // $- is the current option flags as specified upon invocation, by the set built-in command, or by the shell invocation environment
-    CurrentOptionFlags,
-    // $@ is the positional parameters, starting from one
-    PositionalParameters,
-    // $# is the number of positional parameters in decimal
-    PositionalParametersCount,
-    // $0 is the name of the shell or shell script
-    ShellName,
-    // $1...$9 are the positional parameters, starting from zero
-    PositionalParameter(usize),
-    // ${parameter} is the value of the variable parameter
-    Parameter(&'input str),
-    // ${parameter:-word} is the value of the variable parameter if it is set; otherwise, the expansion of word is substituted
-    ParameterDefault(&'input str, &'input str),
-}
-
-impl<'input> Display for Variable<'input> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Variable::ProcessID => write!(f, "$$"),
-            Variable::LastBackgroundProcessID => write!(f, "$!"),
-            Variable::LastCommandExitStatus => write!(f, "$?"),
-            Variable::CurrentOptionFlags => write!(f, "$-"),
-            Variable::PositionalParameters => write!(f, "$@"),
-            Variable::PositionalParametersCount => write!(f, "$#"),
-            Variable::ShellName => write!(f, "$0"),
-            Variable::PositionalParameter(i) => write!(f, "${}", i),
-            Variable::Parameter(p) => write!(f, "${}", p),
-            Variable::ParameterDefault(p, w) => write!(f, "${}:{}", p, w),
-        }
-    }
-}
-
 // LexicalError
 #[derive(Debug, PartialEq, Clone)]
 pub enum LexicalError {
@@ -223,7 +181,6 @@ pub enum Token<'input> {
     LessThan,    // <
     GreaterThan, // >
     // Identifiers
-    Variable(Variable<'input>), // $a-z, $A-Z, $0-9, $_
     // Literals
     Word(Word<'input>),  // a-z, A-Z, 0-9, _
     String(&'input str), // "..."
@@ -273,11 +230,6 @@ impl<'input> Token<'input> {
             Token::Equals => "=".chars(),
             Token::LessThan => "<".chars(),
             Token::GreaterThan => ">".chars(),
-            Token::Variable(_identifier) => {
-                // Implement the conversion to chars for Variable
-                // based on its fields
-                "".chars()
-            }
             Token::Word(word) => word.chars(),
             Token::String(string) => string.chars(),
             Token::Comment(comment) => comment.chars(),
@@ -320,7 +272,6 @@ impl<'input> Token<'input> {
             Token::Equals => "=".to_string(),
             Token::LessThan => "<".to_string(),
             Token::GreaterThan => ">".to_string(),
-            Token::Variable(variable) => variable.to_string(),
             Token::Word(word) => word.chars().collect(),
             Token::String(string) => string.to_string(),
             Token::Comment(comment) => comment.to_string(),
@@ -403,7 +354,6 @@ enum State {
     NewLine,
     String(Quotation),
     Op,
-    Variable,
     Word,
     Number,
     Program,
@@ -514,6 +464,7 @@ impl<'input> Lexer<'input> {
                     '@' => Token::At,
                     '/' => Token::Divide,
                     '.' => Token::Dot,
+                    '$' => Token::Dollar,
                     '-' => {
                         if self.buffer.len() == 1 {
                             Token::Minus
@@ -541,33 +492,6 @@ impl<'input> Lexer<'input> {
                     .get(start..end)
                     .ok_or(LexicalError::UnexpectedEndOfInput)?;
                 Ok(Token::Comment(comment))
-            }
-            State::Variable => {
-                let variable = self.buffer.clone();
-                let identifier = match variable.as_str() {
-                    "$$" => Variable::ProcessID,
-                    "$?" => Variable::LastCommandExitStatus,
-                    "$!" => Variable::LastBackgroundProcessID,
-                    "$-" => Variable::CurrentOptionFlags,
-                    "$0" => Variable::ShellName,
-                    "$#" => Variable::PositionalParametersCount,
-                    _ => {
-                        if variable.starts_with('$') && variable.len() > 1 {
-                            let number = variable[1..]
-                                .parse()
-                                .map_err(|_| LexicalError::InvalidVariableFormat)?;
-                            Variable::PositionalParameter(number)
-                        } else {
-                            let var = self
-                                .input
-                                .get(start..end)
-                                .ok_or(LexicalError::UnexpectedEndOfInput)?;
-                            Variable::Parameter(var)
-                        }
-                    }
-                };
-
-                Ok(Token::Variable(identifier))
             }
             State::Word => {
                 let word = self
@@ -669,10 +593,6 @@ impl<'input> Lexer<'input> {
                     set_state!(self, State::String(Quotation::Single););
                     return Ok(());
                 }
-                '$' => {
-                    set_state!(self, State::Variable;);
-                    return Ok(());
-                }
                 'a'..='z' | 'A'..='Z' | '_' => {
                     set_state!(self, State::Word;);
                     return Ok(());
@@ -686,7 +606,7 @@ impl<'input> Lexer<'input> {
                     return Ok(());
                 }
                 '(' | ')' | '{' | '}' | '>' | '<' | '|' | '&' | ';' | ',' | ':' | '+' | '*'
-                | '.' | '[' | ']' | '%' | '@' | '/' | '-' | '=' | '!' => {
+                | '$' | '.' | '[' | ']' | '%' | '@' | '/' | '-' | '=' | '!' => {
                     set_state!(self, State::Op;);
                     debug!("to state: {:?}", self.state);
                     return Ok(());
@@ -950,7 +870,6 @@ impl<'input> Iterator for Lexer<'input> {
             }
             State::NewLine => self.consume_newline(),
             State::String(quotation) => self.consume_string_literal(quotation),
-            State::Variable => self.consume_variable(),
             State::Word => self.consume_word(),
             State::Number => self.consume_number(),
             State::Any | State::Program => {

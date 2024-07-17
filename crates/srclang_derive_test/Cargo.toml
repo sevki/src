@@ -1,0 +1,11 @@
+[package]
+name = "srlangc_derive_test"
+version = "0.1.0"
+edition = "2021"
+publish = ["oksoftware"]
+
+[dependencies]
+okstd = { version = "0.1.9", registry = "oksoftware", features = ["macros"] }
+
+srclang_derive = { version = "0.1.0", path = "../srclang_derive", registry = "oksoftware" }
+srclang = { version = "0.1.0", path = "../..", registry = "oksoftware" }

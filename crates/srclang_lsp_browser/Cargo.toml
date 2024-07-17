@@ -1,7 +1,7 @@
 [package]
 publish = false
 edition = "2021"
-name = "src-lsp-browser"
+name = "srclang_lsp_browser"
 version = "0.0.0"
 
 [features]
@@ -12,7 +12,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 console_error_panic_hook = "0.1.7"
-src-lsp-server = { version = "0.0", path = "../src-lsp-server", default-features = false }
+srclang_lsp_server = { version = "0.0", path = "../srclang_lsp_server", default-features = false }
 futures = "0.3.21"
 js-sys = "0.3.57"
 tower-lsp = { version = "0.17.0", default-features = false }
@@ -21,7 +21,7 @@ wasm-bindgen-futures = { version = "0.4.30", features = [
     "futures-core-03-stream",
 ] }
 wasm-streams = "0.2.3"
-src-lang = { version = "0.1.0", path = "../..", registry = "oksoftware" }
+srclang = { version = "0.1.0", path = "../..", registry = "oksoftware" }
 web-sys = { version = "0.3.69", features = [
     "console",
     "HtmlTextAreaElement",
