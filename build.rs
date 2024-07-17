@@ -21,6 +21,8 @@ fn main() -> anyhow::Result<()> {
 
     try_write_down_versions_info()?;
     try_make_books()?;
+    try_write_down_versions_info()?;
+    try_make_books()?;
     Ok(())
 }
 
@@ -286,15 +288,15 @@ fn try_make_books() -> std::result::Result<(), std::io::Error> {
                 lastbit_splat.last().unwrap().to_string()
             };
             let icon = match firstbit {
-                "Struct" => r#"℘"#,
-                "Enum" => "∈",
-                "Trait" => "∃",
-                "Function" => "𝑓",
-                "Type" => "τ",
-                "Macro" => "↦",
-                "Constant" => "𝑐",
-                "Module" => "⟰",
-                "Crate" => "⊂",
+                "Struct" => "&#xea91;",
+                "Enum" => "&#xea95;",
+                "Trait" => "&#xeb61;",
+                "Function" => "&#xea8c;",
+                "Type" => "&#xea92;",
+                "Macro" => "&#xeb66;",
+                "Constant" => "&#xeb5d;",
+                "Module" => "&#xea8b;",
+                "Crate" => "&#xea8b;",
                 "Crates" => "🦀",
                 _ => "",
             };
