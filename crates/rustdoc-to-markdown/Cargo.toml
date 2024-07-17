@@ -1,0 +1,14 @@
+[package]
+name = "rustdoc-to-markdown"
+version = "0.1.0"
+edition = "2021"
+publish = ["oksoftware"]
+
+[dependencies]
+anyhow = "1.0.86"
+html_to_markdown = { git = "https://github.com/zed-industries/zed" }
+indexmap = { version = "1.6.2", features = ["serde"] }
+pretty_assertions = "1.4.0"
+serde = { version = "1.0.204", features = ["derive"] }
+strum = { version = "0.25.0", features = ["derive"] }
+indoc = "1"

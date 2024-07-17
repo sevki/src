@@ -114,8 +114,9 @@ impl Spanning for &Range<Location> {
     }
 }
 
-// span macro
 #[macro_export]
+/// A macro to create a `Spanned<T>` object
+/// Heavily used in `src.lalrpop to create a Spanned object
 macro_rules! span {
     ($coord:expr, $expr:expr) => {
         Spanned($coord, $expr, $coord)

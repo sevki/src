@@ -1,6 +1,6 @@
 use crate::lexer::Location;
+use crate::ops;
 use crate::parser::span::Spanned;
-use crate::{ops};
 use src_derive::node;
 use std::fmt::Display;
 use std::ops::Range;
@@ -30,21 +30,35 @@ pub enum Literal {
 
 #[derive(Debug)]
 pub enum Kw {
+    /// The `None` keyword.
     None,
+    /// The `Some` keyword.
     Some,
+    /// The `let` keyword.
     Let,
+    /// The `pub` keyword.
     Public,
+    /// The `priv` keyword.
     Private,
+    /// The `fn` keyword.
     Fn,
+    /// The `if` keyword.
     If,
+    /// The `else` keyword.
     Else,
+    /// The `match` keyword.
     Match,
+    /// The `while` keyword.
     Arrow,
+    /// The `struct` keyword.
     Struct,
+    /// The `self` keyword.
     SelfValue,
-    When,
+    /// The `effect` keyword.
     Effect,
+    /// The `impl` keyword.
     Impl,
+    /// The `use` keyword.
     Use,
 }
 

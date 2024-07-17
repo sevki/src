@@ -51,6 +51,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Allura&family=Inclusive+Sans:ital@0;1&display=swap" rel="stylesheet">
+        <!-- prefetch taocp.png -->
+        <link rel="prefetch" href="taocp.png">
+        <!-- add 	https://microsoft.github.io/vscode-codicons/dist/codicon.css -->
+        <link rel="stylesheet" href="https://microsoft.github.io/vscode-codicons/dist/codicon.css">
     </head>
     <body class="sidebar-visible no-js">
     <div id="body-container">
@@ -165,7 +169,10 @@
                         {{/if}}
                     </div>
 
-                    <h1 class="menu-title">{{ book_title }}</h1>
+                    <h1 class="menu-title">
+                        <img src="{{ path_to_root }}taocp.png" width="48px"/>
+                        src lang
+                    </h1>
 
                     <div class="right-buttons">
                         {{#if print_enable}}
@@ -218,16 +225,16 @@
                         <!-- Mobile navigation buttons -->
                         {{#previous}}
                             <a rel="prev" href="{{ path_to_root }}{{link}}" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC" 
-                            style=" rotate: 270deg; width: 94px" 
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC"
+                            style=" rotate: 270deg; width: 94px"
                             />
                             </a>
                         {{/previous}}
 
                         {{#next}}
                             <a rel="next prefetch" href="{{ path_to_root }}{{link}}" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC" 
-                            style=" rotate: 90deg; width: 94px" 
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC"
+                            style=" rotate: 90deg; width: 94px"
                             />
                             </a>
                         {{/next}}
@@ -238,11 +245,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                {{#previous}}                   
+                {{#previous}}
                  <a rel="next prefetch" href="{{ path_to_root }}{{link}}" class="nav-chapters previous" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right"
                     style="display: flex; justify-content: middle; align-items: center; width: 50%">
                                                 &lt;
-                                                
+
                 </a>
                 {{/previous}}
 
@@ -346,7 +353,23 @@
         </script>
         {{/if}}
         {{/if}}
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const elements = document.querySelectorAll('em');
+            elements.forEach(function(element) {
+                const match = element.textContent.trim().match(/^codicon-(.*)$/);
+                if (match) {
+                    const newElement = document.createElement('i');
+                    newElement.classList.add('codicon', 'codicon-' + match[1]);
+                    newElement.style.fontSize = '2em';
+                    newElement.ariaHidden = true;
+                    // Replace the <em> element with the new <i> element
+                    element.parentNode.replaceChild(newElement, element);
+                }
 
+            });
+        });
+        </script>
     </div>
     </body>
 </html>

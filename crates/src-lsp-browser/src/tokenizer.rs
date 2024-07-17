@@ -1,5 +1,5 @@
 use js_sys::JsString;
-use srclang::lexer::{self};
+use src_lang::lexer::{self};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -99,7 +99,7 @@ pub fn token_type_as_js_string(token_type: TokenType) -> JsString {
 
 #[wasm_bindgen]
 pub fn tokenize(input: &str) -> Result<Vec<TokenSpan>, JsValue> {
-    let lexer = srclang::lexer::Lexer::new(input, 0);
+    let lexer = src_lang::lexer::Lexer::new(input, 0);
 
     let tokens: Vec<TokenSpan> = lexer
         .map(|token| TokenSpan {

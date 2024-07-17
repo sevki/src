@@ -1,4 +1,8 @@
- <div id="container">
+<div style="display:none;">
+# IDE
+</div>
+
+<div id="container">
     <div id="cell-editor">
       <label for="editor">editor</label>
       <div id="editor"></div>
@@ -19,4 +23,4 @@
       <label for="channel-console">console</label>
       <textarea id="channel-console" autocomplete="off" spellcheck="off" wrap="off" readonly rows="3"></textarea>
     </div>
-  </div>
+</div>
